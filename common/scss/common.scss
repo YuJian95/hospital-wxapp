@@ -1,0 +1,61 @@
+/**
+ * 根据一些普片的css样式
+ **/
+ 
+ // 关于头像
+ @mixin userAvatarUrl-box ($width, $height, $radius-size){
+ 	width: $width;
+	height: $height;
+	border-radius: $radius-size;
+	overflow: hidden;
+ }
+ 
+ // 关于flex布局
+ @mixin flex-direction ($direction) {
+ 	display: flex;
+	flex-direction: $direction;
+ }
+ 
+ // 关于页面XX%居中
+ @mixin width-margin($width, $height) {
+ 	width: $width;
+	height: $height;
+	margin: 0 auto;
+ }
+ 
+ // icon图的大小
+ @mixin icon-size ($width, $height) {
+ 	width: $width;
+	height: $height;
+ }
+ 
+ // 关于字体
+ $font-color: #000000 !default;
+ @mixin font-style ($size, $weight, $font-color) {
+ 	font-size: $size;
+	font-weight: $weight;
+	color: $font-color;
+ }
+ 
+ // 关于有些页面是灰色背景的
+ .page-backgroud{
+	 width: 100%;
+	 height: 100%;
+	 background: #F2F2F2;
+ }
+ 
+ //在row里在左右两边的，如立即注册和修改密码的样式
+ .row-left-right{
+	 @include flex-direction(row);
+	 justify-content: space-between;
+	 .left{
+		 width: 50%;
+		 height: 100%;
+	 }
+	 .right{
+		 width: 50%;
+		 height: 100%;
+		 display: flex;
+		 justify-content: flex-end;
+	 }
+ }

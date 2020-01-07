@@ -1,0 +1,64 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/photoLogin/photoLogin",
+			"style": {}
+		}, {
+			"path": "pages/home/appointmentHome/appointmentHome",
+			"style": {}
+		}, {
+			"path": "pages/detailMessage/detailMessage",
+			"style": {}
+		}, {
+			"path": "pages/center/center",
+			"style": {}
+		}
+	],
+	"subPackages": [{
+		"root": "pagesA",
+		"pages": [
+
+		]
+	}, {
+		"root": "pagesB",
+		"pages": [
+			{
+				"path": "pages/center/login/login",
+				"style": {}
+			}
+		]
+	}],
+	"preloadRule": {
+		"pages/photoLogin/photoLogin": {
+			"network": "all",
+			"packages": ["__APP__"]
+		}
+	},
+	"tabBar": {
+		"selectedColor": "#7EC0EE",
+		"borderStyle": "white",
+		// "backgroundColor":"#F2F2F2",
+		"list": [{
+			"pagePath": "pages/home/appointmentHome/appointmentHome",
+			"iconPath": "static/tabbar/appoint-gray.png",
+			"selectedIconPath": "static/tabbar/appoint-blue.png",
+			"text": "挂号"
+		}, {
+			"pagePath": "pages/detailMessage/detailMessage",
+			"iconPath": "static/tabbar/message-gray.png",
+			"selectedIconPath": "static/tabbar/message-blue.png",
+			"text": "详情"
+		}, {
+			"pagePath": "pages/center/center",
+			"iconPath": "static/tabbar/center-gray.png",
+			"selectedIconPath": "static/tabbar/center-blue.png",
+			"text": "我的"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "医院挂号系统",
+		"navigationBarBackgroundColor": "#7EC0EE",
+		"backgroundColor": "#F2F2F2"
+	}
+}

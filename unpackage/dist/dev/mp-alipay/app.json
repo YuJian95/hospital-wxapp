@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/photoLogin/photoLogin",
+    "pages/login/login"
+  ],
+  "subPackages": [
+    {
+      "root": "pagesA",
+      "pages": [
+        "pages/try/try"
+      ]
+    },
+    {
+      "root": "pagesB",
+      "pages": [
+        "pages/center/center"
+      ]
+    }
+  ],
+  "window": {
+    "defaultTitle": "医院挂号系统",
+    "titleBarColor": "#7EC0EE",
+    "backgroundColor": "#F2F2F2"
+  },
+  "usingComponents": {}
+}

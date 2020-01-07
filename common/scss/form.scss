@@ -1,0 +1,30 @@
+@import '@/common/scss/common.scss';
+/**
+ * 关于表单的scss
+ **/
+ // 表单的输入框
+ $major-color: #7EC0EE;
+ .input-box{
+	 @include width-margin(90%, 80rpx);
+	 background: #FFFFFF;
+	 border-radius: 4px;
+	 border: 1px solid #BBBBBB;
+ }
+ // 密码框
+ .password-box{
+	 @extend .input-box;
+	 @include flex-direction(row);
+ }
+ //关于输入框的placeholder-class
+ .placeholder-class{
+	 color: #A6A6A6;
+	 font-size: 16px;
+ }
+ // 按钮
+ .button-box{
+	 @include width-margin(90%, 80rpx);
+	 background: $major-color;
+	 line-height: 80rpx;
+	 color: #FFFFFF;
+	 font-weight: bold;
+ }

@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/photoLogin/photoLogin",
+    "pages/home/appointmentHome/appointmentHome",
+    "pages/detailMessage/detailMessage",
+    "pages/center/center"
+  ],
+  "subPackages": [
+    {
+      "root": "pagesB",
+      "pages": [
+        "pages/center/login/login"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "医院挂号系统",
+    "navigationBarBackgroundColor": "#7EC0EE",
+    "backgroundColor": "#F2F2F2"
+  },
+  "tabBar": {
+    "selectedColor": "#7EC0EE",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/appointmentHome/appointmentHome",
+        "iconPath": "static/tabbar/appoint-gray.png",
+        "selectedIconPath": "static/tabbar/appoint-blue.png",
+        "text": "挂号"
+      },
+      {
+        "pagePath": "pages/detailMessage/detailMessage",
+        "iconPath": "static/tabbar/message-gray.png",
+        "selectedIconPath": "static/tabbar/message-blue.png",
+        "text": "详情"
+      },
+      {
+        "pagePath": "pages/center/center",
+        "iconPath": "static/tabbar/center-gray.png",
+        "selectedIconPath": "static/tabbar/center-blue.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "preloadRule": {
+    "pages/photoLogin/photoLogin": {
+      "network": "all",
+      "packages": [
+        "__APP__"
+      ]
+    }
+  },
+  "usingComponents": {}
+}
