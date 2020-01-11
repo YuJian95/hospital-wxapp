@@ -15,11 +15,11 @@
 
 <style>
 	/*每个页面公共css */
-	
+	@import './common/style/weui.wxss';
 	/* 去掉H5页面的重复头部的信息 */
 	/* #ifdef H5 */
 	uni-page-head{
-		display: none;
-	}
+		display: none; 
+	} 
 	/* #endif */
 </style>

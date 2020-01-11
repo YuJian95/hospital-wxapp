@@ -13,7 +13,8 @@
 			"path": "pages/center/center",
 			"style": {}
 		}
-	],
+	   
+    ],
 	"subPackages": [{
 		"root": "pagesA",
 		"pages": [
@@ -24,8 +25,20 @@
 		"pages": [
 			{
 				"path": "pages/center/login/login",
-				"style": {}
+				"style": {
+				}
+			}, {
+				"path": "pages/center/login/quickRegister/quickRegister",
+				"style": {
+				}
+			}, {
+            "path" : "pages/center/addCard/addCard",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "添加就诊卡",
+				"navigationBarBackgroundColor": "#7EC0EE"
 			}
+        }
 		]
 	}],
 	"preloadRule": {

@@ -63,7 +63,7 @@
 		},
 		methods: {
 			// 跳转到登录页面
-			turnLogin:function(){
+			turnLogin: function() {
 				uni.navigateTo({
 					url: '/pagesB/pages/center/login/login'
 				})
@@ -146,11 +146,13 @@
 				height: 50%;
 				margin-left: 40rpx;
 				@include flex-direction(column);
-				.login{
+
+				.login {
 					height: 70rpx;
 					@include font-style(19px, bold, #ffffff);
 				}
-				.welcome{
+
+				.welcome {
 					height: 50rpx;
 					@include font-style(15px, 400, #ffffff);
 				}

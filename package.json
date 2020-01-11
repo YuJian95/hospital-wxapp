@@ -1,0 +1,21 @@
+{
+  "name": "appointment-wxapp",
+  "version": "1.0.0",
+  "description": "{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/yyyangyx/appointment-wxapp.git"
+  },
+  "author": "yyyangyx",
+  "license": "ISC",
+  "dependencies": {
+    "weui": "^2.1.3"
+  },
+  "devDependencies": {
+    "weui-miniprogram": "^0.2.1"
+  }
+}
