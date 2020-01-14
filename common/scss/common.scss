@@ -1,7 +1,7 @@
 /**
  * 根据一些普片的css样式
  **/
- 
+ $major-color: #7EC0EE;
  // 关于头像
  @mixin userAvatarUrl-box ($width, $height, $radius-size){
  	width: $width;
@@ -51,6 +51,9 @@
 	 .left{
 		 width: 50%;
 		 height: 100%;
+		 :visited {
+		 	color: $major-color;
+		 }
 	 }
 	 .right{
 		 width: 50%;
@@ -58,4 +61,9 @@
 		 display: flex;
 		 justify-content: flex-end;
 	 }
+ }
+ 
+ // 被点击的时候改变颜色
+ .visited-color{
+	 color: $major-color;
  }

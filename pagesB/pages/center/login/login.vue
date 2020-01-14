@@ -7,13 +7,20 @@
 			<input class="input" :password="!isVisible" placeholder-class="placeholder-class" placeholder="请输入登录密码" />
 			<image class="eye-icon" :src="isVisible? '/static/login/eye.png':'/static/login/eye-off.png'" @click="changeVisible()"></image>
 		</view>
-
+		
+		<!-- 此处H5不做授权登录 -->
+		<!-- #ifdef MP -->
 		<button v-if="!isAuthrization" open-type="getUserInfo" class="button" @getuserinfo="getUserInfo()" @tap="getUserInfo()">授权登录</button>
 		<button v-else class="button" @click="toPageCenter()">登录</button>
-
+		<!-- #endif -->
+		<!-- #ifdef H5 -->
+		<button class="button" @click="toPageCenter()">登录</button>
+		<!-- #endif -->
+		
 		<view class="enroll-changepassword-box">
-			<text class="left" :class="isRegisterVisited? 'isVisited':'' " @click="toRegister()">立即注册</text>
-			<text class="right" :class="isPasswordVisited? 'isVisited':'' ">忘记密码</text>
+			<text class="left"  @click="toRegister()" 
+			:class="visited == 1? 'visited-color' : ''">立即注册</text>
+			<text class="right" :class="visited == 2? 'visited-color' : ''">忘记密码</text>
 		</view>
 
 	</view>
@@ -28,6 +35,7 @@
 		data() {
 			return {
 				isVisible: false,
+				visited: 0, // 默认是0-全都没选  1-选中立即注册  2-选中忘记密码
 				isRegisterVisited: false,
 				isPasswordVisited: false,
 				isAuthrization: uni.getStorageSync("isAuthrization")
@@ -40,8 +48,11 @@
 			},
 			// 跳转到快速注册页面
 			toRegister: function() {
-				this.isRegisterVisited = true
-				this.isPasswordVisited = false
+				this.visited = 1
+				var _this = this
+				setTimeout(function(){
+					_this.visited = 0
+				},2000)
 				uni.navigateTo({
 					url: '/pagesB/pages/center/login/quickRegister/quickRegister'
 				})
@@ -57,7 +68,7 @@
 				// #ifdef MP-ALIPAY
 				alipay()
 				// #endif
-				
+
 			},
 			// 跳转到center页面
 			toPageCenter: function() {
@@ -128,9 +139,5 @@
 		margin-top: 40rpx;
 		@include flex-direction(row);
 		@extend .row-left-right;
-
-		.isVisited {
-			color: $major-color;
-		}
 	}
 </style>

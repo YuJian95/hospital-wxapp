@@ -1,6 +1,6 @@
 <template>
 	<view>
-		try
+		从医生
 	</view>
 </template>
 
@@ -10,13 +10,9 @@
 			return {
 				
 			}
-		},
-		methods: {
-			
 		}
 	}
 </script>
 
 <style>
-
 </style>

@@ -56,3 +56,25 @@ export function checkPassword(password, checkPassword){
 		}
 	}
 }
+
+// 将日期转化为YYYY-MM-DD格式
+export function changeDateByIdentify(date){
+	var newDate = ''
+	if(date.length == 8){
+		newDate = date.slice(0,4) + '-' + date.slice(4,6) + '-' + date.slice(6,8)
+		return newDate 
+	} else {
+		return 'error'
+	}
+}
+
+// 通过身份证校验性别  1-男  2-女
+export function checkGender(identify){
+	var num = identify.slice(16,17)
+	if(num % 2 === 0) {
+		// 是女生
+		return 2
+	} else {
+		return 1
+	}
+}

@@ -18,7 +18,7 @@
 	"subPackages": [{
 		"root": "pagesA",
 		"pages": [
-
+			
 		]
 	}, {
 		"root": "pagesB",
@@ -36,6 +36,13 @@
             "style" : {
 				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "添加就诊卡",
+				"navigationBarBackgroundColor": "#7EC0EE"
+			}
+        }, {
+            "path" : "pages/center/addCard/editCard/editCard",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "修改就诊卡",
 				"navigationBarBackgroundColor": "#7EC0EE"
 			}
         }

@@ -48,6 +48,9 @@
     width: 50%;
     height: 100%;
 }
+.row-left-right .left :visited {
+      color: #7EC0EE;
+}
 .row-left-right .right {
     width: 50%;
     height: 100%;
@@ -57,6 +60,9 @@
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
             justify-content: flex-end;
+}
+.visited-color {
+  color: #7EC0EE;
 }
 .top-box {
   width: 100%;

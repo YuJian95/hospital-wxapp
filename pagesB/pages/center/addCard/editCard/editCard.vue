@@ -37,7 +37,7 @@
 					<view class="weui-label">证件号码：</view>
 				</view>
 				<view class="weui-cell__bd">
-					<input class="weui-input" placeholder="请输入患者证件号码" v-model="form.identify" @blur="inputCheck('身份证号码', 'identify', form.identify)" />
+					<text class="weui-input forbiddenInput">440927199705076827</text>
 				</view>
 			</view>
 			
@@ -66,7 +66,7 @@
 					<view class="weui-label">出生日期：</view>
 				</view>
 				<view class="weui-cell__bd">
-					<view class="weui-input forbiddenInput">{{form.date}}</view>
+					<text class="weui-input forbiddenInput">1997-05-07</text>
 				</view>
 			</view>
 
@@ -78,30 +78,25 @@
 					<input class="weui-input " placeholder="请输入患者手机号码" v-model="form.phone" @blur="inputCheck('电话号码', 'phone', form.phone)" />
 				</view>
 			</view>
+			
+			<view class="weui-cell weui-cell_input">
+				<view class="weui-cell__hd">
+					<view class="weui-label">就诊卡号：</view>
+				</view>
+				<view class="weui-cell__bd ">
+					<text class="weui-input forbiddenInput">1000001</text>
+				</view>
+			</view>
 		</view>
 
-		<checkbox-group bindchange="bindAgreeChange">
-			<label class="weui-agree" for="weuiAgree">
-				<view class="weui-agree__text">
-					<checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" />
-					<view class="weui-agree__checkbox-icon">
-						<icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="11"></icon>
-					</view>
-					阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
-				</view>
-			</label>
-		</checkbox-group>
-
-		<button class="button">获取就诊卡号</button>
+		<button class="button">确定</button>
 	</view>
 </template>
 
 <script>
 	import {
 		inputCheck,
-		changeDateByIdentify,
-		checkGender
-		
+		changeDateByIdentify
 	} from '@/common/js/inputCheck.js';
 	export default {
 		data() {
@@ -110,30 +105,17 @@
 				phoneIndex: 0,
 				relateArray: ['本人', '父母', '兄弟/姐妹', '伴侣', '子女', '同事/朋友', '其他'],
 				relateIndex: 0,
+				date: changeDateByIdentify(new Date()),
+				currentDate: new Date(), // 默认不超过最新一天
 				gender: 1, //性别 1-男   2-女
 				form: {
 					name: '',
 					identify: '',
-					phone: '',
-					date: ''
+					phone: ''
 				}
 			}
 		},
 		methods: {
-			// 切换性别的按钮
-			changeGender: function(index) {
-				if(inputCheck('身份证','identify',this.form.identify) === 'ok') {
-					this.gender = checkGender(this.form.identify)
-					if(index !== this.gender) {
-						uni.showToast({
-							title: '请查看身份证号码是否有误',
-							icon:'none'
-						})
-					}
-				} else {
-					this.gender = index
-				}
-			},
 			// 判断表单的数据
 			inputCheck: function(name, rule, value) {
 				var error = inputCheck(name, rule, value)
@@ -145,8 +127,7 @@
 				} else {
 					if(rule === 'identify'){
 						var date = value.slice(6,14)
-						this.form.date = changeDateByIdentify(date)
-						this.gender = checkGender(value)
+						this.date = changeDateByIdentify(date)
 					}
 					return
 				}

@@ -48,6 +48,9 @@
     width: 50%;
     height: 100%;
 }
+.row-left-right .left :visited, .enroll-changepassword-box .left :visited {
+      color: #7EC0EE;
+}
 .row-left-right .right, .enroll-changepassword-box .right {
     width: 50%;
     height: 100%;
@@ -57,6 +60,9 @@
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
             justify-content: flex-end;
+}
+.visited-color {
+  color: #7EC0EE;
 }
 /**
  * 关于表单的scss
@@ -91,6 +97,9 @@
   color: #FFFFFF;
   font-weight: bold;
 }
+.forbiddenInput {
+  color: #A6A6A6;
+}
 /**
  * 根据一些普片的css样式
  **/
@@ -115,6 +124,9 @@
     width: 50%;
     height: 100%;
 }
+.row-left-right .left :visited, .enroll-changepassword-box .left :visited {
+      color: #7EC0EE;
+}
 .row-left-right .right, .enroll-changepassword-box .right {
     width: 50%;
     height: 100%;
@@ -125,6 +137,9 @@
     -webkit-justify-content: flex-end;
             justify-content: flex-end;
 }
+.visited-color {
+  color: #7EC0EE;
+}
 page {
   width: 100%;
   height: 100%;
@@ -132,10 +147,16 @@ page {
 }
 .input-inbox {
   margin-top: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 .input-inbox .input {
     width: 90%;
-    height: 100%;
+    height: 90%;
     margin: 0 auto;
 }
 .password-row-box {
@@ -143,14 +164,18 @@ page {
   -webkit-align-items: center;
           align-items: center;
   margin-top: 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
 }
 .password-row-box .input {
-    width: 85%;
-    height: 100%;
+    width: 83%;
+    height: 90%;
     margin-left: 5%;
 }
 .password-row-box .eye-icon {
-    width: 15%;
+    width: 17%;
     width: 50rpx;
     height: 50rpx;
 }
@@ -169,8 +194,5 @@ page {
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-}
-.enroll-changepassword-box .isVisited {
-    color: #7EC0EE;
 }
 

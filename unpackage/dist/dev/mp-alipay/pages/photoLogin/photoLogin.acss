@@ -24,10 +24,9 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page.data-v-51fd33e6 {
+.mp-background.data-v-51fd33e6 {
   width: 100%;
   height: 100%;
-  background: url(../../static/img/login.9ced8ec4.jpg) no-repeat;
   background-size: 100% 100%;
   position: fixed;
 }

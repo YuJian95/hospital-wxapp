@@ -1,19 +1,18 @@
 {
   "pages": [
     "pages/photoLogin/photoLogin",
-    "pages/login/login"
+    "pages/home/appointmentHome/appointmentHome",
+    "pages/detailMessage/detailMessage",
+    "pages/center/center"
   ],
   "subPackages": [
     {
-      "root": "pagesA",
-      "pages": [
-        "pages/try/try"
-      ]
-    },
-    {
       "root": "pagesB",
       "pages": [
-        "pages/center/center"
+        "pages/center/login/login",
+        "pages/center/login/quickRegister/quickRegister",
+        "pages/center/addCard/addCard",
+        "pages/center/addCard/editCard/editCard"
       ]
     }
   ],
@@ -21,6 +20,29 @@
     "defaultTitle": "医院挂号系统",
     "titleBarColor": "#7EC0EE",
     "backgroundColor": "#F2F2F2"
+  },
+  "tabBar": {
+    "selectedColor": "#7EC0EE",
+    "items": [
+      {
+        "pagePath": "pages/home/appointmentHome/appointmentHome",
+        "name": "挂号",
+        "icon": "static/tabbar/appoint-gray.png",
+        "activeIcon": "static/tabbar/appoint-blue.png"
+      },
+      {
+        "pagePath": "pages/detailMessage/detailMessage",
+        "name": "详情",
+        "icon": "static/tabbar/message-gray.png",
+        "activeIcon": "static/tabbar/message-blue.png"
+      },
+      {
+        "pagePath": "pages/center/center",
+        "name": "我的",
+        "icon": "static/tabbar/center-gray.png",
+        "activeIcon": "static/tabbar/center-blue.png"
+      }
+    ]
   },
   "usingComponents": {}
 }

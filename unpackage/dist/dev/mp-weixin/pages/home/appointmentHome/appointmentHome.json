@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "from-doctor": "/pages/home/appointmentHome/appointment/fromDoctor",
+    "from-hosipital": "/pages/home/appointmentHome/appointment/fromHospital",
+    "from-date": "/pages/home/appointmentHome/appointment/fromDate",
+    "from-department": "/pages/home/appointmentHome/appointment/fromDepartment"
+  }
 }
