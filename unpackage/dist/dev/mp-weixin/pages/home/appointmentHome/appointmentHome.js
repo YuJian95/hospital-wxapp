@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var fromDoctor = function fromDoctor() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromDoctor */ "pages/home/appointmentHome/appointment/fromDoctor").then(__webpack_require__.bind(null, /*! ./appointment/fromDoctor.vue */ 79));};var fromHosipital = function fromHosipital() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromHospital */ "pages/home/appointmentHome/appointment/fromHospital").then(__webpack_require__.bind(null, /*! ./appointment/fromHospital.vue */ 84));};var fromDate = function fromDate() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromDate */ "pages/home/appointmentHome/appointment/fromDate").then(__webpack_require__.bind(null, /*! ./appointment/fromDate.vue */ 89));};var fromDepartment = function fromDepartment() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromDepartment */ "pages/home/appointmentHome/appointment/fromDepartment").then(__webpack_require__.bind(null, /*! ./appointment/fromDepartment.vue */ 94));};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var fromDoctor = function fromDoctor() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromDoctor */ "pages/home/appointmentHome/appointment/fromDoctor").then(__webpack_require__.bind(null, /*! ./appointment/fromDoctor.vue */ 124));};var fromHosipital = function fromHosipital() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromHospital */ "pages/home/appointmentHome/appointment/fromHospital").then(__webpack_require__.bind(null, /*! ./appointment/fromHospital.vue */ 131));};var fromDate = function fromDate() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/fromDate */ "pages/home/appointmentHome/appointment/fromDate").then(__webpack_require__.bind(null, /*! ./appointment/fromDate.vue */ 138));};var department = function department() {return __webpack_require__.e(/*! import() | pages/home/appointmentHome/appointment/department */ "pages/home/appointmentHome/appointment/department").then(__webpack_require__.bind(null, /*! ./appointment/department.vue */ 145));};
 
 
 
@@ -184,13 +184,16 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-{
+
+// import fromDepartment from './appointment/fromDepartment.vue'
+var _default = {
   components: {
     fromDoctor: fromDoctor,
     fromHosipital: fromHosipital,
     fromDate: fromDate,
-    fromDepartment: fromDepartment },
-
+    department: department
+    // fromDepartment
+  },
   data: function data() {
     return {
       isShowModal: false,
@@ -229,6 +232,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     // 关闭模态框
     hideModal: function hideModal() {
       this.isShowModal = false;
+      this.modalVisited = this.insureVisited;
     },
     // 点击弹出框的确定改变进入挂号的状态
     changeFrom: function changeFrom(e) {

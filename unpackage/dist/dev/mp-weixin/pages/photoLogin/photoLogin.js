@@ -161,7 +161,7 @@ var _default =
     Countdown: function Countdown() {
       var timer = setTimeout(function () {
         uni.switchTab({
-          url: '/pages/center/center' });
+          url: '/pages/home/appointmentHome/appointmentHome' });
 
       }, 3000);
     } },

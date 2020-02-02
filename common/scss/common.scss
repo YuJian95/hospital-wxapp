@@ -2,6 +2,7 @@
  * 根据一些普片的css样式
  **/
  $major-color: #7EC0EE;
+ $gray-color: #A6A6A6;
  // 关于头像
  @mixin userAvatarUrl-box ($width, $height, $radius-size){
  	width: $width;
@@ -45,18 +46,15 @@
  }
  
  //在row里在左右两边的，如立即注册和修改密码的样式
- .row-left-right{
+ @mixin row-left-right($left-width, $right-width) {
 	 @include flex-direction(row);
 	 justify-content: space-between;
 	 .left{
-		 width: 50%;
+		 width: $left-width;
 		 height: 100%;
-		 :visited {
-		 	color: $major-color;
-		 }
 	 }
 	 .right{
-		 width: 50%;
+		 width: $right-width;
 		 height: 100%;
 		 display: flex;
 		 justify-content: flex-end;
@@ -65,5 +63,56 @@
  
  // 被点击的时候改变颜色
  .visited-color{
-	 color: $major-color;
+	 color: $major-color !important;
  }
+ // 字体超出长度会变成...
+ .cut-long-text{
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	 overflow: hidden;
+ }
+// 关于border和底部线条的颜色
+$border-color: #F0F0F0;
+// 温馨提示
+.tips-box{
+	width: 100%;
+	height: 100rpx;
+	border: 1px solid $border-color;
+	background: #FFFEF5;
+	.tips-inbox{
+		@include width-margin(80%,100%);
+		@include flex-direction(row);
+		align-items: center;
+		.icon{
+			@include icon-size(60rpx,60rpx);
+			margin-right: 30rpx;
+		}
+		.tips-text{
+			@include font-style(17px, 500, $gray-color);
+		}
+	}
+}
+// 外部有border的自适应的框框
+.gray-border-box{
+	@include width-margin(90%, 100%);
+	border: 1px solid #BBBBBB;
+	border-radius: 8px;
+	padding: 10rpx;
+	background: #FFFFFF;
+}
+// 一条竖然后右边有文字
+.blue-column-border-box{
+	@include width-margin(90%, 90rpx);
+	@include flex-direction(row);
+	align-items: center;
+	margin-top: 10rpx;
+	.blue-border{
+		width: 5%;
+		height: 50rpx;
+		border-left: 6px solid $major-color;
+	}
+	.blue-text{
+		width: 80%;
+		@include font-style(18px, bold, $major-color);
+	}
+}

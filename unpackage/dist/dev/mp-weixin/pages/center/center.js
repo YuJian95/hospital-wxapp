@@ -202,6 +202,12 @@ var _default =
       uni.navigateTo({
         url: '/pagesB/pages/center/login/login' });
 
+    },
+    // 跳转到就诊卡队列
+    toCardList: function toCardList() {
+      uni.navigateTo({
+        url: '/pagesB/pages/center/cardList/cardList' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

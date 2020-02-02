@@ -1,53 +1,89 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/photoLogin/photoLogin",
 			"style": {}
-		}, {
+		},
+		{
 			"path": "pages/home/appointmentHome/appointmentHome",
 			"style": {}
-		}, {
+		},
+		{
 			"path": "pages/detailMessage/detailMessage",
 			"style": {}
-		}, {
+		},
+		{
 			"path": "pages/center/center",
 			"style": {}
+		},
+		{
+			"path": "pages/home/appointmentHome/appointment/fromDepartment",
+			"style": {}
+		},
+		{
+			"path": "pages/home/appointmentHome/selectDepartment/selectDepartment",
+			"style": {}
 		}
-	   
-    ],
+
+	],
 	"subPackages": [{
-		"root": "pagesA",
-		"pages": [
-			
-		]
-	}, {
-		"root": "pagesB",
-		"pages": [
-			{
-				"path": "pages/center/login/login",
-				"style": {
+			"root": "pagesA",
+			"pages": []
+		},
+		{
+			"root": "pagesB",
+			"pages": [{
+					"path": "pages/center/login/login",
+					"style": {}
+				},
+				{
+					"path": "pages/center/login/quickRegister/quickRegister",
+					"style": {}
+				},
+				{
+					"path": "pages/center/addCard/addCard",
+					"style": {
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "添加就诊卡",
+						"navigationBarBackgroundColor": "#7EC0EE"
+					}
+				},
+				{
+					"path": "pages/center/addCard/editCard/editCard",
+					"style": {
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "修改就诊卡",
+						"navigationBarBackgroundColor": "#7EC0EE"
+					}
+				}, {
+					"path": "pages/appointPages/timeDoctor/timeDoctor",
+					"style": {}
+				}, {
+					"path": "pages/appointPages/doctorAppointDetail/doctorAppointDetail",
+					"style": {
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "医生号源情况",
+						"navigationBarBackgroundColor": "#7EC0EE"
+					}
+				}, {
+					"path": "pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint",
+					"style": {
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "确认号源信息",
+						"navigationBarBackgroundColor": "#7EC0EE"
+					}
+				}, {
+					"path": "pages/center/cardList/cardList",
+					"style": {
+						"navigationBarTextStyle": "white",
+						"navigationBarTitleText": "就诊卡队列",
+						"navigationBarBackgroundColor": "#7EC0EE"
+					}
 				}
-			}, {
-				"path": "pages/center/login/quickRegister/quickRegister",
-				"style": {
-				}
-			}, {
-            "path" : "pages/center/addCard/addCard",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "添加就诊卡",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }, {
-            "path" : "pages/center/addCard/editCard/editCard",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "修改就诊卡",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }
-		]
-	}],
+			]
+		}
+	],
 	"preloadRule": {
 		"pages/photoLogin/photoLogin": {
 			"network": "all",
@@ -59,21 +95,24 @@
 		"borderStyle": "white",
 		// "backgroundColor":"#F2F2F2",
 		"list": [{
-			"pagePath": "pages/home/appointmentHome/appointmentHome",
-			"iconPath": "static/tabbar/appoint-gray.png",
-			"selectedIconPath": "static/tabbar/appoint-blue.png",
-			"text": "挂号"
-		}, {
-			"pagePath": "pages/detailMessage/detailMessage",
-			"iconPath": "static/tabbar/message-gray.png",
-			"selectedIconPath": "static/tabbar/message-blue.png",
-			"text": "详情"
-		}, {
-			"pagePath": "pages/center/center",
-			"iconPath": "static/tabbar/center-gray.png",
-			"selectedIconPath": "static/tabbar/center-blue.png",
-			"text": "我的"
-		}]
+				"pagePath": "pages/home/appointmentHome/appointmentHome",
+				"iconPath": "static/tabbar/appoint-gray.png",
+				"selectedIconPath": "static/tabbar/appoint-blue.png",
+				"text": "挂号"
+			},
+			{
+				"pagePath": "pages/detailMessage/detailMessage",
+				"iconPath": "static/tabbar/message-gray.png",
+				"selectedIconPath": "static/tabbar/message-blue.png",
+				"text": "详情"
+			},
+			{
+				"pagePath": "pages/center/center",
+				"iconPath": "static/tabbar/center-gray.png",
+				"selectedIconPath": "static/tabbar/center-blue.png",
+				"text": "我的"
+			}
+		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

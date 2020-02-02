@@ -8616,7 +8616,18 @@ main();
 
 /***/ }),
 
-/***/ 51:
+/***/ 6:
+/*!******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
+  \******************************************************/
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
+/***/ (function(module) {
+
+module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25120200103005","_inBundle":false,"_integrity":"sha512-nYoIrRV2e5o/vzr6foSdWi3Rl2p0GuO+LPY3JctyY6uTKgPnuH99d7aL/QQdJ1SacQjBWO+QGK1qankN7oyrWw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25120200103005.tgz","_shasum":"a77a63481f36474f3e86686868051219d1bb12df","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"6be187a3dfe15f95dd6146d9fec08e1f81100987","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25120200103005"};
+
+/***/ }),
+
+/***/ 63:
 /*!***********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/authorization.js ***!
   \***********************************************************************/
@@ -8668,18 +8679,19 @@ function alipay() {
 
 /***/ }),
 
-/***/ 6:
-/*!******************************************************!*\
-  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
-  \******************************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
-/***/ (function(module) {
+/***/ 7:
+/*!************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/pages.json?{"type":"style"} ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25120200103005","_inBundle":false,"_integrity":"sha512-nYoIrRV2e5o/vzr6foSdWi3Rl2p0GuO+LPY3JctyY6uTKgPnuH99d7aL/QQdJ1SacQjBWO+QGK1qankN7oyrWw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25120200103005.tgz","_shasum":"a77a63481f36474f3e86686868051219d1bb12df","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"6be187a3dfe15f95dd6146d9fec08e1f81100987","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25120200103005"};
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/detailMessage/detailMessage": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医生号源情况", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "navigationBarTextStyle": "white", "navigationBarTitleText": "确认号源信息", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊卡队列", "navigationBarBackgroundColor": "#7EC0EE" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
 
 /***/ }),
 
-/***/ 60:
+/***/ 72:
 /*!********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
   \********************************************************************/
@@ -8770,18 +8782,6 @@ function checkGender(identify) {
 
 /***/ }),
 
-/***/ 7:
-/*!************************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/pages.json?{"type":"style"} ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/detailMessage/detailMessage": {}, "pages/center/center": {}, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
-
-/***/ }),
-
 /***/ 8:
 /*!***********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/pages.json?{"type":"stat"} ***!
@@ -8791,6 +8791,108 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__AAB23D5" };exports.default = _default;
+
+/***/ }),
+
+/***/ 97:
+/*!******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
+                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
+                                                                                                         * @param date 传进来的日期
+                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
+                                                                                                         *              week-date(一周的号数)
+                                                                                                         **/
+
+// 将getDay()的转换成一二三四...日
+function getDay(day) {
+  switch (day) {
+    case 0:
+      return '日';
+      break;
+    case 1:
+      return '一';
+      break;
+    case 2:
+      return '二';
+      break;
+    case 3:
+      return '三';
+      break;
+    case 4:
+      return '四';
+      break;
+    case 5:
+      return '五';
+      break;
+    case 6:
+      return '六';
+      break;}
+
+}
+
+// 将获取到的时间假如不是两位数的话在前面加0
+function turnDouble(num) {
+  // 假如长度为2
+  if (num >= 10) {
+    return num;
+  } else {// 否则在前面加0
+    return parseInt('0' + num);
+  }
+}
+
+// 获取从今天开始的一周的号数
+function getWeekDate() {
+  var currentDay = new Date();
+  var dateList = [];
+  // 先将今天的号数存进去
+  dateList.push({
+    date: turnDouble(currentDay.getDate()),
+    day: getDay(currentDay.getDay()) });
+
+  // 将剩下的6天的号数也存进去
+  for (var i = 0; i < 6; i++) {
+    currentDay.setDate(currentDay.getDate() + 1);
+    dateList.push({
+      date: turnDouble(currentDay.getDate()),
+      day: getDay(currentDay.getDay()) });
+
+  }
+  return dateList;
+}
+
+function formDate(date, rule) {
+  var year = date.getFullYear(); // 获取年份
+  var month = date.getMonth() + 1; // 获取月份
+  var today = date.getDate(); // 获取今天是几号
+  var day = date.getDay(); // 获取周几
+  var hour = date.getHours(); // 获取hour
+  var minute = date.getMinutes(); // 获取分钟
+  var second = date.getSeconds(); // 获取秒数
+  switch (rule) {
+    case 'YYYY-MM-DD':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
+      break;
+    case 'YYYY-MM-DD hh:mm:ss':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
+      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
+      break;
+    case 'day':
+      return getDay(day);
+      break;
+    case 'date':
+      return turnDouble(today);
+      break;
+    case 'week-date':
+      return getWeekDate();
+      break;}
+
+}
 
 /***/ })
 

@@ -38,7 +38,7 @@
 		</view>
 
 		<view class="bottom-outbox">
-			<view class="option-inbox">
+			<view class="option-inbox" @click="toCardList()">
 				<image class="icon" src="/static/center/card-list.png"></image>
 				<text class="text">我的家人</text>
 			</view>
@@ -66,6 +66,12 @@
 			turnLogin: function() {
 				uni.navigateTo({
 					url: '/pagesB/pages/center/login/login'
+				})
+			},
+			// 跳转到就诊卡队列
+			toCardList:function() {
+				uni.navigateTo({
+					url: '/pagesB/pages/center/cardList/cardList'
 				})
 			}
 		}

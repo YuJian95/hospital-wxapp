@@ -9319,7 +9319,7 @@ main();
 
 /***/ }),
 
-/***/ 51:
+/***/ 58:
 /*!***********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/authorization.js ***!
   \***********************************************************************/
@@ -9382,7 +9382,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 
 /***/ }),
 
-/***/ 60:
+/***/ 67:
 /*!********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
   \********************************************************************/
@@ -9481,7 +9481,7 @@ function checkGender(identify) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/detailMessage/detailMessage": {}, "pages/center/center": {}, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "defaultTitle": "添加就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "defaultTitle": "修改就诊卡", "titleBarColor": "#7EC0EE" } }, "globalStyle": { "defaultTitle": "医院挂号系统", "titleBarColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/detailMessage/detailMessage": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "defaultTitle": "添加就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "defaultTitle": "修改就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "defaultTitle": "医生号源情况", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "defaultTitle": "确认号源信息", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "defaultTitle": "就诊卡队列", "titleBarColor": "#7EC0EE" } }, "globalStyle": { "defaultTitle": "医院挂号系统", "titleBarColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
 
 /***/ }),
 
@@ -9494,6 +9494,108 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__AAB23D5" };exports.default = _default;
+
+/***/ }),
+
+/***/ 92:
+/*!******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
+                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
+                                                                                                         * @param date 传进来的日期
+                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
+                                                                                                         *              week-date(一周的号数)
+                                                                                                         **/
+
+// 将getDay()的转换成一二三四...日
+function getDay(day) {
+  switch (day) {
+    case 0:
+      return '日';
+      break;
+    case 1:
+      return '一';
+      break;
+    case 2:
+      return '二';
+      break;
+    case 3:
+      return '三';
+      break;
+    case 4:
+      return '四';
+      break;
+    case 5:
+      return '五';
+      break;
+    case 6:
+      return '六';
+      break;}
+
+}
+
+// 将获取到的时间假如不是两位数的话在前面加0
+function turnDouble(num) {
+  // 假如长度为2
+  if (num >= 10) {
+    return num;
+  } else {// 否则在前面加0
+    return parseInt('0' + num);
+  }
+}
+
+// 获取从今天开始的一周的号数
+function getWeekDate() {
+  var currentDay = new Date();
+  var dateList = [];
+  // 先将今天的号数存进去
+  dateList.push({
+    date: turnDouble(currentDay.getDate()),
+    day: getDay(currentDay.getDay()) });
+
+  // 将剩下的6天的号数也存进去
+  for (var i = 0; i < 6; i++) {
+    currentDay.setDate(currentDay.getDate() + 1);
+    dateList.push({
+      date: turnDouble(currentDay.getDate()),
+      day: getDay(currentDay.getDay()) });
+
+  }
+  return dateList;
+}
+
+function formDate(date, rule) {
+  var year = date.getFullYear(); // 获取年份
+  var month = date.getMonth() + 1; // 获取月份
+  var today = date.getDate(); // 获取今天是几号
+  var day = date.getDay(); // 获取周几
+  var hour = date.getHours(); // 获取hour
+  var minute = date.getMinutes(); // 获取分钟
+  var second = date.getSeconds(); // 获取秒数
+  switch (rule) {
+    case 'YYYY-MM-DD':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
+      break;
+    case 'YYYY-MM-DD hh:mm:ss':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
+      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
+      break;
+    case 'day':
+      return getDay(day);
+      break;
+    case 'date':
+      return turnDouble(today);
+      break;
+    case 'week-date':
+      return getWeekDate();
+      break;}
+
+}
 
 /***/ })
 

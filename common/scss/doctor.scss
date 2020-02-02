@@ -1,0 +1,26 @@
+// 主要是关于医生的同用样式
+$major-color: #7EC0EE;
+$gray-color: #A6A6A6;
+
+@import '@/common/scss/common.scss';
+.doctor-outbox{
+	@include width-margin(90%,150rpx);
+	border-radius: 8px;
+	border: 1px solid #BBBBBB;
+	background: #FFFFFF;
+	@include flex-direction(row);
+	align-items: center;
+	margin-top: 20rpx;
+	padding: 10rpx;
+	.doctor-icon{
+		width: 30%;
+		height: 100%;
+		@include icon-size(120rpx,120rpx);
+		margin-right: 8%;
+	}
+	.doctor-info{
+		width: 60%;
+		height: 100%;
+		@include flex-direction(column);
+	}
+}

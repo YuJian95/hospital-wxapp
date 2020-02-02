@@ -3,7 +3,9 @@
     "pages/photoLogin/photoLogin",
     "pages/home/appointmentHome/appointmentHome",
     "pages/detailMessage/detailMessage",
-    "pages/center/center"
+    "pages/center/center",
+    "pages/home/appointmentHome/appointment/fromDepartment",
+    "pages/home/appointmentHome/selectDepartment/selectDepartment"
   ],
   "subPackages": [
     {
@@ -12,7 +14,11 @@
         "pages/center/login/login",
         "pages/center/login/quickRegister/quickRegister",
         "pages/center/addCard/addCard",
-        "pages/center/addCard/editCard/editCard"
+        "pages/center/addCard/editCard/editCard",
+        "pages/appointPages/timeDoctor/timeDoctor",
+        "pages/appointPages/doctorAppointDetail/doctorAppointDetail",
+        "pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint",
+        "pages/center/cardList/cardList"
       ]
     }
   ],
@@ -55,5 +61,5 @@
     }
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap86.json"
+  "sitemapLocation": "sitemap30.json"
 }

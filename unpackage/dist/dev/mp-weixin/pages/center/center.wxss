@@ -32,7 +32,58 @@
   height: 100%;
   background: #F2F2F2;
 }
-.row-left-right {
+.visited-color {
+  color: #7EC0EE !important;
+}
+.cut-long-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.tips-box {
+  width: 100%;
+  height: 100rpx;
+  border: 1px solid #F0F0F0;
+  background: #FFFEF5;
+}
+.tips-box .tips-inbox {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+}
+.tips-box .tips-inbox .icon {
+      width: 60rpx;
+      height: 60rpx;
+      margin-right: 30rpx;
+}
+.tips-box .tips-inbox .tips-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: #A6A6A6;
+}
+.gray-border-box {
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  border: 1px solid #BBBBBB;
+  border-radius: 8px;
+  padding: 10rpx;
+  background: #FFFFFF;
+}
+.blue-column-border-box {
+  width: 90%;
+  height: 90rpx;
+  margin: 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -40,29 +91,21 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-top: 10rpx;
 }
-.row-left-right .left {
-    width: 50%;
-    height: 100%;
+.blue-column-border-box .blue-border {
+    width: 5%;
+    height: 50rpx;
+    border-left: 6px solid #7EC0EE;
 }
-.row-left-right .left :visited {
-      color: #7EC0EE;
-}
-.row-left-right .right {
-    width: 50%;
-    height: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-            justify-content: flex-end;
-}
-.visited-color {
-  color: #7EC0EE;
+.blue-column-border-box .blue-text {
+    width: 80%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #7EC0EE;
 }
 .top-box {
   width: 100%;

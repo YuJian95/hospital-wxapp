@@ -21,13 +21,29 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
+			"current": -1,
+			"list": []
+		},
+		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "pagesB/pages/center/cardList/cardList",
+					"pathName": "pagesB/pages/center/cardList/cardList",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

@@ -9,7 +9,8 @@
 		<from-hosipital v-if="insureVisited == 0"></from-hosipital>
 		<from-doctor v-if="insureVisited == 1"></from-doctor>
 		<from-date v-if="insureVisited == 2"></from-date>
-		<from-department v-if="insureVisited == 3"></from-department>
+		<!-- <from-department v-if="insureVisited == 3"></from-department> -->
+		<department v-if="insureVisited == 3"></department>
 		
 		<!-- 底部点击跳出弹出框的按钮 -->
 		<image class="icon-up-position" src="/static/appointment/icon-up.png" @click="showModal()"></image>
@@ -48,13 +49,15 @@
 	import fromDoctor from './appointment/fromDoctor.vue';
 	import fromHosipital from './appointment/fromHospital.vue';
 	import fromDate from './appointment/fromDate.vue';
-	import fromDepartment from './appointment/fromDepartment.vue';
+	import department from './appointment/department.vue'
+	// import fromDepartment from './appointment/fromDepartment.vue'
 	export default {
 		components: {
 			fromDoctor,
 			fromHosipital,
 			fromDate,
-			fromDepartment
+			department
+			// fromDepartment
 		},
 		data() {
 			return {
@@ -94,6 +97,7 @@
 			// 关闭模态框
 			hideModal:function(){
 				this.isShowModal = false
+				this.modalVisited = this.insureVisited
 			},
 			// 点击弹出框的确定改变进入挂号的状态
 			changeFrom:function(e){

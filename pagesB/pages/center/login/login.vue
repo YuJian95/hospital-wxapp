@@ -138,6 +138,6 @@
 		@include width-margin(90%, 70rpx);
 		margin-top: 40rpx;
 		@include flex-direction(row);
-		@extend .row-left-right;
+		@include row-left-right(50%, 50%);
 	}
 </style>
