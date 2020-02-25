@@ -26,11 +26,11 @@
 
 		<view class="account-acord-outbox">
 			<view class="account-acord-inbox">
-				<view class="left-right-half">
-					<image class="icon" src="/static/center/money.png"></image>
-					<text class="text">我的账户</text>
+				<view class="left-right-half" @click="toTreatRecord()">
+					<image class="icon" src="/static/center/treat-record.png"></image>
+					<text class="text">就诊记录</text>
 				</view>
-				<view class="left-right-half">
+				<view class="left-right-half" @click="toAppointRecord()">
 					<image class="icon" src="/static/center/appoint-record.png"></image>
 					<text class="text">挂号记录</text>
 				</view>
@@ -42,13 +42,17 @@
 				<image class="icon" src="/static/center/card-list.png"></image>
 				<text class="text">我的家人</text>
 			</view>
-			<view class="option-inbox">
+			<view class="option-inbox" @click="toAwaitingQueue()">
 				<image class="icon" src="/static/center/paidui.png"></image>
 				<text class="text">候诊队列</text>
 			</view>
-			<view class="option-inbox">
+			<view class="option-inbox" @click="toCreditDetail()">
 				<image class="icon" src="/static/center/xinyong.png"></image>
 				<text class="text">信用详情</text>
+			</view>
+			<view class="option-inbox" @click="toAboutUs()">
+				<image class="icon" src="/static/center/about-us.png"></image>
+				<text class="text">关于我们</text>
 			</view>
 		</view>
 	</view>
@@ -72,6 +76,36 @@
 			toCardList:function() {
 				uni.navigateTo({
 					url: '/pagesB/pages/center/cardList/cardList'
+				})
+			},
+			// 跳转到候诊队列
+			toAwaitingQueue: function() {
+				uni.navigateTo({
+					url: '/pagesA/pages/awaitingQueue/awaitingQueue'
+				})
+			},
+			// 跳转到信用详情
+			toCreditDetail: function() {
+				uni.navigateTo({
+					url: '/pagesA/pages/creditDetail/creditDetail'
+				})
+			},
+			// 跳转到挂号记录
+			toAppointRecord: function() {
+				uni.navigateTo({
+					url: '/pagesA/pages/appointRecord/appointRecord'
+				})
+			},
+			// 跳转到就诊记录
+			toTreatRecord: function() {
+				uni.navigateTo({
+					url: '/pagesA/pages/treatRecord/treatRecord'
+				})
+			},
+			// 跳转到关于我们页面
+			toAboutUs: function() {
+				uni.navigateTo({
+					url: '/pagesA/pages/aboutUs/aboutUs'
 				})
 			}
 		}

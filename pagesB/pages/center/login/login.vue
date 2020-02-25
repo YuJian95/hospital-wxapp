@@ -20,7 +20,8 @@
 		<view class="enroll-changepassword-box">
 			<text class="left"  @click="toRegister()" 
 			:class="visited == 1? 'visited-color' : ''">立即注册</text>
-			<text class="right" :class="visited == 2? 'visited-color' : ''">忘记密码</text>
+			<text class="right" :class="visited == 2? 'visited-color' : ''"
+			@click="toForgotPassword()">忘记密码</text>
 		</view>
 
 	</view>
@@ -55,6 +56,17 @@
 				},2000)
 				uni.navigateTo({
 					url: '/pagesB/pages/center/login/quickRegister/quickRegister'
+				})
+			},
+			// 跳转到忘记密码页面
+			toForgotPassword: function() {
+				this.visited = 2
+				var _this = this
+				setTimeout(function(){
+					_this.visited = 0
+				},2000)
+				uni.navigateTo({
+					url: '/pagesB/pages/center/login/fotgotPassword/fotgotPassword'
 				})
 			},
 			// 授权获取用户信息

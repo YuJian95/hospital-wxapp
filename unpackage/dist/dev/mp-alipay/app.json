@@ -2,12 +2,22 @@
   "pages": [
     "pages/photoLogin/photoLogin",
     "pages/home/appointmentHome/appointmentHome",
-    "pages/detailMessage/detailMessage",
     "pages/center/center",
     "pages/home/appointmentHome/appointment/fromDepartment",
     "pages/home/appointmentHome/selectDepartment/selectDepartment"
   ],
   "subPackages": [
+    {
+      "root": "pagesA",
+      "pages": [
+        "pages/awaitingQueue/awaitingQueue",
+        "pages/creditDetail/creditDetail",
+        "pages/appointRecord/appointRecord",
+        "pages/treatRecord/treatRecord",
+        "pages/treatRecord/treatRecordDetail/treatRecordDetail",
+        "pages/aboutUs/aboutUs"
+      ]
+    },
     {
       "root": "pagesB",
       "pages": [
@@ -18,7 +28,8 @@
         "pages/appointPages/timeDoctor/timeDoctor",
         "pages/appointPages/doctorAppointDetail/doctorAppointDetail",
         "pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint",
-        "pages/center/cardList/cardList"
+        "pages/center/cardList/cardList",
+        "pages/appointPages/doctorList/doctorList"
       ]
     }
   ],
@@ -37,12 +48,6 @@
         "activeIcon": "static/tabbar/appoint-blue.png"
       },
       {
-        "pagePath": "pages/detailMessage/detailMessage",
-        "name": "详情",
-        "icon": "static/tabbar/message-gray.png",
-        "activeIcon": "static/tabbar/message-blue.png"
-      },
-      {
         "pagePath": "pages/center/center",
         "name": "我的",
         "icon": "static/tabbar/center-gray.png",
@@ -50,5 +55,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "no-data-page": "/component/noDataPage"
+  }
 }

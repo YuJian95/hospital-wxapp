@@ -1534,6 +1534,149 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
+/***/ 105:
+/*!***********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/authorization.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.weChat = weChat;exports.alipay = alipay; /**
+                                                                                                                             * 此处是三个平台的授权的方法
+                                                                                                                             * **/
+// 微信小程序的授权
+function weChat() {
+  wx.getSetting({
+    success: function success(res) {
+      if (res.authSetting['scope.userInfo']) {
+        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+        wx.getUserInfo({
+          success: function success(res) {
+            console.log(res);
+            uni.setStorageSync("isAuthrization", true);
+            uni.switchTab({
+              url: '/pages/center/center' });
+
+            try {} catch (e) {}
+          },
+          fail: function fail() {
+            return false;
+          } });
+
+      }
+    } });
+
+}
+
+// 支付宝的授权
+function alipay() {
+  my.getAuthCode({
+    scopes: 'auth_user',
+    success: function success(res) {
+      console.log(res);
+      uni.setStorageSync("isAuthrization", true);
+      uni.switchTab({
+        url: '/pages/center/center' });
+
+    } });
+
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 114:
+/*!********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.inputCheck = inputCheck;exports.checkPassword = checkPassword;exports.changeDateByIdentify = changeDateByIdentify;exports.checkGender = checkGender; /**
+                                                                                                                                                                                                                                         * 此页面用于写表单的各个字段是否合法
+                                                                                                                                                                                                                                         * @param name 传进来的中文名字
+                                                                                                                                                                                                                                         * @param rule 传进来的类型,比如字符串 电话等
+                                                                                                                                                                                                                                         * @param value 传进来的要验证的数据
+                                                                                                                                                                                                                                         * **/
+// 验证传进来的大部分数据是否合法
+function inputCheck(name, rule, value) {
+  // 先判断输入是否为空
+  if (value.length == 0 || value == null || value == '') {
+    return name + '不能为空';
+  } else {
+    // 判断类型是否正确
+    switch (rule) {
+      case 'phone':
+        // 1--以1为开头；2--第二位可为3,4,5,7,8,中的任意一位；3--最后以0-9的9个整数结尾。
+        var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!reg.test(value)) {
+          return '该手机号不是有效的号码';
+        }
+        break;
+      case 'password':
+        var reg = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,14}$/;
+        if (!reg.test(value)) {
+          return '请输入6到14位含数字、字母、符号至少两种或以上元素的密码';
+        }
+        break;
+      case 'identify':
+        var reg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+        if (!reg.test(value)) {
+          return '输入的身份证号码有误';
+        }
+        break;
+      case "string":
+        return "ok";
+        break;
+      case 'identifyCode':
+        var reg = /^[A-Za-z0-9]{6}$/;
+        if (reg.test(value)) {
+          return '请输入6位有效的验证码';
+        }
+        break;}
+
+    return "ok";
+  }
+}
+// 验证两次输入的密码是否一致
+function checkPassword(password, checkPassword) {
+  if (checkPassword.length == 0 || checkPassword == null || checkPassword == '') {
+    return '输入不能为空';
+  } else {
+    if (password !== checkPassword) {
+      return '两次密码不一致';
+    } else {
+      return 'ok';
+    }
+  }
+}
+
+// 将日期转化为YYYY-MM-DD格式
+function changeDateByIdentify(date) {
+  var newDate = '';
+  if (date.length == 8) {
+    newDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
+    return newDate;
+  } else {
+    return 'error';
+  }
+}
+
+// 通过身份证校验性别  1-男  2-女
+function checkGender(identify) {
+  var num = identify.slice(16, 17);
+  if (num % 2 === 0) {
+    // 是女生
+    return 2;
+  } else {
+    return 1;
+  }
+}
+
+/***/ }),
+
 /***/ 14:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -1652,6 +1795,108 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ 147:
+/*!******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
+                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
+                                                                                                         * @param date 传进来的日期
+                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
+                                                                                                         *              week-date(一周的号数)
+                                                                                                         **/
+
+// 将getDay()的转换成一二三四...日
+function getDay(day) {
+  switch (day) {
+    case 0:
+      return '日';
+      break;
+    case 1:
+      return '一';
+      break;
+    case 2:
+      return '二';
+      break;
+    case 3:
+      return '三';
+      break;
+    case 4:
+      return '四';
+      break;
+    case 5:
+      return '五';
+      break;
+    case 6:
+      return '六';
+      break;}
+
+}
+
+// 将获取到的时间假如不是两位数的话在前面加0
+function turnDouble(num) {
+  // 假如长度为2
+  if (num >= 10) {
+    return num;
+  } else {// 否则在前面加0
+    return parseInt('0' + num);
+  }
+}
+
+// 获取从今天开始的一周的号数
+function getWeekDate() {
+  var currentDay = new Date();
+  var dateList = [];
+  // 先将今天的号数存进去
+  dateList.push({
+    date: turnDouble(currentDay.getDate()),
+    day: getDay(currentDay.getDay()) });
+
+  // 将剩下的6天的号数也存进去
+  for (var i = 0; i < 6; i++) {
+    currentDay.setDate(currentDay.getDate() + 1);
+    dateList.push({
+      date: turnDouble(currentDay.getDate()),
+      day: getDay(currentDay.getDay()) });
+
+  }
+  return dateList;
+}
+
+function formDate(date, rule) {
+  var year = date.getFullYear(); // 获取年份
+  var month = date.getMonth() + 1; // 获取月份
+  var today = date.getDate(); // 获取今天是几号
+  var day = date.getDay(); // 获取周几
+  var hour = date.getHours(); // 获取hour
+  var minute = date.getMinutes(); // 获取分钟
+  var second = date.getSeconds(); // 获取秒数
+  switch (rule) {
+    case 'YYYY-MM-DD':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
+      break;
+    case 'YYYY-MM-DD hh:mm:ss':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
+      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
+      break;
+    case 'day':
+      return getDay(day);
+      break;
+    case 'date':
+      return turnDouble(today);
+      break;
+    case 'week-date':
+      return getWeekDate();
+      break;}
+
+}
 
 /***/ }),
 
@@ -8627,58 +8872,6 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 
 /***/ }),
 
-/***/ 63:
-/*!***********************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/authorization.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.weChat = weChat;exports.alipay = alipay; /**
-                                                                                                                             * 此处是三个平台的授权的方法
-                                                                                                                             * **/
-// 微信小程序的授权
-function weChat() {
-  wx.getSetting({
-    success: function success(res) {
-      if (res.authSetting['scope.userInfo']) {
-        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-        wx.getUserInfo({
-          success: function success(res) {
-            console.log(res);
-            uni.setStorageSync("isAuthrization", true);
-            uni.switchTab({
-              url: '/pages/center/center' });
-
-            try {} catch (e) {}
-          },
-          fail: function fail() {
-            return false;
-          } });
-
-      }
-    } });
-
-}
-
-// 支付宝的授权
-function alipay() {
-  my.getAuthCode({
-    scopes: 'auth_user',
-    success: function success(res) {
-      console.log(res);
-      uni.setStorageSync("isAuthrization", true);
-      uni.switchTab({
-        url: '/pages/center/center' });
-
-    } });
-
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 7:
 /*!************************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/pages.json?{"type":"style"} ***!
@@ -8687,98 +8880,7 @@ function alipay() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/detailMessage/detailMessage": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医生号源情况", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "navigationBarTextStyle": "white", "navigationBarTitleText": "确认号源信息", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊卡队列", "navigationBarBackgroundColor": "#7EC0EE" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
-
-/***/ }),
-
-/***/ 72:
-/*!********************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.inputCheck = inputCheck;exports.checkPassword = checkPassword;exports.changeDateByIdentify = changeDateByIdentify;exports.checkGender = checkGender; /**
-                                                                                                                                                                                                                                         * 此页面用于写表单的各个字段是否合法
-                                                                                                                                                                                                                                         * @param name 传进来的中文名字
-                                                                                                                                                                                                                                         * @param rule 传进来的类型,比如字符串 电话等
-                                                                                                                                                                                                                                         * @param value 传进来的要验证的数据
-                                                                                                                                                                                                                                         * **/
-// 验证传进来的大部分数据是否合法
-function inputCheck(name, rule, value) {
-  // 先判断输入是否为空
-  if (value.length == 0 || value == null || value == '') {
-    return name + '不能为空';
-  } else {
-    // 判断类型是否正确
-    switch (rule) {
-      case 'phone':
-        // 1--以1为开头；2--第二位可为3,4,5,7,8,中的任意一位；3--最后以0-9的9个整数结尾。
-        var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!reg.test(value)) {
-          return '该手机号不是有效的号码';
-        }
-        break;
-      case 'password':
-        var reg = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,14}$/;
-        if (!reg.test(value)) {
-          return '请输入6到14位含数字、字母、符号至少两种或以上元素的密码';
-        }
-        break;
-      case 'identify':
-        var reg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-        if (!reg.test(value)) {
-          return '输入的身份证号码有误';
-        }
-        break;
-      case "string":
-        return "ok";
-        break;
-      case 'identifyCode':
-        var reg = /^[A-Za-z0-9]{6}$/;
-        if (reg.test(value)) {
-          return '请输入6位有效的验证码';
-        }
-        break;}
-
-    return "ok";
-  }
-}
-// 验证两次输入的密码是否一致
-function checkPassword(password, checkPassword) {
-  if (checkPassword.length == 0 || checkPassword == null || checkPassword == '') {
-    return '输入不能为空';
-  } else {
-    if (password !== checkPassword) {
-      return '两次密码不一致';
-    } else {
-      return 'ok';
-    }
-  }
-}
-
-// 将日期转化为YYYY-MM-DD格式
-function changeDateByIdentify(date) {
-  var newDate = '';
-  if (date.length == 8) {
-    newDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
-    return newDate;
-  } else {
-    return 'error';
-  }
-}
-
-// 通过身份证校验性别  1-男  2-女
-function checkGender(identify) {
-  var num = identify.slice(16, 17);
-  if (num % 2 === 0) {
-    // 是女生
-    return 2;
-  } else {
-    return 1;
-  }
-}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesA/pages/awaitingQueue/awaitingQueue": {}, "pagesA/pages/creditDetail/creditDetail": {}, "pagesA/pages/appointRecord/appointRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "挂号记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecordDetail/treatRecordDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录详情", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/aboutUs/aboutUs": { "navigationBarTextStyle": "white", "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/login/fotgotPassword/fotgotPassword": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医生号源情况", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "navigationBarTextStyle": "white", "navigationBarTitleText": "确认号源信息", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊卡队列", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorList/doctorList": {} }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
 
 /***/ }),
 
@@ -8791,108 +8893,6 @@ function checkGender(identify) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__AAB23D5" };exports.default = _default;
-
-/***/ }),
-
-/***/ 97:
-/*!******************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
-                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
-                                                                                                         * @param date 传进来的日期
-                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
-                                                                                                         *              week-date(一周的号数)
-                                                                                                         **/
-
-// 将getDay()的转换成一二三四...日
-function getDay(day) {
-  switch (day) {
-    case 0:
-      return '日';
-      break;
-    case 1:
-      return '一';
-      break;
-    case 2:
-      return '二';
-      break;
-    case 3:
-      return '三';
-      break;
-    case 4:
-      return '四';
-      break;
-    case 5:
-      return '五';
-      break;
-    case 6:
-      return '六';
-      break;}
-
-}
-
-// 将获取到的时间假如不是两位数的话在前面加0
-function turnDouble(num) {
-  // 假如长度为2
-  if (num >= 10) {
-    return num;
-  } else {// 否则在前面加0
-    return parseInt('0' + num);
-  }
-}
-
-// 获取从今天开始的一周的号数
-function getWeekDate() {
-  var currentDay = new Date();
-  var dateList = [];
-  // 先将今天的号数存进去
-  dateList.push({
-    date: turnDouble(currentDay.getDate()),
-    day: getDay(currentDay.getDay()) });
-
-  // 将剩下的6天的号数也存进去
-  for (var i = 0; i < 6; i++) {
-    currentDay.setDate(currentDay.getDate() + 1);
-    dateList.push({
-      date: turnDouble(currentDay.getDate()),
-      day: getDay(currentDay.getDay()) });
-
-  }
-  return dateList;
-}
-
-function formDate(date, rule) {
-  var year = date.getFullYear(); // 获取年份
-  var month = date.getMonth() + 1; // 获取月份
-  var today = date.getDate(); // 获取今天是几号
-  var day = date.getDay(); // 获取周几
-  var hour = date.getHours(); // 获取hour
-  var minute = date.getMinutes(); // 获取分钟
-  var second = date.getSeconds(); // 获取秒数
-  switch (rule) {
-    case 'YYYY-MM-DD':
-      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
-      break;
-    case 'YYYY-MM-DD hh:mm:ss':
-      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
-      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
-      break;
-    case 'day':
-      return getDay(day);
-      break;
-    case 'date':
-      return turnDouble(today);
-      break;
-    case 'week-date':
-      return getWeekDate();
-      break;}
-
-}
 
 /***/ })
 

@@ -8,8 +8,8 @@
 				<text class="gray-text ">副主任医师</text>
 			</view>
 		</view>
-		<doctor-treatment-time v-if="isTreatmentTime"></doctor-treatment-time>
-		<doctor-detial v-else></doctor-detial>
+		<doctor-treatment-time v-if="isTreatmentTime == 1"></doctor-treatment-time>
+		<doctor-detial v-if="isTreatmentTime == 2"></doctor-detial>
 	</view>
 </template>
 
@@ -17,13 +17,13 @@
 	import doctorTreatmentTime from './component/doctorTreatmentTime';
 	import doctorDetial from './component/doctorDetial';
 	export default {
-		components:{
+		components: {
 			doctorTreatmentTime,
 			doctorDetial
 		},
 		data() {
 			return {
-				isTreatmentTime: ''
+				isTreatmentTime: 0
 			}
 		},
 		methods: {
@@ -31,6 +31,7 @@
 		},
 		onLoad(e) {
 			this.isTreatmentTime = e.isTreatmentTime
+			// console.log(this.isTreatmentTime)
 		}
 	}
 </script>
@@ -39,9 +40,10 @@
 	@import '@/common/scss/common.scss';
 	@import '@/common/scss/doctor.scss';
 
-page{
-	@extend .page-backgroud;
-}
+	page {
+		@extend .page-backgroud;
+	}
+
 	.icon-outbox {
 		@include width-margin(200rpx, 200rpx);
 		border: 1px solid $border-color;
@@ -71,5 +73,4 @@ page{
 		border: 1px solid $border-color;
 		margin: 0 8% 0 4%;
 	}
-	
 </style>

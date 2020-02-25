@@ -12,16 +12,27 @@
 				</view>
 			</view>
 		</view>
-		<view class="weui-cells searchbar-result" v-if="inputVal.length > 0">
+		<!-- <view class="weui-cells searchbar-result" v-if="inputVal.length > 0">
 			<navigator url="" class="weui-cell" hover-class="weui-cell_active">
 				<view class="weui-cell__bd">
 					<view>实时搜索文本</view>
 				</view>
 			</navigator>
+		</view> -->
+		
+		<view class="blue-column-border-box" style="margin-top: 15rpx;">
+			<view class="blue-border"></view>
+			<view class="blue-text">最近三个月的挂号医生</view>
+		</view>
+		<view class="record-box">
+			<view class="doctor-box" v-for="(item,index) in doctorRecordList" :key='item.id'>
+				<text class="doctor" :data-name='item.id' @click="changeDoctor"
+				:class="isActived == item.id?'doctor-blue-background':''">杨XX</text>
+			</view>
 		</view>
 		
 		<!-- 医生列表 -->
-		<view class="doctor-outbox">
+		<view class="doctor-outbox" style="margin-top: 60rpx;" @click="toDoctorBrief()">
 			<image class="doctor-icon" src="/static/appointment/man-doctor.png"></image>
 			<view class="doctor-info">
 				<text class="doctor-name">杨XX</text>
@@ -40,12 +51,59 @@
 	export default {
 		data() {
 			return {
-				inputVal: ""
+				inputVal: "",
+				isActived: 0,
+				doctorRecordList: [{
+					id: 1,
+					name: '杨XX'
+				},{
+					id: 2,
+					name: '杨XX'
+				},{
+					id: 3,
+					name: '杨XX'
+				},{
+					id: 4,
+					name: '杨XX'
+				},{
+					id: 5,
+					name: '杨XX'
+				},{
+					id: 6,
+					name: '杨XX'
+				},{
+					id: 7,
+					name: '杨XX'
+				},{
+					id: 8,
+					name: '杨XX'
+				},{
+					id: 9,
+					name: '杨XX'
+				}]
 			}
 		},
 		methods:{
+			// 清除输入框的东西
 			clearInput:function(){
 				this.inputVal = ''
+			},
+			// 跳转到医生的简介及出诊时间详情
+			toDoctorBrief:function(){
+				uni.redirectTo({
+					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 2
+				})
+			},
+			// 切换挂号记录中的医生
+			changeDoctor:function(e){
+				this.isActived = e.currentTarget.dataset.name
+				uni.navigateTo({
+					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 2
+				})
+				var that = this
+				setTimeout(function(){
+					that.isActived = 0
+				},2000)
 			}
 		}
 	}
@@ -76,5 +134,30 @@
 	}
 	.gray-text{
 		@include font-style(16px,500,$gray-color);
+	}
+	// 挂号记录的医生
+	.record-box{
+		@include width-margin(90%,160rpx);
+		@include flex-direction(row);
+		justify-content: space-between;
+		flex-wrap: wrap;
+		overflow: scroll;
+		.doctor-box{
+			width: 25%;
+			height: 70rpx;
+			display: flex;
+			align-items: center;
+			.doctor{
+				@include width-margin(90%,60rpx);
+				text-align: center;
+				background: #CCCCCC;
+				@include font-style(15px, 500, #ffffff);
+				border-radius: 4px;
+				line-height: 60rpx;
+			}
+			.doctor-blue-background{
+				background: $major-color !important;
+			}
+		}
 	}
 </style>

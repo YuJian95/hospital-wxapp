@@ -10,10 +10,6 @@
 			"style": {}
 		},
 		{
-			"path": "pages/detailMessage/detailMessage",
-			"style": {}
-		},
-		{
 			"path": "pages/center/center",
 			"style": {}
 		},
@@ -25,11 +21,44 @@
 			"path": "pages/home/appointmentHome/selectDepartment/selectDepartment",
 			"style": {}
 		}
-
-	],
+    ],
 	"subPackages": [{
 			"root": "pagesA",
-			"pages": []
+			"pages": [{
+				"path": "pages/awaitingQueue/awaitingQueue",
+				"style": {}
+			}, {
+            "path" : "pages/creditDetail/creditDetail",
+            "style" : {}
+        }, {
+            "path" : "pages/appointRecord/appointRecord",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "挂号记录",
+				"navigationBarBackgroundColor": "#7EC0EE"
+			}
+        }, {
+            "path" : "pages/treatRecord/treatRecord",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "就诊记录",
+				"navigationBarBackgroundColor": "#7EC0EE"
+			}
+        }, {
+            "path" : "pages/treatRecord/treatRecordDetail/treatRecordDetail",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "就诊记录详情",
+				"navigationBarBackgroundColor": "#7EC0EE"
+			}
+        }, {
+            "path" : "pages/aboutUs/aboutUs",
+            "style" : {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "关于我们",
+				"navigationBarBackgroundColor": "#7EC0EE"
+			}
+        }]
 		},
 		{
 			"root": "pagesB",
@@ -40,6 +69,10 @@
 				{
 					"path": "pages/center/login/quickRegister/quickRegister",
 					"style": {}
+				},
+				{
+				    "path" : "pages/center/login/fotgotPassword/fotgotPassword",
+				    "style" : {}
 				},
 				{
 					"path": "pages/center/addCard/addCard",
@@ -80,6 +113,9 @@
 						"navigationBarTitleText": "就诊卡队列",
 						"navigationBarBackgroundColor": "#7EC0EE"
 					}
+				}, {
+					"path": "pages/appointPages/doctorList/doctorList",
+					"style": {}
 				}
 			]
 		}
@@ -99,12 +135,6 @@
 				"iconPath": "static/tabbar/appoint-gray.png",
 				"selectedIconPath": "static/tabbar/appoint-blue.png",
 				"text": "挂号"
-			},
-			{
-				"pagePath": "pages/detailMessage/detailMessage",
-				"iconPath": "static/tabbar/message-gray.png",
-				"selectedIconPath": "static/tabbar/message-blue.png",
-				"text": "详情"
 			},
 			{
 				"pagePath": "pages/center/center",

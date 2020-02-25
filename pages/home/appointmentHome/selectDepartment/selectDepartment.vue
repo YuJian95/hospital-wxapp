@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<department></department>
+		<department :currentStatues="1"></department>
 	</view>
 </template>
 

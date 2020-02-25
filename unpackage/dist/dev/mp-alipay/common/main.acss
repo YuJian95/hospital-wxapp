@@ -1451,11 +1451,11 @@ to {
 	top: 0;
 	width: 1px;
 	bottom: 0;
-	border-right: 1rpx solid rgba(0, 0, 0, .1);
+	/* border-right: 1rpx solid rgba(0, 0, 0, .1); */
 	color: rgba(0, 0, 0, .1)
 }
 .weui-navbar__item.weui-bar__item_on {
-	background-color: #ececec
+	/* background-color: #ececec */
 }
 .weui-navbar__item:first-child {
 	padding-left: calc(16px + constant(safe-area-inset-left));

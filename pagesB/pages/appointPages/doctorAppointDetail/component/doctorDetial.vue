@@ -25,11 +25,11 @@
 				</view>
 				<text class="right right-text">暂无可挂号源</text>
 			</view>
-			<view class="date-box">
+			<view class="date-box" @click="toDoctorTreatmentTime()">
 				<view class="left left-box">
 					<text>2020-02-01</text>
 				</view>
-				<text class="right right-text">暂无可挂号源</text>
+				<text class="right right-text">可挂号</text>
 			</view>
 		</view>
 		
@@ -66,6 +66,12 @@
 			}
 		},
 		methods:{
+			// 跳转到医生某天的出诊详情
+			toDoctorTreatmentTime: function(){
+				uni.navigateTo({
+					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 1
+				})
+			}
 		},
 		created() {
 			// this.getBriefIntroduce(this.introduce)

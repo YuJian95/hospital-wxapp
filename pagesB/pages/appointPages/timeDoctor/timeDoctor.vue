@@ -46,6 +46,19 @@
 					个号</text>
 			</view>
 		</view>
+		
+		<view class="doctor-outbox" @click="toDoctorAppointDetail()">
+			<image class="doctor-icon" src="/static/appointment/man-doctor.png"></image>
+			<view class="doctor-info">
+				<view class="doctor-job-box">
+					<text class="doctor-name">杨XX</text>
+					<text class="gray-text">医师</text>
+				</view>
+				<text class="gray-text ">剩余
+					<text style="color: #7EC0EE;">0</text>
+					个号</text>
+			</view>
+		</view>
 
 		<!-- 从底部弹出选择 -->
 		<view class="cu-modal bottom-modal" :class="isShowModal?'show':''">
@@ -117,7 +130,7 @@
 			// 跳转到医生号源页面详情
 			toDoctorAppointDetail:function() {
 				uni.redirectTo({
-					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + true
+					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 1
 				})
 			}
 		},

@@ -14,7 +14,7 @@
 						<view class="action">
 							<text class="cuIcon-title visited-color"></text> {{currentDep}}</view>
 					</view>
-					<view class="cu-list menu-avatar" @click="toTimeDoctor()">
+					<view class="cu-list menu-avatar" @click="toPage()">
 						<view class="cu-item">
 							<text class="text-position">普通门诊</text>
 						</view>
@@ -30,6 +30,9 @@
 
 <script>
 	export default {
+		props:{
+			currentStatues: 0, // 默认0为从首页进来的，1为从科室或者日期页面进来的
+		},
 		data() {
 			return {
 				list: ['儿科', '妇科', '眼科', '皮肤科', '内科', '外科', '产科', '儿科1', '儿科2', '儿科3'],
@@ -37,7 +40,7 @@
 				mainCur: 0,
 				verticalNavTop: 0,
 				load: true,
-				currentDep: ''// 当前所点击的科室
+				currentDep: '',// 当前所点击的科室
 			};
 		},
 		created() {
@@ -56,10 +59,17 @@
 				let tabHeight = 0;
 			},
 			// 跳转到选择时间及医生页面
-			toTimeDoctor: function() {
-				uni.redirectTo({
-					url: '/pagesB/pages/appointPages/timeDoctor/timeDoctor'
-				})
+			toPage: function() {
+				if(this.currentStatues == 1) {
+					uni.navigateTo({
+						url: '/pagesB/pages/appointPages/timeDoctor/timeDoctor'
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pagesB/pages/appointPages/doctorList/doctorList'
+					})
+				}
+				
 			}
 		},
 	}

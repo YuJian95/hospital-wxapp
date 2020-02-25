@@ -289,6 +289,12 @@ page {
 .enroll-changepassword-box .left {
     width: 50%;
     height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+            justify-content: flex-start;
 }
 .enroll-changepassword-box .right {
     width: 50%;

@@ -52,6 +52,8 @@
 	 .left{
 		 width: $left-width;
 		 height: 100%;
+		 display: flex;
+		 justify-content: flex-start;
 	 }
 	 .right{
 		 width: $right-width;

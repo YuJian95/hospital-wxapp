@@ -37,9 +37,9 @@
 			"current": -1,
 			"list": [
 				{
-					"id": 0,
-					"name": "pagesB/pages/center/cardList/cardList",
-					"pathName": "pagesB/pages/center/cardList/cardList",
+					"id": -1,
+					"name": "pagesB/pages/center/login/fotgotPassword/fotgotPassword",
+					"pathName": "pagesB/pages/center/login/fotgotPassword/fotgotPassword",
 					"query": "",
 					"scene": null
 				}
