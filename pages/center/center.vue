@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<view class="top-box">
-			<view class="row-box" v-if="isLogin">
+			<view class="row-box" v-if="isAlreadyLogin">
 				<view class="avatar-url-box">
 					<open-data type="userAvatarUrl"></open-data>
 				</view>
@@ -62,7 +62,7 @@
 	export default {
 		data() {
 			return {
-				isLogin: false
+				isAlreadyLogin: false
 			}
 		},
 		methods: {
@@ -72,8 +72,10 @@
 					url: '/pagesB/pages/center/login/login'
 				})
 			},
+			
 			// 跳转到就诊卡队列
 			toCardList:function() {
+				
 				uni.navigateTo({
 					url: '/pagesB/pages/center/cardList/cardList'
 				})
@@ -108,6 +110,9 @@
 					url: '/pagesA/pages/aboutUs/aboutUs'
 				})
 			}
+		},
+		mounted() {
+			this.isAlreadyLogin = uni.getStorageSync('isAlreadyLogin')
 		}
 	}
 </script>

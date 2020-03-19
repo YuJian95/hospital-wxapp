@@ -13,6 +13,7 @@
   "author": "yyyangyx",
   "license": "ISC",
   "dependencies": {
+    "js-md5": "^0.7.3",
     "weui": "^2.1.3"
   },
   "devDependencies": {

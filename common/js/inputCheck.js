@@ -35,8 +35,8 @@ export function inputCheck(name, rule, value) {
 			return "ok"
 			break;
 			case 'identifyCode':
-			var reg = /^[A-Za-z0-9]{6}$/;
-			if(reg.test(value)) {
+			var reg = /^[0-9]{6}$/;
+			if(!reg.test(value)) {
 				return '请输入6位有效的验证码'
 			}
 			break;

@@ -197,7 +197,7 @@ var _default =
 {
   data: function data() {
     return {
-      isLogin: false };
+      isAlreadyLogin: false };
 
   },
   methods: {
@@ -207,8 +207,10 @@ var _default =
         url: '/pagesB/pages/center/login/login' });
 
     },
+
     // 跳转到就诊卡队列
     toCardList: function toCardList() {
+
       uni.navigateTo({
         url: '/pagesB/pages/center/cardList/cardList' });
 
@@ -242,7 +244,11 @@ var _default =
       uni.navigateTo({
         url: '/pagesA/pages/aboutUs/aboutUs' });
 
-    } } };exports.default = _default;
+    } },
+
+  mounted: function mounted() {
+    this.isAlreadyLogin = uni.getStorageSync('isAlreadyLogin');
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
