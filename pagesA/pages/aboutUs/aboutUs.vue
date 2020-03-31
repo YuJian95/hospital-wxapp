@@ -20,7 +20,7 @@
 						</view>
 					</view>
 					<view class="image-box">
-						<image mode="widthFix" :src="imageURL + item.url"></image>
+						<image mode="widthFix" :src="item.picture"></image>
 					</view>
 				</view>
 				<view class="address-box">
@@ -29,19 +29,7 @@
 				</view>
 				<view class="hospital-brief">
 					<text class="black-text brif-title">医院介绍：</text>
-					<text class="brief-content gray-text">的卡就发来得及法兰克福老师发的
-						复合属性。设置或检索弹性盒模型对象的子元素如何分配空间。 3
-						flex-grow 设置或检索弹性盒的扩展比率。 3
-						flex-shrink 设置或检索弹性盒的收缩比率。 3
-						flex-basis 设置或检索弹性盒伸缩基准值。 3
-						flex-flow 复合属性。设置或检索弹性盒模型对象的子元素排列方式。 3
-						flex-direction 该属性通过定义flex容器的主轴方向来决定felx子项在flex容器中的位置。 3
-						flex-wrap 该属性控制flex容器是单行或者多行，同时横轴的方向决定了新行堆叠的方向。 3
-						align-content 在弹性容器内的各项没有占用交叉轴上所有可用的空间时对齐容器内的各项（垂直）。 3
-						align-items 定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式。 3
-						align-self 定义flex子项单独在侧轴（纵轴）方向上的对齐方式。 3
-						justify-content 设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式。 3
-						order 设置或检索弹性盒模型对象的子元素出现的順序。</text>
+					<text class="brief-content gray-text">{{item.description}}</text>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -49,35 +37,33 @@
 </template>
 
 <script>
+	import {
+		getAllHospital
+	} from '@/common/api/hospital.js'
+	import {
+		error
+	} from '@/common/js/errorTips.js'
 	export default {
 		data() {
 			return {
 				imageURL: '/static/appointment/hospital/',
-				hospitalList: [{
-					name: '总院',
-					url: 'hospital1.jpg',
-					phone: '020-123456',
-					address: '看两集孤苦伶仃就搞定了广阔的看过的郭老师的实'
-				}, {
-					name: '分院1',
-					url: 'hospital2.jpg',
-					phone: '020-123457',
-					address: 'sjhfhdhfdhf'
-				}, {
-					name: '分院2',
-					url: 'hospital3.jpg',
-					phone: '020-123458',
-					address: 'sjhfhdhfdhf'
-				}, {
-					name: '分院3',
-					url: 'hospital4.jpg',
-					phone: '020-123459',
-					address: 'sjhfhdhfdhf'
-				}]
+				hospitalList: []
 			}
 		},
 		methods: {
-
+			// 获取医院的信息
+			getAllHospitalList: function() {
+				getAllHospital(1, 50, '').then(res => {
+					if (res.data.code === 200) {
+						this.hospitalList = res.data.data.list
+					}
+				}).catch(() => {
+					error('网络')
+				})
+			}
+		},
+		onLoad() {
+			this.getAllHospitalList()
 		}
 	}
 </script>

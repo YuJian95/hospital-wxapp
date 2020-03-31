@@ -23,6 +23,7 @@
       "pages": [
         "pages/center/login/login",
         "pages/center/login/quickRegister/quickRegister",
+        "pages/center/login/fotgotPassword/fotgotPassword",
         "pages/center/addCard/addCard",
         "pages/center/addCard/editCard/editCard",
         "pages/appointPages/timeDoctor/timeDoctor",

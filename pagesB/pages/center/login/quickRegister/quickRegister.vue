@@ -61,7 +61,9 @@
 <script>
 	import md5 from 'js-md5';
 	import  { inputCheck, checkPassword } from '@/common/js/inputCheck.js';
+	import {error} from '@/common/js/errorTips.js'
 	import { getPhoneCode, validataCode, userRegister } from '@/common/api/quickRegister.js';
+	
 	export default {
 		data() {
 			return {
@@ -121,28 +123,26 @@
 							this.toAddCard()
 						} else {
 							uni.hideLoading()
-							uni.showToast({
-								title: '验证码错误',
-								icon: 'none'
-							})
+							error('验证码错误')
+							
 						}
 					}).catch(() => {
-						uni.showToast({
-							title: '网络错误',
-							icon: 'none'
-						})
+						error('网络')
 					})
 				} else {
-					uni.showToast({
-						title: '请将信息填写完整',
-						icon: 'none'
-					})
+					error('请将信息填写完整')
 				}
 			},
-			// 将数据存进数据库后跳转到添加就诊卡页面
+			// 将数据存进数据库后跳转到个人中心页面
 			toAddCard:function(){
 				userRegister({
+					// #ifdef MP
 					avatarUrl: uni.getStorageSync('avatarUrl'),
+					// #endif
+					// #ifdef H5
+					// H5注册时使用默认头像
+					avatarUrl: 'http://image.yujian95.cn/FmxdyLFebwrEhId3tyb7AXo5Xryc',
+					// #endif
 					name: this.form.name,
 					password: md5(this.form.password),
 					phone: this.form.phone
@@ -156,17 +156,11 @@
 						uni.navigateBack()
 					} else {
 						uni.hideLoading()
-						uni.showToast({
-							title: '该手机号已存在，请登录',
-							icon: 'none'
-						})
+						error('该手机号已存在，请登录',)
 					}
 				}).catch(() => {
 					uni.hideLoading()
-					uni.showToast({
-						title: '注册失败，请检查网络',
-						icon: 'none'
-					})
+					error('网络')
 				})
 					
 			},
@@ -177,10 +171,7 @@
 				if(error !== 'ok'){
 					this.isValidate = false;
 					this.form[value] = ''
-					uni.showToast({
-						title: error,
-						icon: 'none'
-					})
+					error(error)
 				} else {
 					return
 				}
@@ -190,10 +181,7 @@
 				var error = checkPassword(this.form.password, this.form.checkPassword)
 				if(error !== 'ok'){
 					this.isValidate = false
-					uni.showToast({
-						title: error,
-						icon: 'none'
-					})
+					error(error)
 					return 
 				} else {
 					this.isValidate = true

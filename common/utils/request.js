@@ -1,9 +1,10 @@
 // 作为ajax请求的统一的api请求
- import { baseURL } from './config.js'
+ import { requestURL } from './config.js'
  import { setToken, getToken } from './auth.js'
  import { tokenRefresh } from '@/common/api/quickRegister.js'
  
  function Request(data) {
+	 console.log(getToken())
  	return new Promise((resolve, reject) => {
  		if(uni.getStorageSync('isAlreadyLogin')== false||uni.getStorageSync('isAlreadyLogin')==''||uni.getStorageSync('isAlreadyLogin')==null){
  			uni.showToast({
@@ -15,8 +16,8 @@
  		}else {
  			uni.request({
  				url: requestURL + data.url,
- 				data: data.data,  
  				method: data.method,
+				data: data.data,
  				header: {
  						'content-type': 'application/json',
  						'Authorization': getToken() || ''
@@ -43,6 +44,7 @@
  				}
  			  }),
  			  fail: (res => {
+				  console.log(res)
  					  console.log("失败2")
  				reject(res)
  			  })

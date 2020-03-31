@@ -30,7 +30,8 @@
         "pages/appointPages/doctorAppointDetail/doctorAppointDetail",
         "pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint",
         "pages/center/cardList/cardList",
-        "pages/appointPages/doctorList/doctorList"
+        "pages/appointPages/doctorList/doctorList",
+        "pages/center/baseInfo/baseInfo"
       ]
     }
   ],
@@ -69,5 +70,5 @@
   "usingComponents": {
     "no-data-page": "/component/noDataPage"
   },
-  "sitemapLocation": "sitemap99.json"
+  "sitemapLocation": "sitemap66.json"
 }

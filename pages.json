@@ -11,7 +11,9 @@
 		},
 		{
 			"path": "pages/center/center",
-			"style": {}
+			"style": {
+				"enablePullDownRefresh":true
+			}
 		},
 		{
 			"path": "pages/home/appointmentHome/appointment/fromDepartment",
@@ -21,44 +23,45 @@
 			"path": "pages/home/appointmentHome/selectDepartment/selectDepartment",
 			"style": {}
 		}
-    ],
+
+	],
 	"subPackages": [{
 			"root": "pagesA",
 			"pages": [{
 				"path": "pages/awaitingQueue/awaitingQueue",
 				"style": {}
 			}, {
-            "path" : "pages/creditDetail/creditDetail",
-            "style" : {}
-        }, {
-            "path" : "pages/appointRecord/appointRecord",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "挂号记录",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }, {
-            "path" : "pages/treatRecord/treatRecord",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "就诊记录",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }, {
-            "path" : "pages/treatRecord/treatRecordDetail/treatRecordDetail",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "就诊记录详情",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }, {
-            "path" : "pages/aboutUs/aboutUs",
-            "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#7EC0EE"
-			}
-        }]
+				"path": "pages/creditDetail/creditDetail",
+				"style": {}
+			}, {
+				"path": "pages/appointRecord/appointRecord",
+				"style": {
+					"navigationBarTextStyle": "white",
+					"navigationBarTitleText": "挂号记录",
+					"navigationBarBackgroundColor": "#7EC0EE"
+				}
+			}, {
+				"path": "pages/treatRecord/treatRecord",
+				"style": {
+					"navigationBarTextStyle": "white",
+					"navigationBarTitleText": "就诊记录",
+					"navigationBarBackgroundColor": "#7EC0EE"
+				}
+			}, {
+				"path": "pages/treatRecord/treatRecordDetail/treatRecordDetail",
+				"style": {
+					"navigationBarTextStyle": "white",
+					"navigationBarTitleText": "就诊记录详情",
+					"navigationBarBackgroundColor": "#7EC0EE"
+				}
+			}, {
+				"path": "pages/aboutUs/aboutUs",
+				"style": {
+					"navigationBarTextStyle": "white",
+					"navigationBarTitleText": "关于我们",
+					"navigationBarBackgroundColor": "#7EC0EE"
+				}
+			}]
 		},
 		{
 			"root": "pagesB",
@@ -71,8 +74,8 @@
 					"style": {}
 				},
 				{
-				    "path" : "pages/center/login/fotgotPassword/fotgotPassword",
-				    "style" : {}
+					"path": "pages/center/login/fotgotPassword/fotgotPassword",
+					"style": {}
 				},
 				{
 					"path": "pages/center/addCard/addCard",
@@ -115,6 +118,9 @@
 					}
 				}, {
 					"path": "pages/appointPages/doctorList/doctorList",
+					"style": {}
+				}, {
+					"path": "pages/center/baseInfo/baseInfo",
 					"style": {}
 				}
 			]

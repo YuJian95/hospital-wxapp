@@ -38,7 +38,7 @@ function turnDouble(num) {
 	if (num >= 10) {
 		return num
 	} else { // 否则在前面加0
-		return parseInt('0' + num)
+		return ('0' + num)
 	}
 }
 
@@ -49,14 +49,18 @@ function getWeekDate() {
 	// 先将今天的号数存进去
 	dateList.push({
 		date: turnDouble(currentDay.getDate()),
-		day: getDay(currentDay.getDay())
+		day: getDay(currentDay.getDay()),
+		year: currentDay.getFullYear(),
+		month: turnDouble(currentDay.getMonth() + 1)	
 	})
 	// 将剩下的6天的号数也存进去
 	for(let i=0;i<6;i++) {
 		currentDay.setDate(currentDay.getDate() + 1)
 		 dateList.push({
 		date: turnDouble(currentDay.getDate()),
-		day: getDay(currentDay.getDay())
+		day: getDay(currentDay.getDay()),
+		year: currentDay.getFullYear(),
+		month: turnDouble(currentDay.getMonth() + 1)
 	})
 	}
 	return dateList

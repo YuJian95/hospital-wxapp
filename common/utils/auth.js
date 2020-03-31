@@ -8,7 +8,7 @@ export function setToken(token) {
 
 // 获取token
 export function getToken() {
-	uni.getStorageSync(jwt_token)
+	return uni.getStorageSync(jwt_token)
 }
 
 // 移除token

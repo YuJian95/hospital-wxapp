@@ -9,8 +9,8 @@
 		<from-hosipital v-if="insureVisited == 0"></from-hosipital>
 		<from-doctor v-if="insureVisited == 1"></from-doctor>
 		<from-date v-if="insureVisited == 2"></from-date>
-		<!-- <from-department v-if="insureVisited == 3"></from-department> -->
-		<department v-if="insureVisited == 3"></department>
+		<from-department v-if="insureVisited == 3"></from-department>
+		<!-- <department v-if="insureVisited == 3" :allData="allData"></department> -->
 		
 		<!-- 底部点击跳出弹出框的按钮 -->
 		<image class="icon-up-position" src="/static/appointment/icon-up.png" @click="showModal()"></image>
@@ -50,14 +50,14 @@
 	import fromHosipital from './appointment/fromHospital.vue';
 	import fromDate from './appointment/fromDate.vue';
 	import department from './appointment/department.vue'
-	// import fromDepartment from './appointment/fromDepartment.vue'
+	import fromDepartment from './appointment/fromDepartment.vue'
 	export default {
 		components: {
 			fromDoctor,
 			fromHosipital,
 			fromDate,
-			department
-			// fromDepartment
+			department,
+			fromDepartment
 		},
 		data() {
 			return {
@@ -87,6 +87,11 @@
 					visited: 'department-white.png',
 					isVisited: false
 				}],
+				// 作为专科的入口数据
+				allData: {
+					departmentList: [], // 用作传过来的专科信息
+					currentStatues: 0 // 默认0为从首页进来的，1为从科室或者日期页面进来的
+				}
 			}
 		},
 		methods: {

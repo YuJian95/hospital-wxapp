@@ -1534,157 +1534,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 105:
-/*!************************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/quickRegister.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.tokenRefresh = tokenRefresh;exports.getPhoneCode = getPhoneCode;exports.validataCode = validataCode;exports.userRegister = userRegister;exports.userLogin = userLogin;
-var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 106));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 用于注册时的api接口页面
-/**
- * 当用户还没有登录时,所用的api接口的方式和登录以后需要token的不一样
- * 1 刷新token
- * 2 获取手机验证码
- * 3 校验验证码
- * 4 账号注册
- * 5 账号登录
- * 6 获取登录用户的基本信息 
- * **/
-// 1 刷新token
-function tokenRefresh(token) {
-  return (0, _unloginRequest.default)({
-    url: '/power/account/token?token=' + token,
-    method: 'get' });
-
-}
-// 2 获取手机验证码
-function getPhoneCode(phone) {
-  return (0, _unloginRequest.default)({
-    url: '/user/basic/message?phone=' + phone,
-    method: 'get' });
-
-}
-// 3 校验验证码
-function validataCode(phone, code) {
-  return (0, _unloginRequest.default)({
-    url: '/user/basic/code?phone=' + phone + '&code=' + code,
-    method: 'post' });
-
-}
-// 4 账号注册   
-function userRegister(data) {
-  return (0, _unloginRequest.default)({
-    url: '/user/basic/account/register',
-    method: 'post',
-    data: data });
-
-}
-// 5 账号登录
-function userLogin(name, password) {
-  return (0, _unloginRequest.default)({
-    url: '/power/account/login?name=' + name + '&password=' + password,
-    method: 'get' });
-
-}
-
-/***/ }),
-
-/***/ 106:
-/*!***************************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/unloginRequest.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
-var _config = __webpack_require__(/*! ./config.js */ 107);
-var _auth = __webpack_require__(/*! ./auth.js */ 108); // 没有登录前的没有token的请求
-
-function unloginRegister(data) {
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: _config.requestURL + data.url,
-      method: data.method,
-      data: data.data,
-      header: {
-        // 'Content-Type': 'applicatioin/json;charset=UTF-8', // 此处报错
-        'Authorization': (0, _auth.getToken)() || '' },
-
-      success: function success(res) {
-        console.log(res);
-        if (res.statusCode === 200) {
-          console.log("成功200");
-          resolve(res);
-        } else {
-          console.log("失败1");
-          reject(res);
-        }
-      },
-      fail: function fail(res) {
-        console.log("失败2");
-        reject(res);
-      } });
-
-  });
-}
-
-function _default(data, url, method) {
-  return unloginRegister(data, url, method);
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 107:
-/*!*******************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/config.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.requestURL = exports.baseURL = exports.appid = void 0; // 作为全局的变量被调用
-var appid = 'xxx';exports.appid = appid;
-var baseURL = 'xxxx'; // 图表地址
-exports.baseURL = baseURL;var requestURL = 'http://localhost:8080/hospital'; // ajax请求地址
-exports.requestURL = requestURL;
-
-/***/ }),
-
-/***/ 108:
-/*!*****************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/auth.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.setToken = setToken;exports.getToken = getToken;exports.removeToken = removeToken; // 作为存储token的接口
-var jwt_token = 'jwt';
-
-// 存储token
-function setToken(token) {
-  uni.setStorageSync(jwt_token, token);
-}
-
-// 获取token
-function getToken() {
-  uni.getStorageSync(jwt_token);
-}
-
-// 移除token
-function removeToken() {
-  uni.removeStorageSync(jwt_token);
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 109:
+/***/ 117:
 /*!********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
   \********************************************************************/
@@ -2883,7 +2733,52 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 154:
+/***/ 15:
+/*!*****************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/filters.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 用于识别一些特别的,比如身份证号要隐藏部分数字
+var filters = {
+  // 将身份证号转变一下
+  getIdentityNum: function getIdentityNum(identify) {
+    return identify.slice(0, 3) + 'xxxxxxxxxxxxx' + identify.slice(16, 18);
+  },
+  // 将性别由数字转为文字
+  getGender: function getGender(value) {
+    if (value === 1) {
+      return '男';
+    }
+    return '女';
+  },
+  // 获取日期,将日期转化为YYYY-MM-DD格式
+  getDate: function getDate(date) {
+    var birthDate = new Date(date);
+    var year = birthDate.getFullYear();
+    var month = birthDate.getMonth() + 1;
+    var day = birthDate.getDate();
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+    return year + '-' + month + '-' + day;
+  },
+  // 将电话号码转换一下用****打码
+  getPhone: function getPhone(phone) {
+    return phone.slice(0, 3) + '****' + phone.slice(7, 11);
+  } };var _default =
+
+
+filters;exports.default = _default;
+
+/***/ }),
+
+/***/ 162:
 /*!******************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
   \******************************************************************/
@@ -2931,7 +2826,7 @@ function turnDouble(num) {
   if (num >= 10) {
     return num;
   } else {// 否则在前面加0
-    return parseInt('0' + num);
+    return '0' + num;
   }
 }
 
@@ -2942,14 +2837,18 @@ function getWeekDate() {
   // 先将今天的号数存进去
   dateList.push({
     date: turnDouble(currentDay.getDate()),
-    day: getDay(currentDay.getDay()) });
+    day: getDay(currentDay.getDay()),
+    year: currentDay.getFullYear(),
+    month: turnDouble(currentDay.getMonth() + 1) });
 
   // 将剩下的6天的号数也存进去
   for (var i = 0; i < 6; i++) {
     currentDay.setDate(currentDay.getDate() + 1);
     dateList.push({
       date: turnDouble(currentDay.getDate()),
-      day: getDay(currentDay.getDay()) });
+      day: getDay(currentDay.getDay()),
+      year: currentDay.getFullYear(),
+      month: turnDouble(currentDay.getMonth() + 1) });
 
   }
   return dateList;
@@ -2980,6 +2879,80 @@ function formDate(date, rule) {
     case 'week-date':
       return getWeekDate();
       break;}
+
+}
+
+/***/ }),
+
+/***/ 163:
+/*!******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/outCall.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getOutCall = getOutCall;exports.getOutCallByDoctor = getOutCallByDoctor;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                         * 用于获取出诊计划的接口
+                                                                                                                                                                                         * 1 搜索出诊计划,医院-专科-门诊-时间获取
+                                                                                                                                                                                         * 2 根据医生id，获取出诊信息
+                                                                                                                                                                                         * **/
+// 1 搜索出诊计划,医院-专科-门诊-时间获取
+function getOutCall(day, pageNum, pageSize, hospitalId, specialId, outpatientId) {
+  return (0, _unloginRequest.default)({
+    url: '/visit/plan/list?day=' + day + '&pageNum=' + pageNum + '&pageSize=' + pageSize +
+    '&hospitalId=' + hospitalId + '&specialId=' + specialId + '&outpatientId=' + outpatientId,
+    method: 'get' });
+
+}
+// 2 根据医生id，获取出诊信息
+function getOutCallByDoctor(id) {
+  return (0, _unloginRequest.default)({
+    url: '/visit/plan/doctor?doctorId=' + id,
+    method: 'get' });
+
+}
+
+/***/ }),
+
+/***/ 164:
+/*!*****************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/doctor.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getDcotorByName = getDcotorByName;exports.getDcotorByDepartment = getDcotorByDepartment;exports.getDoctorInfoById = getDoctorInfoById;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                         * 用于所有的医生的Api接口
+                                                                                                                                                                                         * 1 通过医生名字获取医生信息
+                                                                                                                                                                                         * 2 通过专科门诊获取医生信息
+                                                                                                                                                                                         * 3 通过医生id号获取医生信息
+                                                                                                                                                                                         * **/
+// 1 通过医生名字获取医生信息
+function getDcotorByName(pageNum, pageSize, doctorName) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/doctor/list?pageNum=' + pageNum + '&pageSize=' + pageSize + '&name=' + doctorName,
+    method: 'get' });
+
+}
+// 2 通过专科门诊获取医生信息
+function getDcotorByDepartment(pageNum, pageSize, specialId, outpatientId) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/doctor/list/special/outpatient?pageNum=' + pageNum + '&pageSize=' +
+    pageSize + '&specialId=' + specialId + '&outpatientId=' + outpatientId,
+    method: 'get' });
+
+}
+// 3 通过医生id号获取医生信息
+function getDoctorInfoById(id) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/doctor/' + id,
+    method: 'get' });
 
 }
 
@@ -9016,37 +8989,28 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 297:
+/***/ 226:
 /*!*******************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/errorTips.js ***!
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/hospital.js ***!
   \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.error = error; // 作为有错误时的提示
+Object.defineProperty(exports, "__esModule", { value: true });exports.getAllHospital = getAllHospital;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 /**
- * @param value value作为错误时的种类,分别有网络错误,未登录等,其余的直接用value
- * **/
-function error(value) {
-  if (value === '登录') {
-    uni.showToast({
-      title: '未登录,不能查看此功能',
-      icon: 'none' });
+                                                                                                                                                                                         * 作为医院API接口
+                                                                                                                                                                                         * 1 获取全部医院的信息
+                                                                                                                                                                                         * 2 
+                                                                                                                                                                                         * **/
+function getAllHospital(pageNum, pageSize, hospitalName) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/info/list?pageNum=' + pageNum + '&pageSize=' + pageSize +
+    '&hospitalName' + hospitalName,
+    method: 'get' });
 
-  } else if (value === '网络') {
-    uni.showToast({
-      title: '请求失败，请检查网络',
-      icon: 'none' });
-
-  } else {
-    uni.showToast({
-      title: value,
-      icon: 'none' });
-
-  }
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -9081,6 +9045,212 @@ module.exports = g;
 
 /***/ }),
 
+/***/ 35:
+/*!*********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/department.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getDepartmentHospital = getDepartmentHospital;exports.getAllDepartmentList = getAllDepartmentList;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                         * 用于所有的专科的Api接口
+                                                                                                                                                                                         * 1 通过医院ID获取专科
+                                                                                                                                                                                         * 2 获取全部的专科列表
+                                                                                                                                                                                         * 3 
+                                                                                                                                                                                         * **/
+// 1 通过医院ID获取专科 ID为医院的ID,后面的页码和一页多少条数据
+function getDepartmentHospital(ID, pageNum, pageSize) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/special/list/' + ID + '?pageNum=' + pageNum + '&pageSize=' + pageSize,
+    method: 'get' });
+
+}
+// 2 获取全部的专科列表,name为专科名称
+function getAllDepartmentList(pageNum, pageSize, name) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/special/list?pageNum=' + pageNum + '&pageSize=' + pageSize + '&name=' + name,
+    method: 'get' });
+
+}
+
+/***/ }),
+
+/***/ 36:
+/*!********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/request.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
+var _config = __webpack_require__(/*! ./config.js */ 37);
+var _auth = __webpack_require__(/*! ./auth.js */ 38);
+var _quickRegister = __webpack_require__(/*! @/common/api/quickRegister.js */ 39); // 作为ajax请求的统一的api请求
+
+function Request(data) {
+  console.log((0, _auth.getToken)());
+  return new Promise(function (resolve, reject) {
+    if (uni.getStorageSync('isAlreadyLogin') == false || uni.getStorageSync('isAlreadyLogin') == '' || uni.getStorageSync('isAlreadyLogin') == null) {
+      uni.showToast({
+        title: "您暂未登录",
+        icon: 'none',
+        mask: true,
+        duration: 1000 });
+
+    } else {
+      uni.request({
+        url: _config.requestURL + data.url,
+        method: data.method,
+        data: data.data,
+        header: {
+          'content-type': 'application/json',
+          'Authorization': (0, _auth.getToken)() || '' },
+
+        success: function success(res) {
+          if (res.statusCode === 200) {
+            console.log("成功200");
+            resolve(res);
+          } else if (res.statusCode === 401) {
+            uni.showToast({
+              title: "token凭证已过期，请重新登录",
+              icon: 'none',
+              mask: true,
+              duration: 1000 });
+
+            (0, _quickRegister.tokenRefresh)().then(function (res) {
+              console.log(res);
+              (0, _auth.setToken)(res.data);
+            });
+            console.log((0, _auth.getToken)());
+          } else {
+            console.log("失败1");
+            reject(res);
+          }
+        },
+        fail: function fail(res) {
+          console.log(res);
+          console.log("失败2");
+          reject(res);
+        } });
+
+    }
+  });
+}
+
+function _default(data, url, method) {
+  return Request(data, url, method);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 37:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/config.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.requestURL = exports.baseURL = exports.appid = void 0; // 作为全局的变量被调用
+var appid = 'xxx';exports.appid = appid;
+var baseURL = 'xxxx'; // 图表地址
+exports.baseURL = baseURL;var requestURL = 'http://localhost:8080/hospital'; // ajax请求地址
+exports.requestURL = requestURL;
+
+/***/ }),
+
+/***/ 38:
+/*!*****************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/auth.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.setToken = setToken;exports.getToken = getToken;exports.removeToken = removeToken; // 作为存储token的接口
+var jwt_token = 'jwt';
+
+// 存储token
+function setToken(token) {
+  uni.setStorageSync(jwt_token, token);
+}
+
+// 获取token
+function getToken() {
+  return uni.getStorageSync(jwt_token);
+}
+
+// 移除token
+function removeToken() {
+  uni.removeStorageSync(jwt_token);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 39:
+/*!************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/quickRegister.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.tokenRefresh = tokenRefresh;exports.getPhoneCode = getPhoneCode;exports.validataCode = validataCode;exports.userRegister = userRegister;exports.userLogin = userLogin;
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 用于注册时的api接口页面
+/**
+ * 当用户还没有登录时,所用的api接口的方式和登录以后需要token的不一样
+ * 1 刷新token
+ * 2 获取手机验证码
+ * 3 校验验证码
+ * 4 账号注册
+ * 5 账号登录
+ * 6 获取登录用户的基本信息 
+ * **/
+// 1 刷新token
+function tokenRefresh(token) {
+  return (0, _unloginRequest.default)({
+    url: '/power/account/token?token=' + token,
+    method: 'get' });
+
+}
+// 2 获取手机验证码
+function getPhoneCode(phone) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/message?phone=' + phone,
+    method: 'get' });
+
+}
+// 3 校验验证码
+function validataCode(phone, code) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/code?phone=' + phone + '&code=' + code,
+    method: 'post' });
+
+}
+// 4 账号注册   
+function userRegister(data) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/account/register',
+    method: 'post',
+    data: data });
+
+}
+// 5 账号登录
+function userLogin(name, password) {
+  return (0, _unloginRequest.default)({
+    url: '/power/account/login?name=' + name + '&password=' + password,
+    method: 'get' });
+
+}
+
+/***/ }),
+
 /***/ 4:
 /*!*******************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/pages.json ***!
@@ -9090,6 +9260,121 @@ module.exports = g;
 
 "use strict";
 
+
+/***/ }),
+
+/***/ 40:
+/*!***************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/unloginRequest.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
+var _config = __webpack_require__(/*! ./config.js */ 37);
+var _auth = __webpack_require__(/*! ./auth.js */ 38); // 没有登录前的没有token的请求
+
+function unloginRegister(data) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: _config.requestURL + data.url,
+      method: data.method,
+      data: data.data,
+      header: {
+        // 'Content-Type': 'applicatioin/json;charset=UTF-8', // 此处报错
+        'Authorization': (0, _auth.getToken)() || '' },
+
+      success: function success(res) {
+        console.log(res);
+        if (res.statusCode === 200) {
+          console.log("成功200");
+          resolve(res);
+        } else {
+          console.log("失败1");
+          reject(res);
+        }
+      },
+      fail: function fail(res) {
+        console.log("失败2");
+        reject(res);
+      } });
+
+  });
+}
+
+function _default(data, url, method) {
+  return unloginRegister(data, url, method);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 41:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/errorTips.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.error = error; // 作为有错误时的提示
+/**
+ * @param value value作为错误时的种类,分别有网络错误,未登录等,其余的直接用value
+ * **/
+function error(value) {
+  if (value === '登录') {
+    uni.showToast({
+      title: '未登录,不能查看此功能',
+      icon: 'none' });
+
+  } else if (value === '网络') {
+    uni.showToast({
+      title: '请求失败，请检查网络',
+      icon: 'none' });
+
+  } else {
+    uni.showToast({
+      title: value,
+      icon: 'none' });
+
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 42:
+/*!*********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/outpatient.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getOutpatientByHospital = getOutpatientByHospital;exports.getOutpatientListById = getOutpatientListById;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                         * 用于所有的门诊的Api接口
+                                                                                                                                                                                         * 1 获取某个医院某个专科的门诊信息
+                                                                                                                                                                                         * 2 分页获取专科编号下的门诊列表信息
+                                                                                                                                                                                         * **/
+// 1 获取某个医院某个专科的门诊信息
+function getOutpatientByHospital(hospitalId, specialId, pageNum, pageSize) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/outpatient/list?hospitalId=' + hospitalId + '&specialId=' +
+    specialId + '&pageNum=' + pageNum + '&pageSize=' + pageSize,
+    method: 'get' });
+
+}
+// 2 分页获取专科编号下的门诊列表信息
+function getOutpatientListById(pageNum, pageSize, specialId) {
+  return (0, _unloginRequest.default)({
+    url: '/hospital/special/list/outpatient?pageNum=' + pageNum + '&pageSize=' +
+    pageSize + '&specialId=' + specialId,
+    method: 'get' });
+
+}
 
 /***/ }),
 
@@ -9980,6 +10265,89 @@ main();
 
 /***/ }),
 
+/***/ 53:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/userInfo.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getUserBaseInfo = getUserBaseInfo;exports.getUserCardInfo = getUserCardInfo;exports.addCard = addCard;exports.getIsCardOverIimit = getIsCardOverIimit;exports.deleteCardInfo = deleteCardInfo;exports.updateCardInfo = updateCardInfo;exports.updateBaseInfo = updateBaseInfo;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 该页面作为获取用户的基本信息的API接口,包括自己的和别人的
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 1 获取用户账号的基本信息
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 2 获取用户就诊卡信息(根据账户ID获得)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 3 添加就诊卡信息
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 4 获取用户所添加的就诊卡是否超过限制
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 5 删除就诊卡 (通过关系编号)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 6 修改就诊卡信息(通过关系编号)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 7 获取某个就诊卡的信息(通过就诊卡id)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 8 修改用户账号的基本信息
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * **/
+// 1 获取用户账号的基本信息
+function getUserBaseInfo() {
+  return (0, _request.default)({
+    url: '/user/basic/info',
+    method: 'get' });
+
+}
+// 2 获取用户就诊卡信息(根据账户ID获得)
+function getUserCardInfo(id) {
+  return (0, _request.default)({
+    url: '/user/card/list/' + id,
+    method: 'get' });
+
+}
+// 3 添加就诊卡信息
+function addCard(accountId, data) {
+  return (0, _request.default)({
+    url: '/user/card/' + accountId,
+    method: 'post',
+    data: data });
+
+}
+// 4 获取用户所添加的就诊卡是否超过限制
+function getIsCardOverIimit(accountId) {
+  return (0, _request.default)({
+    url: '/user/card/number/' + accountId,
+    method: 'get' });
+
+}
+// 5 删除就诊卡(通过关系编号)
+function deleteCardInfo(relationId) {
+  return (0, _request.default)({
+    url: '/user/card/' + relationId,
+    method: 'delete' });
+
+}
+// 6 修改就诊卡信息(通过关系编号)
+function updateCardInfo(relationId, data) {
+  return (0, _request.default)({
+    url: '/user/card/' + relationId,
+    method: 'put',
+    data: data });
+
+}
+// 7 获取某个就诊卡的信息(通过就诊卡id)
+/* export function getCardInfoByCardID(cardID) {
+	 return request({
+		 url: '/user/card/' + cardID,
+		 method: 'get'
+	 })
+ } */
+// 8 修改用户账号的基本信息
+function updateBaseInfo(userID, data) {
+  return (0, _request.default)({
+    url: '/user/basic/' + userID,
+    method: 'put',
+    data: data });
+
+}
+
+/***/ }),
+
 /***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
@@ -9999,7 +10367,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesA/pages/awaitingQueue/awaitingQueue": {}, "pagesA/pages/creditDetail/creditDetail": {}, "pagesA/pages/appointRecord/appointRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "挂号记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecordDetail/treatRecordDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录详情", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/aboutUs/aboutUs": { "navigationBarTextStyle": "white", "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/login/fotgotPassword/fotgotPassword": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医生号源情况", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "navigationBarTextStyle": "white", "navigationBarTitleText": "确认号源信息", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊卡队列", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorList/doctorList": {} }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/center/center": { "enablePullDownRefresh": true }, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesA/pages/awaitingQueue/awaitingQueue": {}, "pagesA/pages/creditDetail/creditDetail": {}, "pagesA/pages/appointRecord/appointRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "挂号记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecord": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecordDetail/treatRecordDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊记录详情", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesA/pages/aboutUs/aboutUs": { "navigationBarTextStyle": "white", "navigationBarTitleText": "关于我们", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/login/fotgotPassword/fotgotPassword": {}, "pagesB/pages/center/addCard/addCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "添加就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "navigationBarTextStyle": "white", "navigationBarTitleText": "修改就诊卡", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医生号源情况", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "navigationBarTextStyle": "white", "navigationBarTitleText": "确认号源信息", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "navigationBarTextStyle": "white", "navigationBarTitleText": "就诊卡队列", "navigationBarBackgroundColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorList/doctorList": {}, "pagesB/pages/center/baseInfo/baseInfo": {} }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "医院挂号系统", "navigationBarBackgroundColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
 
 /***/ }),
 

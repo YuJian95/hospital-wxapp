@@ -1,5 +1,7 @@
 <template>
 	<view>
+		<!-- 只有小程序需要先授权 -->
+		<!-- #ifdef MP -->
 		<view class="input-inbox" v-if="isAuthrization">
 			<input class="input" placeholder-class="placeholder-class" 
 			placeholder="请输入手机号码" v-model="name"/>
@@ -9,20 +11,37 @@
 			placeholder-class="placeholder-class" placeholder="请输入登录密码" />
 			<image class="eye-icon" :src="isVisible? '/static/login/eye.png':'/static/login/eye-off.png'" @click="changeVisible()"></image>
 		</view>
+		<!-- #endif -->
+		<!-- #ifdef H5 -->
+		<view class="input-inbox">
+			<input class="input" placeholder-class="placeholder-class" 
+			placeholder="请输入手机号码" v-model="name"/>
+		</view>
+		<view class="password-row-box">
+			<input class="input" :password="!isVisible" v-model="password"
+			placeholder-class="placeholder-class" placeholder="请输入登录密码" />
+			<image class="eye-icon" :src="isVisible? '/static/login/eye.png':'/static/login/eye-off.png'" @click="changeVisible()"></image>
+		</view>
+		<!-- #endif -->
 
 		<!-- 此处H5不做授权登录 -->
 		<!-- #ifdef MP -->
 		<button v-if="!isAuthrization" open-type="getUserInfo" class="button" @getuserinfo="getUserInfo()" @tap="getUserInfo()">授权登录</button>
 		<button v-else class="button" @click="toPageCenter()">登录</button>
-		<!-- #endif -->
-		<!-- #ifdef H5 -->
-		<button class="button" @click="toPageCenter()">登录</button>
-		<!-- #endif -->
-
 		<view class="enroll-changepassword-box" v-if="isAuthrization">
 			<text class="left" @click="toRegister()" :class="visited == 1? 'visited-color' : ''">立即注册</text>
 			<text class="right" :class="visited == 2? 'visited-color' : ''" @click="toForgotPassword()">忘记密码</text>
 		</view>
+		<!-- #endif -->
+		<!-- #ifdef H5 -->
+		<button class="button" @click="toPageCenter()">登录</button>
+		<view class="enroll-changepassword-box">
+			<text class="left" @click="toRegister()" :class="visited == 1? 'visited-color' : ''">立即注册</text>
+			<text class="right" :class="visited == 2? 'visited-color' : ''" @click="toForgotPassword()">忘记密码</text>
+		</view>
+		<!-- #endif -->
+
+		
 
 	</view>
 </template>
@@ -30,9 +49,10 @@
 <script>
 	import { userLogin } from '@/common/api/quickRegister.js';
 	import  { inputCheck } from '@/common/js/inputCheck.js';
-	import { setToken } from '@/common/utils/auth.js'
+	import { setToken, getToken } from '@/common/utils/auth.js'
 	import md5 from 'js-md5';
 	import {error} from '@/common/js/errorTips.js'
+	import {getUserCardInfo} from '@/common/api/userInfo.js'
 	
 	export default {
 		data() {
@@ -90,41 +110,32 @@
 				var errorName = inputCheck('账号', 'string', this.name)
 				var errorPassword = inputCheck('密码', 'password', this.password)
 				if(errorName !== 'ok') {
-					uni.showToast({
-						title: errorName,
-						icon: 'none'
-					})
+					error(errorName)
 				} else if(errorPassword !== 'ok') {
-					uni.showToast({
-						title: errorPassword,
-						icon: 'none'
-					})
+					error(errorPassword)
 				} else {
 					uni.showLoading({
 						title: '加载中'
 					})
 					userLogin(this.name, md5(this.password)).then(res => {
-						console.log(res)
 						if(res.data.code === 200) {
 							uni.setStorageSync('isAlreadyLogin', true);
 							setToken(res.data.data)
-							uni.hideLoading()
+							// this.getMyselfCardInfo()
+							uni.showToast({
+								title: '登录成功',
+								icon: 'success'
+							})
 							uni.switchTab({
 								url: '/pages/center/center'
 							})
 						} else {
 							uni.hideLoading()
-							uni.showToast({
-								title: '账号或密码错误',
-								icon: 'none'
-							})
+							error('账号或密码错误')
 						}
 					}).catch(() => {
 						uni.hideLoading()
-						uni.showToast({
-							title: '登录失败，请检查网络',
-							icon: 'none'
-						})
+						error('网络')
 					})
 				}
 			},
@@ -170,15 +181,13 @@
 					scopes: 'auth_user',
 					success: (res) => {
 						console.log(res)
+						uni.hideLoading()
+						uni.setStorageSync('avatarUrl', res.userInfo.avatarUrl)
 						uni.setStorageSync("isAuthrization", true)
 						_this.isAuthrization = true
 					}
 				})
 			}
-		},
-		created() {
-			error()
-			error('错误')
 		}
 
 	}

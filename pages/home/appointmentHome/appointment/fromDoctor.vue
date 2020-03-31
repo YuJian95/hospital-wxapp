@@ -4,8 +4,10 @@
 		<view class="weui-search-bar">
 			<view class="weui-search-bar__form">
 				<view class="weui-search-bar__box">
-					<icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-					<input type="text" class="weui-search-bar__input" placeholder="请输入医生姓名" v-model="inputVal" />
+					<icon class="weui-icon-search_in-box" type="search" size="14"
+					@tap="getDoctorList()"></icon>
+					<input type="text" class="weui-search-bar__input" placeholder="请输入医生姓名"
+					 v-model="inputVal" confirm-type="search" @confirm='getDoctorList()'/>
 					<view class="weui-icon-clear" v-if="inputVal.length > 0" @click="clearInput">
 						<icon type="clear" size="14"></icon>
 					</view>
@@ -32,15 +34,17 @@
 		</view>
 		
 		<!-- 医生列表 -->
-		<view class="doctor-outbox" style="margin-top: 60rpx;" @click="toDoctorBrief()">
-			<image class="doctor-icon" src="/static/appointment/man-doctor.png"></image>
+		<view class="doctor-outbox" style="margin-top: 60rpx;"
+		 @click="toDoctorBrief(item)" v-for="(item, index) in doctorList" :key='item.id'>
+			<image class="doctor-icon" :src="item.gender === 1 ? iconURL + 'man-doctor.png'
+			: iconURL + 'women-doctor.png'"></image>
 			<view class="doctor-info">
-				<text class="doctor-name">杨XX</text>
+				<text class="doctor-name">{{item.name}}</text>
 				<view class="doctor-job">
-					<text class="blue-text">儿科门诊</text>
-					<text class="gray-text">医师</text>
+					<text class="blue-text">{{item.specialName}}/{{item.outpatientName}}</text>
+					<text class="gray-text">{{item.jobTitle}}</text>
 				</view>
-				<text class="gray-text cut-long-text">简介：主要擅长。。。。</text>
+				<text class="gray-text cut-long-text">简介：{{item.specialty}}</text>
 			</view>
 		</view>
 		
@@ -48,11 +52,15 @@
 </template>
 
 <script>
+	import {getDcotorByName} from '@/common/api/doctor.js'
+	import {error} from '@/common/js/errorTips.js'
+	
 	export default {
 		data() {
 			return {
 				inputVal: "",
 				isActived: 0,
+				iconURL: '/static/appointment/',
 				doctorRecordList: [{
 					id: 1,
 					name: '杨XX'
@@ -80,7 +88,8 @@
 				},{
 					id: 9,
 					name: '杨XX'
-				}]
+				}],
+				doctorList: []
 			}
 		},
 		methods:{
@@ -88,10 +97,34 @@
 			clearInput:function(){
 				this.inputVal = ''
 			},
+			// 获取医生信息
+			getDoctorList: function() {
+				this.doctorList = [];
+				uni.showLoading({
+					title: '加载中'
+				})
+				getDcotorByName(1, 50, this.inputVal.trim()).then(res => {
+					if(res.data.code === 200) {
+						const data = res.data.data.list
+						if(data.length > 0) {
+							this.doctorList = data
+							uni.hideLoading()
+						} else {
+							uni.hideLoading()
+							error('没有该医生信息，请确认医生姓名')
+						}
+					}
+				}).catch(() => {
+					uni.hideLoading()
+					error('网络')
+				})
+			},
 			// 跳转到医生的简介及出诊时间详情
-			toDoctorBrief:function(){
+			toDoctorBrief:function(doctorInfo){
+				uni.setStorageSync('doctorInfo', JSON.stringify(doctorInfo))
 				uni.redirectTo({
-					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 2
+					url: '/pagesB/pages/appointPages/doctorAppointDetail' + 
+					'/doctorAppointDetail?isTreatmentTime=' + 2 
 				})
 			},
 			// 切换挂号记录中的医生

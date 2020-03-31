@@ -263,6 +263,7 @@
   height: 100%;
   background: #FFFFFF;
   margin-top: 30rpx;
+  margin-bottom: 30rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

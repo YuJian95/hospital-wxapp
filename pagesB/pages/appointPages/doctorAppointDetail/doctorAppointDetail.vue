@@ -2,20 +2,22 @@
 <template>
 	<view>
 		<view class="doctor-outbox" style="height: 200rpx;">
-			<image class="doctor-icon-box" src="/static/appointment/man-doctor.png"></image>
+			<image class="doctor-icon-box" :src="doctorInfo.gender === 1 ? iconURL + 'man-doctor.png'
+			: iconURL + 'women-doctor.png'"></image>
 			<view class="doctor-info">
-				<text class="doctor-name">杨XX</text>
-				<text class="gray-text ">副主任医师</text>
+				<text class="doctor-name">{{doctorInfo.name}}</text>
+				<text class="gray-text ">{{doctorInfo.jobTitle}}</text>
 			</view>
 		</view>
-		<doctor-treatment-time v-if="isTreatmentTime == 1"></doctor-treatment-time>
-		<doctor-detial v-if="isTreatmentTime == 2"></doctor-detial>
+		<doctor-treatment-time v-if="isTreatmentTime == 1" ></doctor-treatment-time>
+		<doctor-detial v-if="isTreatmentTime == 2" :introduce="doctorInfo.specialty"></doctor-detial>
 	</view>
 </template>
 
 <script>
 	import doctorTreatmentTime from './component/doctorTreatmentTime';
 	import doctorDetial from './component/doctorDetial';
+	import {getOutCallByDoctor} from '@/common/api/outCall.js'
 	export default {
 		components: {
 			doctorTreatmentTime,
@@ -23,15 +25,26 @@
 		},
 		data() {
 			return {
-				isTreatmentTime: 0
+				iconURL: '/static/appointment/',
+				isTreatmentTime: 0,
+				doctorInfo: {}
 			}
 		},
 		methods: {
-
+			// 获取医生的出诊信息
+			getOutCallByDoctor: function() {
+				getOutCallByDoctor(this.doctorInfo.id).then(res => {
+					if(res.data.code === 200) {
+						
+					}
+				})
+			}
 		},
 		onLoad(e) {
 			this.isTreatmentTime = e.isTreatmentTime
-			// console.log(this.isTreatmentTime)
+			this.doctorInfo = JSON.parse(uni.getStorageSync('doctorInfo'))
+			uni.removeStorageSync('doctorInfo')
+			this.getOutCallByDoctor()
 		}
 	}
 </script>

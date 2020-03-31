@@ -4,52 +4,45 @@
 			<image class="icon" src="/static/appointment/date-blue.png"></image>
 			<text class="text">请选择挂号的日期</text>
 		</view>
-		<view class="date-box" @click="toDepartmentPage()">
-			<view class="date-line-box">
-				<text class="date">2020年1月18日</text>
-				<text class="day">星期六</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月19日</text>
-				<text class="day">星期日</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月20日</text>
-				<text class="day">星期一</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月21日</text>
-				<text class="day">星期二</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月18日</text>
-				<text class="day">星期三</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月22日</text>
-				<text class="day">星期四</text>
-			</view>
-			<view class="date-line-box">
-				<text class="date">2020年1月23日</text>
-				<text class="day">星期五</text>
+		<view class="date-box">
+			<view class="date-line-box" v-for="(item, index) in dateList" :key="index"
+			 @click="toDepartmentPage(item, index)">
+				<text class="date">{{item.year}}年{{item.month}}月{{item.date}}日</text>
+				<text class="day">星期{{item.day}}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {formDate} from '@/common/js/formDate.js';
 	export default {
 		data() {
 			return {
-				
+				dateList: []
 			}
 		},
 		methods: {
-			toDepartmentPage: function() {
+			toDepartmentPage: function(item, index) {
+				let hospitalId = uni.getStorageSync('firstHospitalId')
+				let dateInfo = {
+					dateInfo: item,
+					index: index
+				}
+				uni.setStorageSync('dateInfo', JSON.stringify(dateInfo))
 				uni.navigateTo({
-					url: '/pages/home/appointmentHome/selectDepartment/selectDepartment'
+					url: '/pages/home/appointmentHome/selectDepartment/selectDepartment?hospitalID='
+					+ hospitalId 
 				})
+			},
+			// 获取日期
+			getCurrentDate: function() {
+				let currentDate = new Date()
+				this.dateList = formDate(currentDate, 'week-date');
 			}
+		},
+		mounted() {
+			this.getCurrentDate()
 		}
 	}
 </script>

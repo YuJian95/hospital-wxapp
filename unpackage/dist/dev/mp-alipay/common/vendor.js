@@ -2237,59 +2237,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 105:
-/*!***********************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/authorization.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(wx, uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.weChat = weChat;exports.alipay = alipay; /**
-                                                                                                                             * 此处是三个平台的授权的方法
-                                                                                                                             * **/
-// 微信小程序的授权
-function weChat() {
-  wx.getSetting({
-    success: function success(res) {
-      if (res.authSetting['scope.userInfo']) {
-        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-        wx.getUserInfo({
-          success: function success(res) {
-            console.log(res);
-            uni.setStorageSync("isAuthrization", true);
-            uni.switchTab({
-              url: '/pages/center/center' });
-
-            try {} catch (e) {}
-          },
-          fail: function fail() {
-            return false;
-          } });
-
-      }
-    } });
-
-}
-
-// 支付宝的授权
-function alipay() {
-  my.getAuthCode({
-    scopes: 'auth_user',
-    success: function success(res) {
-      console.log(res);
-      uni.setStorageSync("isAuthrization", true);
-      uni.switchTab({
-        url: '/pages/center/center' });
-
-    } });
-
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 114:
+/***/ 112:
 /*!********************************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/common/js/inputCheck.js ***!
   \********************************************************************/
@@ -2334,8 +2282,8 @@ function inputCheck(name, rule, value) {
         return "ok";
         break;
       case 'identifyCode':
-        var reg = /^[A-Za-z0-9]{6}$/;
-        if (reg.test(value)) {
+        var reg = /^[0-9]{6}$/;
+        if (!reg.test(value)) {
           return '请输入6位有效的验证码';
         }
         break;}
@@ -2380,105 +2328,990 @@ function checkGender(identify) {
 
 /***/ }),
 
-/***/ 139:
-/*!******************************************************************!*\
-  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
-  \******************************************************************/
+/***/ 113:
+/*!***************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/node_modules/js-md5/src/md5.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
-                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
-                                                                                                         * @param date 传进来的日期
-                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
-                                                                                                         *              week-date(一周的号数)
-                                                                                                         **/
+/* WEBPACK VAR INJECTION */(function(process, global) {var __WEBPACK_AMD_DEFINE_RESULT__; /**
+               * [js-md5]{@link https://github.com/emn178/js-md5}
+               *
+               * @namespace md5
+               * @version 0.7.3
+               * @author Chen, Yi-Cyuan [emn178@gmail.com]
+               * @copyright Chen, Yi-Cyuan 2014-2017
+               * @license MIT
+               */
+(function () {
+  'use strict';
 
-// 将getDay()的转换成一二三四...日
-function getDay(day) {
-  switch (day) {
-    case 0:
-      return '日';
-      break;
-    case 1:
-      return '一';
-      break;
-    case 2:
-      return '二';
-      break;
-    case 3:
-      return '三';
-      break;
-    case 4:
-      return '四';
-      break;
-    case 5:
-      return '五';
-      break;
-    case 6:
-      return '六';
-      break;}
-
-}
-
-// 将获取到的时间假如不是两位数的话在前面加0
-function turnDouble(num) {
-  // 假如长度为2
-  if (num >= 10) {
-    return num;
-  } else {// 否则在前面加0
-    return parseInt('0' + num);
+  var ERROR = 'input is invalid type';
+  var WINDOW = typeof window === 'object';
+  var root = WINDOW ? window : {};
+  if (root.JS_MD5_NO_WINDOW) {
+    WINDOW = false;
   }
-}
-
-// 获取从今天开始的一周的号数
-function getWeekDate() {
-  var currentDay = new Date();
-  var dateList = [];
-  // 先将今天的号数存进去
-  dateList.push({
-    date: turnDouble(currentDay.getDate()),
-    day: getDay(currentDay.getDay()) });
-
-  // 将剩下的6天的号数也存进去
-  for (var i = 0; i < 6; i++) {
-    currentDay.setDate(currentDay.getDate() + 1);
-    dateList.push({
-      date: turnDouble(currentDay.getDate()),
-      day: getDay(currentDay.getDay()) });
-
+  var WEB_WORKER = !WINDOW && typeof self === 'object';
+  var NODE_JS = !root.JS_MD5_NO_NODE_JS && typeof process === 'object' && process.versions && process.versions.node;
+  if (NODE_JS) {
+    root = global;
+  } else if (WEB_WORKER) {
+    root = self;
   }
-  return dateList;
+  var COMMON_JS = !root.JS_MD5_NO_COMMON_JS && typeof module === 'object' && module.exports;
+  var AMD =  true && __webpack_require__(/*! !webpack amd options */ 116);
+  var ARRAY_BUFFER = !root.JS_MD5_NO_ARRAY_BUFFER && typeof ArrayBuffer !== 'undefined';
+  var HEX_CHARS = '0123456789abcdef'.split('');
+  var EXTRA = [128, 32768, 8388608, -2147483648];
+  var SHIFT = [0, 8, 16, 24];
+  var OUTPUT_TYPES = ['hex', 'array', 'digest', 'buffer', 'arrayBuffer', 'base64'];
+  var BASE64_ENCODE_CHAR = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
+
+  var blocks = [],buffer8;
+  if (ARRAY_BUFFER) {
+    var buffer = new ArrayBuffer(68);
+    buffer8 = new Uint8Array(buffer);
+    blocks = new Uint32Array(buffer);
+  }
+
+  if (root.JS_MD5_NO_NODE_JS || !Array.isArray) {
+    Array.isArray = function (obj) {
+      return Object.prototype.toString.call(obj) === '[object Array]';
+    };
+  }
+
+  if (ARRAY_BUFFER && (root.JS_MD5_NO_ARRAY_BUFFER_IS_VIEW || !ArrayBuffer.isView)) {
+    ArrayBuffer.isView = function (obj) {
+      return typeof obj === 'object' && obj.buffer && obj.buffer.constructor === ArrayBuffer;
+    };
+  }
+
+  /**
+     * @method hex
+     * @memberof md5
+     * @description Output hash as hex string
+     * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+     * @returns {String} Hex string
+     * @example
+     * md5.hex('The quick brown fox jumps over the lazy dog');
+     * // equal to
+     * md5('The quick brown fox jumps over the lazy dog');
+     */
+  /**
+         * @method digest
+         * @memberof md5
+         * @description Output hash as bytes array
+         * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+         * @returns {Array} Bytes array
+         * @example
+         * md5.digest('The quick brown fox jumps over the lazy dog');
+         */
+  /**
+             * @method array
+             * @memberof md5
+             * @description Output hash as bytes array
+             * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+             * @returns {Array} Bytes array
+             * @example
+             * md5.array('The quick brown fox jumps over the lazy dog');
+             */
+  /**
+                 * @method arrayBuffer
+                 * @memberof md5
+                 * @description Output hash as ArrayBuffer
+                 * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+                 * @returns {ArrayBuffer} ArrayBuffer
+                 * @example
+                 * md5.arrayBuffer('The quick brown fox jumps over the lazy dog');
+                 */
+  /**
+                     * @method buffer
+                     * @deprecated This maybe confuse with Buffer in node.js. Please use arrayBuffer instead.
+                     * @memberof md5
+                     * @description Output hash as ArrayBuffer
+                     * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+                     * @returns {ArrayBuffer} ArrayBuffer
+                     * @example
+                     * md5.buffer('The quick brown fox jumps over the lazy dog');
+                     */
+  /**
+                         * @method base64
+                         * @memberof md5
+                         * @description Output hash as base64 string
+                         * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+                         * @returns {String} base64 string
+                         * @example
+                         * md5.base64('The quick brown fox jumps over the lazy dog');
+                         */
+  var createOutputMethod = function createOutputMethod(outputType) {
+    return function (message) {
+      return new Md5(true).update(message)[outputType]();
+    };
+  };
+
+  /**
+      * @method create
+      * @memberof md5
+      * @description Create Md5 object
+      * @returns {Md5} Md5 object.
+      * @example
+      * var hash = md5.create();
+      */
+  /**
+          * @method update
+          * @memberof md5
+          * @description Create and update Md5 object
+          * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+          * @returns {Md5} Md5 object.
+          * @example
+          * var hash = md5.update('The quick brown fox jumps over the lazy dog');
+          * // equal to
+          * var hash = md5.create();
+          * hash.update('The quick brown fox jumps over the lazy dog');
+          */
+  var createMethod = function createMethod() {
+    var method = createOutputMethod('hex');
+    if (NODE_JS) {
+      method = nodeWrap(method);
+    }
+    method.create = function () {
+      return new Md5();
+    };
+    method.update = function (message) {
+      return method.create().update(message);
+    };
+    for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
+      var type = OUTPUT_TYPES[i];
+      method[type] = createOutputMethod(type);
+    }
+    return method;
+  };
+
+  var nodeWrap = function nodeWrap(method) {
+    var crypto = eval("require('crypto')");
+    var Buffer = eval("require('buffer').Buffer");
+    var nodeMethod = function nodeMethod(message) {
+      if (typeof message === 'string') {
+        return crypto.createHash('md5').update(message, 'utf8').digest('hex');
+      } else {
+        if (message === null || message === undefined) {
+          throw ERROR;
+        } else if (message.constructor === ArrayBuffer) {
+          message = new Uint8Array(message);
+        }
+      }
+      if (Array.isArray(message) || ArrayBuffer.isView(message) ||
+      message.constructor === Buffer) {
+        return crypto.createHash('md5').update(new Buffer(message)).digest('hex');
+      } else {
+        return method(message);
+      }
+    };
+    return nodeMethod;
+  };
+
+  /**
+      * Md5 class
+      * @class Md5
+      * @description This is internal class.
+      * @see {@link md5.create}
+      */
+  function Md5(sharedMemory) {
+    if (sharedMemory) {
+      blocks[0] = blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+      blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+      blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+      blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+      this.blocks = blocks;
+      this.buffer8 = buffer8;
+    } else {
+      if (ARRAY_BUFFER) {
+        var buffer = new ArrayBuffer(68);
+        this.buffer8 = new Uint8Array(buffer);
+        this.blocks = new Uint32Array(buffer);
+      } else {
+        this.blocks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      }
+    }
+    this.h0 = this.h1 = this.h2 = this.h3 = this.start = this.bytes = this.hBytes = 0;
+    this.finalized = this.hashed = false;
+    this.first = true;
+  }
+
+  /**
+     * @method update
+     * @memberof Md5
+     * @instance
+     * @description Update hash
+     * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+     * @returns {Md5} Md5 object.
+     * @see {@link md5.update}
+     */
+  Md5.prototype.update = function (message) {
+    if (this.finalized) {
+      return;
+    }
+
+    var notString,type = typeof message;
+    if (type !== 'string') {
+      if (type === 'object') {
+        if (message === null) {
+          throw ERROR;
+        } else if (ARRAY_BUFFER && message.constructor === ArrayBuffer) {
+          message = new Uint8Array(message);
+        } else if (!Array.isArray(message)) {
+          if (!ARRAY_BUFFER || !ArrayBuffer.isView(message)) {
+            throw ERROR;
+          }
+        }
+      } else {
+        throw ERROR;
+      }
+      notString = true;
+    }
+    var code,index = 0,i,length = message.length,blocks = this.blocks;
+    var buffer8 = this.buffer8;
+
+    while (index < length) {
+      if (this.hashed) {
+        this.hashed = false;
+        blocks[0] = blocks[16];
+        blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+        blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+        blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+        blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+      }
+
+      if (notString) {
+        if (ARRAY_BUFFER) {
+          for (i = this.start; index < length && i < 64; ++index) {
+            buffer8[i++] = message[index];
+          }
+        } else {
+          for (i = this.start; index < length && i < 64; ++index) {
+            blocks[i >> 2] |= message[index] << SHIFT[i++ & 3];
+          }
+        }
+      } else {
+        if (ARRAY_BUFFER) {
+          for (i = this.start; index < length && i < 64; ++index) {
+            code = message.charCodeAt(index);
+            if (code < 0x80) {
+              buffer8[i++] = code;
+            } else if (code < 0x800) {
+              buffer8[i++] = 0xc0 | code >> 6;
+              buffer8[i++] = 0x80 | code & 0x3f;
+            } else if (code < 0xd800 || code >= 0xe000) {
+              buffer8[i++] = 0xe0 | code >> 12;
+              buffer8[i++] = 0x80 | code >> 6 & 0x3f;
+              buffer8[i++] = 0x80 | code & 0x3f;
+            } else {
+              code = 0x10000 + ((code & 0x3ff) << 10 | message.charCodeAt(++index) & 0x3ff);
+              buffer8[i++] = 0xf0 | code >> 18;
+              buffer8[i++] = 0x80 | code >> 12 & 0x3f;
+              buffer8[i++] = 0x80 | code >> 6 & 0x3f;
+              buffer8[i++] = 0x80 | code & 0x3f;
+            }
+          }
+        } else {
+          for (i = this.start; index < length && i < 64; ++index) {
+            code = message.charCodeAt(index);
+            if (code < 0x80) {
+              blocks[i >> 2] |= code << SHIFT[i++ & 3];
+            } else if (code < 0x800) {
+              blocks[i >> 2] |= (0xc0 | code >> 6) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code & 0x3f) << SHIFT[i++ & 3];
+            } else if (code < 0xd800 || code >= 0xe000) {
+              blocks[i >> 2] |= (0xe0 | code >> 12) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code >> 6 & 0x3f) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code & 0x3f) << SHIFT[i++ & 3];
+            } else {
+              code = 0x10000 + ((code & 0x3ff) << 10 | message.charCodeAt(++index) & 0x3ff);
+              blocks[i >> 2] |= (0xf0 | code >> 18) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code >> 12 & 0x3f) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code >> 6 & 0x3f) << SHIFT[i++ & 3];
+              blocks[i >> 2] |= (0x80 | code & 0x3f) << SHIFT[i++ & 3];
+            }
+          }
+        }
+      }
+      this.lastByteIndex = i;
+      this.bytes += i - this.start;
+      if (i >= 64) {
+        this.start = i - 64;
+        this.hash();
+        this.hashed = true;
+      } else {
+        this.start = i;
+      }
+    }
+    if (this.bytes > 4294967295) {
+      this.hBytes += this.bytes / 4294967296 << 0;
+      this.bytes = this.bytes % 4294967296;
+    }
+    return this;
+  };
+
+  Md5.prototype.finalize = function () {
+    if (this.finalized) {
+      return;
+    }
+    this.finalized = true;
+    var blocks = this.blocks,i = this.lastByteIndex;
+    blocks[i >> 2] |= EXTRA[i & 3];
+    if (i >= 56) {
+      if (!this.hashed) {
+        this.hash();
+      }
+      blocks[0] = blocks[16];
+      blocks[16] = blocks[1] = blocks[2] = blocks[3] =
+      blocks[4] = blocks[5] = blocks[6] = blocks[7] =
+      blocks[8] = blocks[9] = blocks[10] = blocks[11] =
+      blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+    }
+    blocks[14] = this.bytes << 3;
+    blocks[15] = this.hBytes << 3 | this.bytes >>> 29;
+    this.hash();
+  };
+
+  Md5.prototype.hash = function () {
+    var a,b,c,d,bc,da,blocks = this.blocks;
+
+    if (this.first) {
+      a = blocks[0] - 680876937;
+      a = (a << 7 | a >>> 25) - 271733879 << 0;
+      d = (-1732584194 ^ a & 2004318071) + blocks[1] - 117830708;
+      d = (d << 12 | d >>> 20) + a << 0;
+      c = (-271733879 ^ d & (a ^ -271733879)) + blocks[2] - 1126478375;
+      c = (c << 17 | c >>> 15) + d << 0;
+      b = (a ^ c & (d ^ a)) + blocks[3] - 1316259209;
+      b = (b << 22 | b >>> 10) + c << 0;
+    } else {
+      a = this.h0;
+      b = this.h1;
+      c = this.h2;
+      d = this.h3;
+      a += (d ^ b & (c ^ d)) + blocks[0] - 680876936;
+      a = (a << 7 | a >>> 25) + b << 0;
+      d += (c ^ a & (b ^ c)) + blocks[1] - 389564586;
+      d = (d << 12 | d >>> 20) + a << 0;
+      c += (b ^ d & (a ^ b)) + blocks[2] + 606105819;
+      c = (c << 17 | c >>> 15) + d << 0;
+      b += (a ^ c & (d ^ a)) + blocks[3] - 1044525330;
+      b = (b << 22 | b >>> 10) + c << 0;
+    }
+
+    a += (d ^ b & (c ^ d)) + blocks[4] - 176418897;
+    a = (a << 7 | a >>> 25) + b << 0;
+    d += (c ^ a & (b ^ c)) + blocks[5] + 1200080426;
+    d = (d << 12 | d >>> 20) + a << 0;
+    c += (b ^ d & (a ^ b)) + blocks[6] - 1473231341;
+    c = (c << 17 | c >>> 15) + d << 0;
+    b += (a ^ c & (d ^ a)) + blocks[7] - 45705983;
+    b = (b << 22 | b >>> 10) + c << 0;
+    a += (d ^ b & (c ^ d)) + blocks[8] + 1770035416;
+    a = (a << 7 | a >>> 25) + b << 0;
+    d += (c ^ a & (b ^ c)) + blocks[9] - 1958414417;
+    d = (d << 12 | d >>> 20) + a << 0;
+    c += (b ^ d & (a ^ b)) + blocks[10] - 42063;
+    c = (c << 17 | c >>> 15) + d << 0;
+    b += (a ^ c & (d ^ a)) + blocks[11] - 1990404162;
+    b = (b << 22 | b >>> 10) + c << 0;
+    a += (d ^ b & (c ^ d)) + blocks[12] + 1804603682;
+    a = (a << 7 | a >>> 25) + b << 0;
+    d += (c ^ a & (b ^ c)) + blocks[13] - 40341101;
+    d = (d << 12 | d >>> 20) + a << 0;
+    c += (b ^ d & (a ^ b)) + blocks[14] - 1502002290;
+    c = (c << 17 | c >>> 15) + d << 0;
+    b += (a ^ c & (d ^ a)) + blocks[15] + 1236535329;
+    b = (b << 22 | b >>> 10) + c << 0;
+    a += (c ^ d & (b ^ c)) + blocks[1] - 165796510;
+    a = (a << 5 | a >>> 27) + b << 0;
+    d += (b ^ c & (a ^ b)) + blocks[6] - 1069501632;
+    d = (d << 9 | d >>> 23) + a << 0;
+    c += (a ^ b & (d ^ a)) + blocks[11] + 643717713;
+    c = (c << 14 | c >>> 18) + d << 0;
+    b += (d ^ a & (c ^ d)) + blocks[0] - 373897302;
+    b = (b << 20 | b >>> 12) + c << 0;
+    a += (c ^ d & (b ^ c)) + blocks[5] - 701558691;
+    a = (a << 5 | a >>> 27) + b << 0;
+    d += (b ^ c & (a ^ b)) + blocks[10] + 38016083;
+    d = (d << 9 | d >>> 23) + a << 0;
+    c += (a ^ b & (d ^ a)) + blocks[15] - 660478335;
+    c = (c << 14 | c >>> 18) + d << 0;
+    b += (d ^ a & (c ^ d)) + blocks[4] - 405537848;
+    b = (b << 20 | b >>> 12) + c << 0;
+    a += (c ^ d & (b ^ c)) + blocks[9] + 568446438;
+    a = (a << 5 | a >>> 27) + b << 0;
+    d += (b ^ c & (a ^ b)) + blocks[14] - 1019803690;
+    d = (d << 9 | d >>> 23) + a << 0;
+    c += (a ^ b & (d ^ a)) + blocks[3] - 187363961;
+    c = (c << 14 | c >>> 18) + d << 0;
+    b += (d ^ a & (c ^ d)) + blocks[8] + 1163531501;
+    b = (b << 20 | b >>> 12) + c << 0;
+    a += (c ^ d & (b ^ c)) + blocks[13] - 1444681467;
+    a = (a << 5 | a >>> 27) + b << 0;
+    d += (b ^ c & (a ^ b)) + blocks[2] - 51403784;
+    d = (d << 9 | d >>> 23) + a << 0;
+    c += (a ^ b & (d ^ a)) + blocks[7] + 1735328473;
+    c = (c << 14 | c >>> 18) + d << 0;
+    b += (d ^ a & (c ^ d)) + blocks[12] - 1926607734;
+    b = (b << 20 | b >>> 12) + c << 0;
+    bc = b ^ c;
+    a += (bc ^ d) + blocks[5] - 378558;
+    a = (a << 4 | a >>> 28) + b << 0;
+    d += (bc ^ a) + blocks[8] - 2022574463;
+    d = (d << 11 | d >>> 21) + a << 0;
+    da = d ^ a;
+    c += (da ^ b) + blocks[11] + 1839030562;
+    c = (c << 16 | c >>> 16) + d << 0;
+    b += (da ^ c) + blocks[14] - 35309556;
+    b = (b << 23 | b >>> 9) + c << 0;
+    bc = b ^ c;
+    a += (bc ^ d) + blocks[1] - 1530992060;
+    a = (a << 4 | a >>> 28) + b << 0;
+    d += (bc ^ a) + blocks[4] + 1272893353;
+    d = (d << 11 | d >>> 21) + a << 0;
+    da = d ^ a;
+    c += (da ^ b) + blocks[7] - 155497632;
+    c = (c << 16 | c >>> 16) + d << 0;
+    b += (da ^ c) + blocks[10] - 1094730640;
+    b = (b << 23 | b >>> 9) + c << 0;
+    bc = b ^ c;
+    a += (bc ^ d) + blocks[13] + 681279174;
+    a = (a << 4 | a >>> 28) + b << 0;
+    d += (bc ^ a) + blocks[0] - 358537222;
+    d = (d << 11 | d >>> 21) + a << 0;
+    da = d ^ a;
+    c += (da ^ b) + blocks[3] - 722521979;
+    c = (c << 16 | c >>> 16) + d << 0;
+    b += (da ^ c) + blocks[6] + 76029189;
+    b = (b << 23 | b >>> 9) + c << 0;
+    bc = b ^ c;
+    a += (bc ^ d) + blocks[9] - 640364487;
+    a = (a << 4 | a >>> 28) + b << 0;
+    d += (bc ^ a) + blocks[12] - 421815835;
+    d = (d << 11 | d >>> 21) + a << 0;
+    da = d ^ a;
+    c += (da ^ b) + blocks[15] + 530742520;
+    c = (c << 16 | c >>> 16) + d << 0;
+    b += (da ^ c) + blocks[2] - 995338651;
+    b = (b << 23 | b >>> 9) + c << 0;
+    a += (c ^ (b | ~d)) + blocks[0] - 198630844;
+    a = (a << 6 | a >>> 26) + b << 0;
+    d += (b ^ (a | ~c)) + blocks[7] + 1126891415;
+    d = (d << 10 | d >>> 22) + a << 0;
+    c += (a ^ (d | ~b)) + blocks[14] - 1416354905;
+    c = (c << 15 | c >>> 17) + d << 0;
+    b += (d ^ (c | ~a)) + blocks[5] - 57434055;
+    b = (b << 21 | b >>> 11) + c << 0;
+    a += (c ^ (b | ~d)) + blocks[12] + 1700485571;
+    a = (a << 6 | a >>> 26) + b << 0;
+    d += (b ^ (a | ~c)) + blocks[3] - 1894986606;
+    d = (d << 10 | d >>> 22) + a << 0;
+    c += (a ^ (d | ~b)) + blocks[10] - 1051523;
+    c = (c << 15 | c >>> 17) + d << 0;
+    b += (d ^ (c | ~a)) + blocks[1] - 2054922799;
+    b = (b << 21 | b >>> 11) + c << 0;
+    a += (c ^ (b | ~d)) + blocks[8] + 1873313359;
+    a = (a << 6 | a >>> 26) + b << 0;
+    d += (b ^ (a | ~c)) + blocks[15] - 30611744;
+    d = (d << 10 | d >>> 22) + a << 0;
+    c += (a ^ (d | ~b)) + blocks[6] - 1560198380;
+    c = (c << 15 | c >>> 17) + d << 0;
+    b += (d ^ (c | ~a)) + blocks[13] + 1309151649;
+    b = (b << 21 | b >>> 11) + c << 0;
+    a += (c ^ (b | ~d)) + blocks[4] - 145523070;
+    a = (a << 6 | a >>> 26) + b << 0;
+    d += (b ^ (a | ~c)) + blocks[11] - 1120210379;
+    d = (d << 10 | d >>> 22) + a << 0;
+    c += (a ^ (d | ~b)) + blocks[2] + 718787259;
+    c = (c << 15 | c >>> 17) + d << 0;
+    b += (d ^ (c | ~a)) + blocks[9] - 343485551;
+    b = (b << 21 | b >>> 11) + c << 0;
+
+    if (this.first) {
+      this.h0 = a + 1732584193 << 0;
+      this.h1 = b - 271733879 << 0;
+      this.h2 = c - 1732584194 << 0;
+      this.h3 = d + 271733878 << 0;
+      this.first = false;
+    } else {
+      this.h0 = this.h0 + a << 0;
+      this.h1 = this.h1 + b << 0;
+      this.h2 = this.h2 + c << 0;
+      this.h3 = this.h3 + d << 0;
+    }
+  };
+
+  /**
+      * @method hex
+      * @memberof Md5
+      * @instance
+      * @description Output hash as hex string
+      * @returns {String} Hex string
+      * @see {@link md5.hex}
+      * @example
+      * hash.hex();
+      */
+  Md5.prototype.hex = function () {
+    this.finalize();
+
+    var h0 = this.h0,h1 = this.h1,h2 = this.h2,h3 = this.h3;
+
+    return HEX_CHARS[h0 >> 4 & 0x0F] + HEX_CHARS[h0 & 0x0F] +
+    HEX_CHARS[h0 >> 12 & 0x0F] + HEX_CHARS[h0 >> 8 & 0x0F] +
+    HEX_CHARS[h0 >> 20 & 0x0F] + HEX_CHARS[h0 >> 16 & 0x0F] +
+    HEX_CHARS[h0 >> 28 & 0x0F] + HEX_CHARS[h0 >> 24 & 0x0F] +
+    HEX_CHARS[h1 >> 4 & 0x0F] + HEX_CHARS[h1 & 0x0F] +
+    HEX_CHARS[h1 >> 12 & 0x0F] + HEX_CHARS[h1 >> 8 & 0x0F] +
+    HEX_CHARS[h1 >> 20 & 0x0F] + HEX_CHARS[h1 >> 16 & 0x0F] +
+    HEX_CHARS[h1 >> 28 & 0x0F] + HEX_CHARS[h1 >> 24 & 0x0F] +
+    HEX_CHARS[h2 >> 4 & 0x0F] + HEX_CHARS[h2 & 0x0F] +
+    HEX_CHARS[h2 >> 12 & 0x0F] + HEX_CHARS[h2 >> 8 & 0x0F] +
+    HEX_CHARS[h2 >> 20 & 0x0F] + HEX_CHARS[h2 >> 16 & 0x0F] +
+    HEX_CHARS[h2 >> 28 & 0x0F] + HEX_CHARS[h2 >> 24 & 0x0F] +
+    HEX_CHARS[h3 >> 4 & 0x0F] + HEX_CHARS[h3 & 0x0F] +
+    HEX_CHARS[h3 >> 12 & 0x0F] + HEX_CHARS[h3 >> 8 & 0x0F] +
+    HEX_CHARS[h3 >> 20 & 0x0F] + HEX_CHARS[h3 >> 16 & 0x0F] +
+    HEX_CHARS[h3 >> 28 & 0x0F] + HEX_CHARS[h3 >> 24 & 0x0F];
+  };
+
+  /**
+      * @method toString
+      * @memberof Md5
+      * @instance
+      * @description Output hash as hex string
+      * @returns {String} Hex string
+      * @see {@link md5.hex}
+      * @example
+      * hash.toString();
+      */
+  Md5.prototype.toString = Md5.prototype.hex;
+
+  /**
+                                               * @method digest
+                                               * @memberof Md5
+                                               * @instance
+                                               * @description Output hash as bytes array
+                                               * @returns {Array} Bytes array
+                                               * @see {@link md5.digest}
+                                               * @example
+                                               * hash.digest();
+                                               */
+  Md5.prototype.digest = function () {
+    this.finalize();
+
+    var h0 = this.h0,h1 = this.h1,h2 = this.h2,h3 = this.h3;
+    return [
+    h0 & 0xFF, h0 >> 8 & 0xFF, h0 >> 16 & 0xFF, h0 >> 24 & 0xFF,
+    h1 & 0xFF, h1 >> 8 & 0xFF, h1 >> 16 & 0xFF, h1 >> 24 & 0xFF,
+    h2 & 0xFF, h2 >> 8 & 0xFF, h2 >> 16 & 0xFF, h2 >> 24 & 0xFF,
+    h3 & 0xFF, h3 >> 8 & 0xFF, h3 >> 16 & 0xFF, h3 >> 24 & 0xFF];
+
+  };
+
+  /**
+      * @method array
+      * @memberof Md5
+      * @instance
+      * @description Output hash as bytes array
+      * @returns {Array} Bytes array
+      * @see {@link md5.array}
+      * @example
+      * hash.array();
+      */
+  Md5.prototype.array = Md5.prototype.digest;
+
+  /**
+                                               * @method arrayBuffer
+                                               * @memberof Md5
+                                               * @instance
+                                               * @description Output hash as ArrayBuffer
+                                               * @returns {ArrayBuffer} ArrayBuffer
+                                               * @see {@link md5.arrayBuffer}
+                                               * @example
+                                               * hash.arrayBuffer();
+                                               */
+  Md5.prototype.arrayBuffer = function () {
+    this.finalize();
+
+    var buffer = new ArrayBuffer(16);
+    var blocks = new Uint32Array(buffer);
+    blocks[0] = this.h0;
+    blocks[1] = this.h1;
+    blocks[2] = this.h2;
+    blocks[3] = this.h3;
+    return buffer;
+  };
+
+  /**
+      * @method buffer
+      * @deprecated This maybe confuse with Buffer in node.js. Please use arrayBuffer instead.
+      * @memberof Md5
+      * @instance
+      * @description Output hash as ArrayBuffer
+      * @returns {ArrayBuffer} ArrayBuffer
+      * @see {@link md5.buffer}
+      * @example
+      * hash.buffer();
+      */
+  Md5.prototype.buffer = Md5.prototype.arrayBuffer;
+
+  /**
+                                                     * @method base64
+                                                     * @memberof Md5
+                                                     * @instance
+                                                     * @description Output hash as base64 string
+                                                     * @returns {String} base64 string
+                                                     * @see {@link md5.base64}
+                                                     * @example
+                                                     * hash.base64();
+                                                     */
+  Md5.prototype.base64 = function () {
+    var v1,v2,v3,base64Str = '',bytes = this.array();
+    for (var i = 0; i < 15;) {
+      v1 = bytes[i++];
+      v2 = bytes[i++];
+      v3 = bytes[i++];
+      base64Str += BASE64_ENCODE_CHAR[v1 >>> 2] +
+      BASE64_ENCODE_CHAR[(v1 << 4 | v2 >>> 4) & 63] +
+      BASE64_ENCODE_CHAR[(v2 << 2 | v3 >>> 6) & 63] +
+      BASE64_ENCODE_CHAR[v3 & 63];
+    }
+    v1 = bytes[i];
+    base64Str += BASE64_ENCODE_CHAR[v1 >>> 2] +
+    BASE64_ENCODE_CHAR[v1 << 4 & 63] +
+    '==';
+    return base64Str;
+  };
+
+  var exports = createMethod();
+
+  if (COMMON_JS) {
+    module.exports = exports;
+  } else {
+    /**
+           * @method md5
+           * @description Md5 hash function, export to global in browsers.
+           * @param {String|Array|Uint8Array|ArrayBuffer} message message to hash
+           * @returns {String} md5 hashes
+           * @example
+           * md5(''); // d41d8cd98f00b204e9800998ecf8427e
+           * md5('The quick brown fox jumps over the lazy dog'); // 9e107d9d372bb6826bd81d3542a419d6
+           * md5('The quick brown fox jumps over the lazy dog.'); // e4d909c290d0fb1ca068ffaddf22cbd0
+           *
+           * // It also supports UTF-8 encoding
+           * md5('中文'); // a7bac2239fcdcb3a067903d8077c4a07
+           *
+           * // It also supports byte `Array`, `Uint8Array`, `ArrayBuffer`
+           * md5([]); // d41d8cd98f00b204e9800998ecf8427e
+           * md5(new Uint8Array([])); // d41d8cd98f00b204e9800998ecf8427e
+           */
+    root.md5 = exports;
+    if (AMD) {
+      !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+        return exports;
+      }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    }
+  }
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 114), __webpack_require__(/*! (webpack)/buildin/global.js */ 3)))
+
+/***/ }),
+
+/***/ 114:
+/*!********************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/process.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+	setTimeout(fn, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__(/*! path */ 115);
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
+/***/ 115:
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
 }
 
-function formDate(date, rule) {
-  var year = date.getFullYear(); // 获取年份
-  var month = date.getMonth() + 1; // 获取月份
-  var today = date.getDate(); // 获取今天是几号
-  var day = date.getDay(); // 获取周几
-  var hour = date.getHours(); // 获取hour
-  var minute = date.getMinutes(); // 获取分钟
-  var second = date.getSeconds(); // 获取秒数
-  switch (rule) {
-    case 'YYYY-MM-DD':
-      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
-      break;
-    case 'YYYY-MM-DD hh:mm:ss':
-      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
-      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
-      break;
-    case 'day':
-      return getDay(day);
-      break;
-    case 'date':
-      return turnDouble(today);
-      break;
-    case 'week-date':
-      return getWeekDate();
-      break;}
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
 
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
 }
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 114)))
+
+/***/ }),
+
+/***/ 116:
+/*!****************************************!*\
+  !*** (webpack)/buildin/amd-options.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(this, {}))
 
 /***/ }),
 
@@ -2600,6 +3433,108 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ 157:
+/*!******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/formDate.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.formDate = formDate; /**
+                                                                                                         * 将获取的国际事件转化为YYYY-MM-DD hh:mm:ss
+                                                                                                         * @param date 传进来的日期
+                                                                                                         * @param rule 想要的形式 如YYYY-MM-DD YYYY-MM-DD hh:mm:ss day(回复周几), date(今天几号)
+                                                                                                         *              week-date(一周的号数)
+                                                                                                         **/
+
+// 将getDay()的转换成一二三四...日
+function getDay(day) {
+  switch (day) {
+    case 0:
+      return '日';
+      break;
+    case 1:
+      return '一';
+      break;
+    case 2:
+      return '二';
+      break;
+    case 3:
+      return '三';
+      break;
+    case 4:
+      return '四';
+      break;
+    case 5:
+      return '五';
+      break;
+    case 6:
+      return '六';
+      break;}
+
+}
+
+// 将获取到的时间假如不是两位数的话在前面加0
+function turnDouble(num) {
+  // 假如长度为2
+  if (num >= 10) {
+    return num;
+  } else {// 否则在前面加0
+    return parseInt('0' + num);
+  }
+}
+
+// 获取从今天开始的一周的号数
+function getWeekDate() {
+  var currentDay = new Date();
+  var dateList = [];
+  // 先将今天的号数存进去
+  dateList.push({
+    date: turnDouble(currentDay.getDate()),
+    day: getDay(currentDay.getDay()) });
+
+  // 将剩下的6天的号数也存进去
+  for (var i = 0; i < 6; i++) {
+    currentDay.setDate(currentDay.getDate() + 1);
+    dateList.push({
+      date: turnDouble(currentDay.getDate()),
+      day: getDay(currentDay.getDay()) });
+
+  }
+  return dateList;
+}
+
+function formDate(date, rule) {
+  var year = date.getFullYear(); // 获取年份
+  var month = date.getMonth() + 1; // 获取月份
+  var today = date.getDate(); // 获取今天是几号
+  var day = date.getDay(); // 获取周几
+  var hour = date.getHours(); // 获取hour
+  var minute = date.getMinutes(); // 获取分钟
+  var second = date.getSeconds(); // 获取秒数
+  switch (rule) {
+    case 'YYYY-MM-DD':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today);
+      break;
+    case 'YYYY-MM-DD hh:mm:ss':
+      return year + '-' + turnDouble(month) + '-' + turnDouble(today) +
+      ' ' + turnDouble(hour) + ':' + turnDouble(minute) + ':' + turnDouble(second);
+      break;
+    case 'day':
+      return getDay(day);
+      break;
+    case 'date':
+      return turnDouble(today);
+      break;
+    case 'week-date':
+      return getWeekDate();
+      break;}
+
+}
 
 /***/ }),
 
@@ -8665,6 +9600,134 @@ module.exports = g;
 
 /***/ }),
 
+/***/ 37:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/js/errorTips.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.error = error; // 作为有错误时的提示
+/**
+ * @param value value作为错误时的种类,分别有网络错误,未登录等,其余的直接用value
+ * **/
+function error(value) {
+  if (value === '登录') {
+    uni.showToast({
+      title: '未登录,不能查看此功能',
+      icon: 'none' });
+
+  } else if (value === '网络') {
+    uni.showToast({
+      title: '请求失败，请检查网络',
+      icon: 'none' });
+
+  } else {
+    uni.showToast({
+      title: value,
+      icon: 'none' });
+
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 38:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/userInfo.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getUserBaseInfo = getUserBaseInfo;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/utils/request.js */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/**
+                                                                                                                                                                                                                                                                                                * 该页面作为获取用户的基本信息的API接口,包括自己的和别人的
+                                                                                                                                                                                                                                                                                                * 1 获取用户账号的基本信息
+                                                                                                                                                                                                                                                                                                * 2 
+                                                                                                                                                                                                                                                                                                * **/
+// 1 获取用户账号的基本信息
+function getUserBaseInfo() {
+  return (0, _request.default)({
+    url: '/user/basic/info',
+    method: 'get' });
+
+}
+
+/***/ }),
+
+/***/ 39:
+/*!********************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/request.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
+var _config = __webpack_require__(/*! ./config.js */ 40);
+var _auth = __webpack_require__(/*! ./auth.js */ 41);
+var _quickRegister = __webpack_require__(/*! @/common/api/quickRegister.js */ 42); // 作为ajax请求的统一的api请求
+
+function Request(data) {
+  console.log((0, _auth.getToken)());
+  return new Promise(function (resolve, reject) {
+    if (uni.getStorageSync('isAlreadyLogin') == false || uni.getStorageSync('isAlreadyLogin') == '' || uni.getStorageSync('isAlreadyLogin') == null) {
+      uni.showToast({
+        title: "您暂未登录",
+        icon: 'none',
+        mask: true,
+        duration: 1000 });
+
+    } else {
+      uni.request({
+        url: _config.requestURL + data.url,
+        method: data.method,
+        data: data.data,
+        header: {
+          'content-type': 'application/json',
+          'Authorization': (0, _auth.getToken)() || '' },
+
+        success: function success(res) {
+          if (res.statusCode === 200) {
+            console.log("成功200");
+            resolve(res);
+          } else if (res.statusCode === 401) {
+            uni.showToast({
+              title: "token凭证已过期，请重新登录",
+              icon: 'none',
+              mask: true,
+              duration: 1000 });
+
+            (0, _quickRegister.tokenRefresh)().then(function (res) {
+              console.log(res);
+              (0, _auth.setToken)(res.data);
+            });
+            console.log((0, _auth.getToken)());
+          } else {
+            console.log("失败1");
+            reject(res);
+          }
+        },
+        fail: function fail(res) {
+          console.log(res);
+          console.log("失败2");
+          reject(res);
+        } });
+
+    }
+  });
+}
+
+function _default(data, url, method) {
+  return Request(data, url, method);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 4:
 /*!*******************************************************!*\
   !*** D:/HBuiderProjicts/appointment-wxapp/pages.json ***!
@@ -8674,6 +9737,156 @@ module.exports = g;
 
 "use strict";
 
+
+/***/ }),
+
+/***/ 40:
+/*!*******************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/config.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.requestURL = exports.baseURL = exports.appid = void 0; // 作为全局的变量被调用
+var appid = 'xxx';exports.appid = appid;
+var baseURL = 'xxxx'; // 图表地址
+exports.baseURL = baseURL;var requestURL = 'http://localhost:8080/hospital'; // ajax请求地址
+exports.requestURL = requestURL;
+
+/***/ }),
+
+/***/ 41:
+/*!*****************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/auth.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.setToken = setToken;exports.getToken = getToken;exports.removeToken = removeToken; // 作为存储token的接口
+var jwt_token = 'jwt';
+
+// 存储token
+function setToken(token) {
+  uni.setStorageSync(jwt_token, token);
+}
+
+// 获取token
+function getToken() {
+  return uni.getStorageSync(jwt_token);
+}
+
+// 移除token
+function removeToken() {
+  uni.removeStorageSync(jwt_token);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 42:
+/*!************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/api/quickRegister.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.tokenRefresh = tokenRefresh;exports.getPhoneCode = getPhoneCode;exports.validataCode = validataCode;exports.userRegister = userRegister;exports.userLogin = userLogin;
+var _unloginRequest = _interopRequireDefault(__webpack_require__(/*! @/common/utils/unloginRequest.js */ 43));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 用于注册时的api接口页面
+/**
+ * 当用户还没有登录时,所用的api接口的方式和登录以后需要token的不一样
+ * 1 刷新token
+ * 2 获取手机验证码
+ * 3 校验验证码
+ * 4 账号注册
+ * 5 账号登录
+ * 6 获取登录用户的基本信息 
+ * **/
+// 1 刷新token
+function tokenRefresh(token) {
+  return (0, _unloginRequest.default)({
+    url: '/power/account/token?token=' + token,
+    method: 'get' });
+
+}
+// 2 获取手机验证码
+function getPhoneCode(phone) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/message?phone=' + phone,
+    method: 'get' });
+
+}
+// 3 校验验证码
+function validataCode(phone, code) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/code?phone=' + phone + '&code=' + code,
+    method: 'post' });
+
+}
+// 4 账号注册   
+function userRegister(data) {
+  return (0, _unloginRequest.default)({
+    url: '/user/basic/account/register',
+    method: 'post',
+    data: data });
+
+}
+// 5 账号登录
+function userLogin(name, password) {
+  return (0, _unloginRequest.default)({
+    url: '/power/account/login?name=' + name + '&password=' + password,
+    method: 'get' });
+
+}
+
+/***/ }),
+
+/***/ 43:
+/*!***************************************************************************!*\
+  !*** D:/HBuiderProjicts/appointment-wxapp/common/utils/unloginRequest.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;
+var _config = __webpack_require__(/*! ./config.js */ 40);
+var _auth = __webpack_require__(/*! ./auth.js */ 41); // 没有登录前的没有token的请求
+
+function unloginRegister(data) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: _config.requestURL + data.url,
+      method: data.method,
+      data: data.data,
+      header: {
+        // 'Content-Type': 'applicatioin/json;charset=UTF-8', // 此处报错
+        'Authorization': (0, _auth.getToken)() || '' },
+
+      success: function success(res) {
+        console.log(res);
+        if (res.statusCode === 200) {
+          console.log("成功200");
+          resolve(res);
+        } else {
+          console.log("失败1");
+          reject(res);
+        }
+      },
+      fail: function fail(res) {
+        console.log("失败2");
+        reject(res);
+      } });
+
+  });
+}
+
+function _default(data, url, method) {
+  return unloginRegister(data, url, method);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-alipay/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -9583,7 +10796,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesA/pages/awaitingQueue/awaitingQueue": {}, "pagesA/pages/creditDetail/creditDetail": {}, "pagesA/pages/appointRecord/appointRecord": { "defaultTitle": "挂号记录", "titleBarColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecord": { "defaultTitle": "就诊记录", "titleBarColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecordDetail/treatRecordDetail": { "defaultTitle": "就诊记录详情", "titleBarColor": "#7EC0EE" }, "pagesA/pages/aboutUs/aboutUs": { "defaultTitle": "关于我们", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/addCard/addCard": { "defaultTitle": "添加就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "defaultTitle": "修改就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "defaultTitle": "医生号源情况", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "defaultTitle": "确认号源信息", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "defaultTitle": "就诊卡队列", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorList/doctorList": {} }, "globalStyle": { "defaultTitle": "医院挂号系统", "titleBarColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/photoLogin/photoLogin": {}, "pages/home/appointmentHome/appointmentHome": {}, "pages/center/center": {}, "pages/home/appointmentHome/appointment/fromDepartment": {}, "pages/home/appointmentHome/selectDepartment/selectDepartment": {}, "pagesA/pages/awaitingQueue/awaitingQueue": {}, "pagesA/pages/creditDetail/creditDetail": {}, "pagesA/pages/appointRecord/appointRecord": { "defaultTitle": "挂号记录", "titleBarColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecord": { "defaultTitle": "就诊记录", "titleBarColor": "#7EC0EE" }, "pagesA/pages/treatRecord/treatRecordDetail/treatRecordDetail": { "defaultTitle": "就诊记录详情", "titleBarColor": "#7EC0EE" }, "pagesA/pages/aboutUs/aboutUs": { "defaultTitle": "关于我们", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/login/login": {}, "pagesB/pages/center/login/quickRegister/quickRegister": {}, "pagesB/pages/center/login/fotgotPassword/fotgotPassword": {}, "pagesB/pages/center/addCard/addCard": { "defaultTitle": "添加就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/addCard/editCard/editCard": { "defaultTitle": "修改就诊卡", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/timeDoctor/timeDoctor": {}, "pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail": { "defaultTitle": "医生号源情况", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint": { "defaultTitle": "确认号源信息", "titleBarColor": "#7EC0EE" }, "pagesB/pages/center/cardList/cardList": { "defaultTitle": "就诊卡队列", "titleBarColor": "#7EC0EE" }, "pagesB/pages/appointPages/doctorList/doctorList": {} }, "globalStyle": { "defaultTitle": "医院挂号系统", "titleBarColor": "#7EC0EE", "backgroundColor": "#F2F2F2" } };exports.default = _default;
 
 /***/ }),
 

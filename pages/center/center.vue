@@ -1,16 +1,18 @@
 <template>
 	<view class="body">
 		<view class="top-box">
-			<view class="row-box" v-if="isAlreadyLogin">
-				<view class="avatar-url-box">
-					<open-data type="userAvatarUrl"></open-data>
-				</view>
+			<view class="row-box" v-if="isAlreadyLogin" @click="toBaseInfo()">
+				<!-- <view class="avatar-url-box"> -->
+					<!-- <open-data type="userAvatarUrl"></open-data> -->
+					<image :src="userBaseInfo.avatarUrl" class="avatar-url-box"></image>
+				<!-- </view> -->
 				<view class="name-card-box">
 					<view class="name-text-box">
-						<text class="name-text">杨月霞</text>
-						<image class="icon" src="/static/center/female.png"></image>
+						<text class="name-text">{{ userBaseInfo.name }}</text>
+						<image class="icon" :src="gender === 2 ? iconUrl + 'female.png'
+						: iconUrl + 'male.png'" v-show="isGetTreatCard"></image>
 					</view>
-					<text class="card-text">卡号：1000001</text>
+					<text class="card-text" v-if="cardID !== ''">卡号：{{cardID}}</text>
 				</view>
 				<image class="right-white-icon" src="/static/center/right-white.png"></image>
 			</view>
@@ -54,16 +56,37 @@
 				<image class="icon" src="/static/center/about-us.png"></image>
 				<text class="text">关于我们</text>
 			</view>
+			<view class="option-inbox" @click="outLogin()" v-if="isAlreadyLogin">
+				<image class="icon" src="/static/center/outLogin.png"></image>
+				<text class="text">退出登录</text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { error } from '@/common/js/errorTips.js'
+	import { getUserBaseInfo } from '@/common/api/userInfo.js'
+	import {getUserCardInfo} from '@/common/api/userInfo.js'
+	
 	export default {
 		data() {
 			return {
-				isAlreadyLogin: false
+				isAlreadyLogin: uni.getStorageSync('isAlreadyLogin') || '', // 用于记录是否登录
+				isGetTreatCard: false, // 是否填写信息获取了自己的就诊卡
+				iconUrl: '/static/center/',
+				gender: 1 ,
+				userBaseInfo: {
+					name: '',
+					avatarUrl: '',
+					phone: ''
+				},
+				cardID: uni.getStorageSync('cardID') || ''
 			}
+		},
+		onPullDownRefresh() {
+			this.getUserInfo()
+			this.isAlreadyLogin = uni.getStorageSync('isAlreadyLogin')
 		},
 		methods: {
 			// 跳转到登录页面
@@ -75,44 +98,136 @@
 			
 			// 跳转到就诊卡队列
 			toCardList:function() {
-				
-				uni.navigateTo({
-					url: '/pagesB/pages/center/cardList/cardList'
-				})
+				if(this.isAlreadyLogin) {
+					uni.navigateTo({
+						url: '/pagesB/pages/center/cardList/cardList'
+					})
+				} else {
+					error('登录')
+				} // end if
 			},
 			// 跳转到候诊队列
 			toAwaitingQueue: function() {
-				uni.navigateTo({
-					url: '/pagesA/pages/awaitingQueue/awaitingQueue'
-				})
+				if(this.isAlreadyLogin) {
+					uni.navigateTo({
+						url: '/pagesA/pages/awaitingQueue/awaitingQueue'
+					})
+				} else {
+					error('登录')
+				} // end if
+				
 			},
 			// 跳转到信用详情
 			toCreditDetail: function() {
-				uni.navigateTo({
-					url: '/pagesA/pages/creditDetail/creditDetail'
-				})
+				if(this.isAlreadyLogin) {
+					uni.navigateTo({
+						url: '/pagesA/pages/creditDetail/creditDetail'
+					})
+				} else {
+					error('登录')
+				} // end if
+				
 			},
 			// 跳转到挂号记录
 			toAppointRecord: function() {
-				uni.navigateTo({
-					url: '/pagesA/pages/appointRecord/appointRecord'
-				})
+				if(this.isAlreadyLogin) {
+					uni.navigateTo({
+						url: '/pagesA/pages/appointRecord/appointRecord'
+					})
+				} else {
+					error('登录')
+				} // end if
+				
 			},
 			// 跳转到就诊记录
 			toTreatRecord: function() {
-				uni.navigateTo({
-					url: '/pagesA/pages/treatRecord/treatRecord'
-				})
+				if(this.isAlreadyLogin) {
+					uni.navigateTo({
+						url: '/pagesA/pages/treatRecord/treatRecord'
+					})
+				} else {
+					error('登录')
+				} // end if
+				
 			},
 			// 跳转到关于我们页面
 			toAboutUs: function() {
 				uni.navigateTo({
 					url: '/pagesA/pages/aboutUs/aboutUs'
 				})
-			}
+			},
+			// 跳转到基本信息页面
+			toBaseInfo: function() {
+				uni.navigateTo({
+					url: '/pagesB/pages/center/baseInfo/baseInfo'
+				})
+			},
+			// 退出登录
+			outLogin: function() {
+				let that = this
+				uni.showModal({
+				    title: '退出登录',
+				    content: '是否退出登录？',
+				    confirmText: "确认",
+				    cancelText: "取消",
+				    success: function (res) {
+				        if (res.confirm) {
+				            uni.removeStorageSync('isAlreadyLogin')
+							that.isAlreadyLogin = false
+				        }else{
+							
+				        }
+				    }
+				});
+			},
+			// 获取用户信息
+			getUserInfo: function() {
+				uni.showLoading({
+					title: '信息加载中'
+				})
+				getUserBaseInfo().then(res => {
+					const data = res.data.data.basicInfo
+					this.userBaseInfo.name = data.name
+					this.userBaseInfo.avatarUrl = data.avatarUrl
+					this.userBaseInfo.phone = data.phone
+					// 存储账户id，方便 后面调用
+					uni.setStorageSync('accountID', res.data.data.account.id) 
+					uni.setStorageSync('userID', data.id)
+					this.getMyselfCardInfo()
+					uni.setStorageSync('userInfo', JSON.stringify(this.userBaseInfo))
+				}).catch(() => {
+					uni.hideLoading()
+					error('获取用户基本信息失败')
+				})
+			},
+			// 首先获取自己的就诊卡信息
+			getMyselfCardInfo: function() {
+				let that = this
+				getUserCardInfo(uni.getStorageSync('accountID')).then(res => {
+					if(res.data.code === 200) {
+						const data = res.data.data
+						if( data.length > 0) {
+							data.forEach(function(item, index){
+								// 获取自己的就诊卡号
+								if(item.type === 0) {
+									uni.setStorageSync('cardID', item.id)
+									that.cardID = item.id
+									wx.stopPullDownRefresh()
+									return
+								}
+							})
+						}
+						uni.hideLoading()
+					}
+				}).catch(() => {
+					uni.hideLoading()
+					error('网络')
+				})
+			},
 		},
-		mounted() {
-			this.isAlreadyLogin = uni.getStorageSync('isAlreadyLogin')
+		onLoad() {
+			this.getUserInfo()
+			console.log('sdfjdjfkdjfdk')
 		}
 	}
 </script>
@@ -241,6 +356,7 @@
 		height: 100%;
 		background: #FFFFFF;
 		margin-top: 30rpx;
+		margin-bottom: 30rpx;
 		@include flex-direction(column);
 
 		.option-inbox {

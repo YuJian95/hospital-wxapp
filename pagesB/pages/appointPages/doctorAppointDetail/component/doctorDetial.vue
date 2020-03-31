@@ -49,13 +49,16 @@
 
 <script>
 	export default {
+		props: {
+			introduce: ''
+		},
 		data() {
 			return {
 				isOpen: false,
-				introduce: '痤疮、皮肤癣病、外阴念珠菌病、性病、红斑狼疮等常见和疑难皮肤病。'
 			}
 		},
 		computed:{
+			// 将简介只保留前面26个字符，用于展开收起
 			showIntroduce:function(){
 				if(this.isOpen){
 					return this.introduce

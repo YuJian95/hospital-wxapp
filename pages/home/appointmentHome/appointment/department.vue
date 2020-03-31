@@ -1,10 +1,11 @@
+<!-- 该页面为从科室或者日期页面进来的专科门诊 -->
 <template>
 	<view>
 		<view class="VerticalBox" style="margin-top: 40rpx;">
 			<scroll-view class="VerticalNav nav" scroll-y scroll-with-animation :scroll-top="verticalNavTop" style="height:calc(100vh - 175upx)">
-				<view class="cu-item" :class="index==tabCur?'visited-color':''" v-for="(item,index) in list" :key="index" @tap="TabSelect"
-				 :data-id="index" :data-name="item">
-					{{item}}
+				<view class="cu-item" :class="item.id==tabCur?'visited-color':''" v-for="(item,index) in allData.departmentList" :key="item.id" @tap="TabSelect"
+				 :data-id="item.id" :data-name="item.name">
+					{{item.name}}
 				</view>
 			</scroll-view>
 			<scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 175upx)"
@@ -14,12 +15,10 @@
 						<view class="action">
 							<text class="cuIcon-title visited-color"></text> {{currentDep}}</view>
 					</view>
-					<view class="cu-list menu-avatar" @click="toPage()">
-						<view class="cu-item">
-							<text class="text-position">普通门诊</text>
-						</view>
-						<view class="cu-item">
-							<text class="text-position">门诊</text>
+					<view class="cu-list menu-avatar">
+						<view class="cu-item" v-for="(item, index) in outpatientList"
+						:key="item.id" @click="toPage(item.id)">
+							<text class="text-position">{{item.name}}</text>
 						</view>
 					</view>
 				</view>
@@ -29,29 +28,41 @@
 </template>
 
 <script>
+	import {error} from '@/common/js/errorTips.js'
+	import {getOutpatientByHospital} from '@/common/api/outpatient.js'
+	
 	export default {
 		props:{
-			currentStatues: 0, // 默认0为从首页进来的，1为从科室或者日期页面进来的
+			allData: {
+				departmentList: [], // 用作传过来的专科信息
+				hospitalID: 0
+			}
 		},
 		data() {
 			return {
-				list: ['儿科', '妇科', '眼科', '皮肤科', '内科', '外科', '产科', '儿科1', '儿科2', '儿科3'],
 				tabCur: 0,
 				mainCur: 0,
 				verticalNavTop: 0,
 				load: true,
 				currentDep: '',// 当前所点击的科室
+				outpatientList: [] // 用作装门诊列表的数据
 			};
 		},
-		created() {
-			this.currentDep = this.list[0];
-		},
 		methods: {
+			// 通过父组件调用方法进行修改默认tabCur、currentDep值，因为在专科信息获取之前
+			/// data的初始化已经结束
+			changeInit: function(id, name) {
+				this.tabCur = id;
+				this.currentDep = name;
+				this.getOutpatientByHospital(this.allData.hospitalID)
+			},
+			// 点击了专科进行切换
 			TabSelect(e) {
 				this.tabCur = e.currentTarget.dataset.id;
 				this.mainCur = e.currentTarget.dataset.id;
 				this.verticalNavTop = (e.currentTarget.dataset.id - 1) * 50
 				this.currentDep = e.currentTarget.dataset.name
+				this.getOutpatientByHospital(this.allData.hospitalID)
 			},
 			// 用于滚动的时候的，但是暂时有问题暂不探究
 			VerticalMain(e) {
@@ -59,19 +70,26 @@
 				let tabHeight = 0;
 			},
 			// 跳转到选择时间及医生页面
-			toPage: function() {
-				if(this.currentStatues == 1) {
-					uni.navigateTo({
-						url: '/pagesB/pages/appointPages/timeDoctor/timeDoctor'
-					})
-				} else {
-					uni.navigateTo({
-						url: '/pagesB/pages/appointPages/doctorList/doctorList'
-					})
-				}
-				
+			toPage: function(outpatientId) {
+				uni.navigateTo({
+					url: '/pagesB/pages/appointPages/timeDoctor/timeDoctor?hospitalId=' + 
+					 this.allData.hospitalID + '&departmentId=' + this.tabCur 
+					 + '&outpatientId=' + outpatientId
+				})
+			},
+			// 获取医院专科的门诊列表
+			getOutpatientByHospital: function(hospitalID) {
+				this.outpatientList = []
+				getOutpatientByHospital(hospitalID, this.tabCur, 1, 50).then(res => {
+					if(res.data.code === 200) {
+						this.outpatientList = res.data.data.list
+					}
+				}).catch(() => {
+					uni.hideLoading()
+					error('获取门诊列表失败')
+				})
 			}
-		},
+		}
 	}
 </script>
 
