@@ -50,7 +50,7 @@
 	import fromHosipital from './appointment/fromHospital.vue';
 	import fromDate from './appointment/fromDate.vue';
 	import department from './appointment/department.vue'
-	import fromDepartment from './appointment/fromDepartment.vue'
+	import fromDepartment from './appointment/fromDep.vue'
 	export default {
 		components: {
 			fromDoctor,

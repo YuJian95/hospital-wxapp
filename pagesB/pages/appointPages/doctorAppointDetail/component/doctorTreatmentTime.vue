@@ -2,28 +2,22 @@
 	<view>
 		<view class="gray-box">
 			<view class="date-change-box">
-				<image class="icon" src="/static/appointment/time-left.png"></image>
-				<text>2020-02-01 星期五</text>
-				<image class="icon" src="/static/appointment/time-right.png"></image>
+				<!-- <image class="icon" src="/static/appointment/time-left.png"></image> -->
+				<text>{{doctorVisitPlan.day | getDate}} {{doctorVisitPlan.day | getDay}}</text>
+				<!-- <image class="icon" src="/static/appointment/time-right.png"></image> -->
 			</view>
-			<view class="time-money-box" @click="toInsureAppoint()">
+			<view class="time-money-box" v-for="(item, index) in visitPlan.residues"
+			 :key="index" @click="toInsureAppoint(index)">
 				<view class="time-box">
-					<view class="time-button">9:00</view>
-					<view class="time-button">9:30</view>
+					<view class="time-button">{{timeList[visitPlan.time - 1].list[index].start}}</view>
+					<view class="time-button">{{timeList[visitPlan.time - 1].list[index].end}}</view>
 				</view>
 				<text class="money"><text style="color: #FFD39B;">10</text>元</text>
-				<view class="appoint-num">
+				<view class="appoint-num" v-if="item > 0">
 					<text>可挂号</text>
 					<image class="icon" src="/static/icon-right.png"></image>
 				</view>
-			</view>
-			<view class="time-money-box">
-				<view class="time-box">
-					<view class="time-button gray-background">9:30</view>
-					<view class="time-button gray-background">10:00</view>
-				</view>
-				<text class="money"><text style="color: #FFD39B;">10</text>元</text>
-				<view class="appoint-num">
+				<view class="appoint-num" v-else>
 					<text>满号</text>
 					<image class="icon"></image>
 				</view>
@@ -33,22 +27,120 @@
 </template>
 
 <script>
+	import {getVisitPlanList, getHospitalVisitPlan} from '@/common/api/doctor.js'
+	import {formDate} from '@/common/js/formDate.js'
+	import {error} from '@/common/js/errorTips.js'
 	export default {
 		props: {
 			
 		},
 		data() {
 			return {
-				
+				doctorVisitPlan: {},
+				doctorInfo: {},
+				visitPlan: {},
+				timeList: [{
+					time: 1,
+					list: [{
+						start: '08:30',
+						end: '09:00'
+					}, {
+						start:' 09:00',
+						end: '09:30'
+					}, {
+						start: '09:30',
+						end: '10:00'
+					}, {
+						start: '10:00',
+						end: '10:30'
+					}, {
+						start: '10:30',
+						end: '11:00'
+					}, {
+						start: '11:00',
+						end: '11:30'
+					}, {
+						start: '11:30',
+						end: '12:00'
+					}]
+				}, {
+					time: 2,
+					list: [{
+						start: '14:00',
+						end: '14:30'
+					}, {
+						start: '14:30',
+						end: '15:00'
+					}, {
+						start: '15:00',
+						end: '15:30'
+					}, {
+						start: '15:30',
+						end: '16:00'
+					}, {
+						start: '16:00',
+						end: '16:30'
+					}, {
+						start: '16:30',
+						end: '17:00'
+					}, {
+						start: '17:00',
+						end: '17:30'
+					}, {
+						start: '17:30',
+						end: '18:00'
+					}]
+				}]
 			}
 		},
 		methods: {
 			// 跳转到确认挂号页面
-			toInsureAppoint: function() {
+			toInsureAppoint: function(index) {
+				let timePeriod = 0
+				if(this.visitPlan.time === 1) {
+					timePeriod = index + 1
+				} else {
+					timePeriod = index + 7
+				}
+				let visitInfo = {
+					planId: this.visitPlan.id,
+					doctorName: this.doctorInfo.name,
+					timePeriod: timePeriod,
+					date: this.visitPlan.day,
+					clinicId: this.visitPlan.clinicId
+				}
+				uni.setStorageSync('visitInfo', JSON.stringify(visitInfo))
 				uni.navigateTo({
 					url: '/pagesB/pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint'
 				})
+			},
+			// 获取医生的该天的出诊计划
+			getDoctorVisitPlan: function() {
+				uni.showLoading({
+					title: '加载中'
+				})
+				let date = formDate(this.doctorVisitPlan.day, 'YYYY-MM-DD');
+				let that = this;
+				getHospitalVisitPlan(JSON.parse(uni.getStorageSync('hospital')).id, this.doctorInfo.id, date).then(res => {
+					if(res.data.code === 200) {
+						uni.hideLoading()
+						res.data.data.forEach(function(item) {
+							if(that.doctorVisitPlan.time == item.time) {
+								that.visitPlan = item
+							}
+						})
+					}
+				}).catch(() => {
+					uni.hideLoading();
+					error('获取出诊计划失败')
+				})
 			}
+		},
+		created() {
+		this.doctorVisitPlan = JSON.parse(uni.getStorageSync('doctorInfo')).outCallList
+		this.doctorInfo = JSON.parse(uni.getStorageSync('doctorInfo')).doctorInfo
+		this.getDoctorVisitPlan()
+		uni.removeStorageSync("doctorInfo")
 		}
 	}
 </script>
@@ -61,7 +153,7 @@
 		.date-change-box{
 			@include width-margin(90%,100rpx);
 			@include flex-direction(row);
-			justify-content: space-between;
+			justify-content: center;
 			align-items: center;
 			border-bottom: 1px solid $border-color;
 			.icon{

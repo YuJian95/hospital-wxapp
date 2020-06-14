@@ -4,6 +4,6 @@
     "from-hosipital": "/pages/home/appointmentHome/appointment/fromHospital",
     "from-date": "/pages/home/appointmentHome/appointment/fromDate",
     "department": "/pages/home/appointmentHome/appointment/department",
-    "from-department": "/pages/home/appointmentHome/appointment/fromDepartment"
+    "from-department": "/pages/home/appointmentHome/appointment/fromDep"
   }
 }

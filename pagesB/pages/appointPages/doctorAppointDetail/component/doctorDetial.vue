@@ -14,40 +14,25 @@
 			<view class="blue-border"></view>
 			<text class="blue-text">出诊情况</text>
 		</view>
-		<view class="treatment-box">
+		<view class="treatment-box" v-for="(item, index) in visitPlanList" :key="index">
 			<view class="hospital-box">
-				<text class="text">XXX分院</text>
+				<text class="text">{{item.info.name}}</text>
 			</view>
-			<view class="date-box">
+			<view class="date-box" v-for="(item2,index2) in item.planResiduesDTOList" 
+			:key="index2" @click="toDoctorTreatmentTime(item2, item.info)">
 				<view class="left left-box">
-					<text>2020-01-31</text>
-					<image class="icon" src="/static/appointment/today.png"></image>
+					<text>{{item2.day | getDate}}</text>
+					<!-- <image class="icon" src="/static/appointment/today.png"></image> -->
 				</view>
-				<text class="right right-text">暂无可挂号源</text>
-			</view>
-			<view class="date-box" @click="toDoctorTreatmentTime()">
-				<view class="left left-box">
-					<text>2020-02-01</text>
-				</view>
-				<text class="right right-text">可挂号</text>
-			</view>
-		</view>
-		
-		<view class="treatment-box">
-			<view class="hospital-box">
-				<text class="text">XXX分院</text>
-			</view>
-			<view class="date-box">
-				<view class="left left-box">
-					<text>2020-02-01</text>
-				</view>
-				<text class="right right-text">暂无可挂号源</text>
+				<text class="right right-text">{{item2.time | getVisitPlanTime}}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {getVisitPlanList} from '@/common/api/doctor.js'
+	import {formDate} from '@/common/js/formDate.js'
 	export default {
 		props: {
 			introduce: ''
@@ -55,6 +40,8 @@
 		data() {
 			return {
 				isOpen: false,
+				visitPlan: {},
+				visitPlanList: []
 			}
 		},
 		computed:{
@@ -70,14 +57,44 @@
 		},
 		methods:{
 			// 跳转到医生某天的出诊详情
-			toDoctorTreatmentTime: function(){
+			toDoctorTreatmentTime: function(outCallList, hospital){
+				let hospitalInfo = {
+					id: hospital.id,
+					name: hospital.name
+				}
+				this.visitPlan.outCallList = outCallList
+				uni.setStorageSync('doctorInfo', JSON.stringify(this.visitPlan))
+				uni.setStorageSync('hospital', JSON.stringify(hospitalInfo))
 				uni.navigateTo({
 					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 1
+				})
+			},
+			// 获取医生出诊计划
+			getVisitPlanList: function() {
+				uni.showLoading({
+					title: '加载中'
+				})
+				let currentDate = new Date()
+				let start = formDate(currentDate, 'YYYY-MM-DD')
+				let nextWeek = new Date(currentDate.setDate(currentDate.getDate() + 6))
+				let end = formDate(nextWeek, 'YYYY-MM-DD')
+				let doctorId = JSON.parse(uni.getStorageSync('doctorInfo')).doctorInfo.id
+				let that = this
+				getVisitPlanList(doctorId, start, end).then(res => {
+					if(res.data.code === 200) {
+						let data = res.data.data.planListDTOList
+						this.visitPlanList = data
+						this.visitPlan.doctorInfo = res.data.data.doctorDTO
+					}
+					uni.hideLoading()
+				}).catch(() => {
+					uni.hideLoading()
+					error('获取出诊计划失败')
 				})
 			}
 		},
 		created() {
-			// this.getBriefIntroduce(this.introduce)
+			this.getVisitPlanList()
 		}
 	}
 </script>
@@ -97,6 +114,7 @@
 	.treatment-box{
 		@include width-margin(90%,100%);
 		margin-top: 10rpx;
+		margin-bottom: 20rpx;
 		border: 1px solid #BBBBBB;
 		border-radius: 5px;
 		background: #FFFFFF;

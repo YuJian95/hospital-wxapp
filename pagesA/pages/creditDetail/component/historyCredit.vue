@@ -6,16 +6,16 @@
 			<!-- 的信用详情的表格 -->
 			<div class="credit-detial">
 				<div class="credit-in-box">
-					<text class="left">总挂号次数</text>
-					<text class="right">3次</text>
-				</div>
-				<div class="credit-in-box">
 					<text class="left">总守信次数</text>
-					<text class="right">2次</text>
+					<text class="right">{{creditDetial.finish}}次</text>
 				</div>
 				<div class="credit-in-box">
-					<text class="left">总失信次数</text>
-					<text class="right">1次</text>
+					<text class="left">总取消预约次数</text>
+					<text class="right">{{creditDetial.cancel}}次</text>
+				</div>
+				<div class="credit-in-box">
+					<text class="left">总就诊迟到次数</text>
+					<text class="right">{{creditDetial.miss}}次</text>
 				</div>
 			</div>
 		</div>
@@ -31,42 +31,113 @@
 						详情
 					</text>
 				</div>
-				<div class="date-reason-box" :key="index" v-for="(item, index) in lostCreditList">
-					<text class="left-right-text">{{ item.date }}</text>
-					<text class="left-right-text">{{ item.reason }}</text>
+				<div class="date-reason-box" :key="item.id" v-for="(item, index) in lostCreditList"
+				@click="toCreditDetail(item.id)">
+					<text class="left-right-text">{{ item.gmtCreate | getDate}}</text>
+					<text class="left-right-text">{{ item.status | statusText }}</text>
 				</div>
 			</div>
+			<view class="loading">{{loadingText}}</view>
 		</div>
 	</div>
 </template>
 
 <script>
+	import {error} from '@/common/js/errorTips.js'
+	import {getHistoryCredit, getLostCreditRecord} from '@/common/api/credit.js'
 	export default {
 		data() {
 			return {
-				lostCreditList: [{
-					date: '2019-10-12',
-					reason: '未按时就诊'
-				}, {
-					date: '2019-10-22',
-					reason: '取消预约挂号'
-				}, {
-					date: '2019-10-32',
-					reason: '未按时就诊'
-				}, {
-					date: '2019-10-42',
-					reason: '取消预约挂号'
-				}, {
-					date: '2019-10-52',
-					reason: '取消预约挂号'
-				}, {
-					date: '2019-10-62',
-					reason: '未按时就诊'
-				}]
+				creditDetial: {
+					cancel: 0,
+					miss: 0,
+					finish: 0,
+				},
+				allAppointNum: 0, // 记录失信次数
+				page: 1,
+				cardId: 0,
+				lostCreditList: [],
 			}
 		},
+		// 到达底部时会自动获取新数据
+		onReachBottom: function() {
+			let _self = this
+			if (timer != null) {
+				clearTimeout(timer);
+			}
+			timer = setTimeout(function() {
+				if(_self.loadingText!='已加载全部'){
+					_self.getLostCreditRecord(this.cardId, 1);
+				}
+			}, 1000);
+		},
 		methods: {
-
+			// 获取信用的次数
+			getHistoryCredit: function() {
+				uni.showLoading({
+					title: "加载中"
+				})
+				this.page = 1
+				getHistoryCredit(uni.getStorageSync("accountID"), 
+				uni.getStorageSync("cardID")).then(res => {
+					if(res.data.code === 200) {
+						let data = res.data.data;
+						if(data !== null) {
+							this.creditDetial = data;
+						} else {
+							this.allAppointNum = 0;
+							this.creditDetail.miss = 0;
+							this.creditDetail.cancel = 0;
+							this.creditDetail.finish = 0;
+							uni.hideLoading();
+						}
+					}
+				})
+			},
+			// 获取失信列表
+			getLostCreditRecord: function(cardID, status) {
+				this.cardId = cardID;
+				let that = this; 
+				uni.showLoading({
+					title: "加载中"
+				})
+				if(status === 0) {
+					this.page = 1;
+				}
+				getLostCreditRecord(cardID, this.page, 10).then(res => {
+						if(res.data.code === 200) {
+							let data = res.data.data;
+							if(that.page === 1) {
+								that.lostCreditList =  data.list
+								that.page++
+							} else {
+								that.lostCreditList = that.lostCreditList.concat(data.list)
+								that.page++ 
+							} // end if
+							
+							if(data.list.length < 10) {
+								this.loadingText = '已加载全部'
+							} else {
+								this.loadingText = '加载更多'
+								// this.page++
+							}
+						}
+						uni.hideLoading()
+					}).catch(() => {
+					uni.hideLoading()
+					error('获取挂号记录失败')
+				})
+			},
+			// 跳转至查看失信的挂号记录
+			toCreditDetail: function(appointId) {
+				uni.navigateTo({
+					url: '/pagesA/pages/creditDetail/creditAppointDetail/creditAppointDetail'
+					 + '?appointId=' + appointId
+				})
+			}
+		},
+		created() {
+			this.getHistoryCredit()
 		}
 	}
 </script>
@@ -151,5 +222,9 @@
 			}
 		}
 
+	}
+	.loading {
+		text-align: center;
+		line-height: 80px;
 	}
 </style>

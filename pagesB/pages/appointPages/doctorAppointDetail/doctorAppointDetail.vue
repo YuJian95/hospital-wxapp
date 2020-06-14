@@ -32,18 +32,18 @@
 		},
 		methods: {
 			// 获取医生的出诊信息
-			getOutCallByDoctor: function() {
-				getOutCallByDoctor(this.doctorInfo.id).then(res => {
-					if(res.data.code === 200) {
+			// getOutCallByDoctor: function() {
+			// 	getOutCallByDoctor(this.doctorInfo.id).then(res => {
+			// 		if(res.data.code === 200) {
 						
-					}
-				})
-			}
+			// 		}
+			// 	}) 
+			// }
 		},
 		onLoad(e) {
 			this.isTreatmentTime = e.isTreatmentTime
-			this.doctorInfo = JSON.parse(uni.getStorageSync('doctorInfo'))
-			uni.removeStorageSync('doctorInfo')
+			this.doctorInfo = JSON.parse(uni.getStorageSync('doctorInfo')).doctorInfo
+			// uni.removeStorageSync('doctorInfo')
 			this.getOutCallByDoctor()
 		}
 	}

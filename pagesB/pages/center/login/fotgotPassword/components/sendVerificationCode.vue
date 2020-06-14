@@ -4,7 +4,7 @@
 		<view class="top-title">发送验证码至{{phone | getPhone}}</view>
 		<view class="cu-form-group code-box">
 			<view class="title">验证码</view>
-			<input placeholder="输入框带个按钮" name="input"></input>
+			<input placeholder="请输入验证码" name="input" v-model="phoneNum"></input>
 			<button class='cu-btn bg-green shadow' v-show="!isGetCode" @click="getPhoneCode()" v-if="codeNum === 0">获取验证码</button>
 			<button class='cu-btn bg-gray shadow' v-else>再次获取{{codeNum}}s</button>
 		</view>
@@ -13,11 +13,9 @@
 </template>
 
 <script>
-	import {
-		getPhoneCode,
-		validataCode,
-		userRegister
-	} from '@/common/api/quickRegister.js';
+	import { getPasswordCode } from '@/common/api/password.js'
+	import {validataCode} from '@/common/api/quickRegister.js'
+	
 	export default {
 		data() {
 			return {
@@ -39,34 +37,31 @@
 					_this.codeNum--;
 				}, 1000)
 
-				getPhoneCode(this.phone).then(res => {}).catch(() => {
+				getPasswordCode(this.phone).then(res => {
+					if(res.data.code === 200) {
+					}
+				}).catch(() => {
 					uni.showToast({
 						title: '发送失败，请检查网络',
 						icon: 'none'
 					})
 				})
 			},
-			// 校验验证码
+			// 验证验证码
 			validataCode: function() {
-				if(this.phoneNum !== '' && this.phoneNum !== null && this.phoneNum !== undefined) {
-					uni.showLoading({
-						title: '加载中'
-					})
-					validataCode(this.phone, this.phoneNum).then(res => {
-						console.log(res)
-						if (res.data.code === 200) {
-							this.$emit('getStep', 1)
-						} else {
-							uni.hideLoading()
-							error('验证码错误')
-					
-						}
-					}).catch(() => {
-						error('网络')
-					})
-				}
-				
-			},
+				validataCode(this.phone, this.phoneNum).then(res => {
+					if(res.data.data === true) {
+						uni.setStorageSync('phoneCode', this.phoneNum);
+						uni.setStorageSync('phone', this.phone);
+						this.$parent.getStep(1)
+					} else {
+						uni.showToast({
+							title: '验证码错误',
+							icon: 'none'
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

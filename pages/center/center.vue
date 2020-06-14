@@ -68,6 +68,7 @@
 	import { error } from '@/common/js/errorTips.js'
 	import { getUserBaseInfo } from '@/common/api/userInfo.js'
 	import {getUserCardInfo} from '@/common/api/userInfo.js'
+	import md5 from 'js-md5'
 	
 	export default {
 		data() {
@@ -172,7 +173,8 @@
 				    cancelText: "取消",
 				    success: function (res) {
 				        if (res.confirm) {
-				            uni.removeStorageSync('isAlreadyLogin')
+				            uni.removeStorageSync('isAlreadyLogin');
+							uni.removeStorageSync('cardID');
 							that.isAlreadyLogin = false
 				        }else{
 							
@@ -195,6 +197,7 @@
 					uni.setStorageSync('userID', data.id)
 					this.getMyselfCardInfo()
 					uni.setStorageSync('userInfo', JSON.stringify(this.userBaseInfo))
+					uni.hideLoading()
 				}).catch(() => {
 					uni.hideLoading()
 					error('获取用户基本信息失败')
@@ -225,9 +228,12 @@
 				})
 			},
 		},
-		onLoad() {
-			this.getUserInfo()
-			console.log('sdfjdjfkdjfdk')
+		onShow() {
+			console.log(md5("admin"))
+			if(uni.getStorageSync('isAlreadyLogin')) {
+				this.getUserInfo()
+			}
+			this.isAlreadyLogin = uni.getStorageSync('isAlreadyLogin')
 		}
 	}
 </script>

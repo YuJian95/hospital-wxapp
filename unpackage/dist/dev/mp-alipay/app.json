@@ -3,7 +3,6 @@
     "pages/photoLogin/photoLogin",
     "pages/home/appointmentHome/appointmentHome",
     "pages/center/center",
-    "pages/home/appointmentHome/appointment/fromDepartment",
     "pages/home/appointmentHome/selectDepartment/selectDepartment"
   ],
   "subPackages": [
@@ -15,7 +14,8 @@
         "pages/appointRecord/appointRecord",
         "pages/treatRecord/treatRecord",
         "pages/treatRecord/treatRecordDetail/treatRecordDetail",
-        "pages/aboutUs/aboutUs"
+        "pages/aboutUs/aboutUs",
+        "pages/creditDetail/creditAppointDetail/creditAppointDetail"
       ]
     },
     {
@@ -30,7 +30,8 @@
         "pages/appointPages/doctorAppointDetail/doctorAppointDetail",
         "pages/appointPages/doctorAppointDetail/insureAppoint/insureAppoint",
         "pages/center/cardList/cardList",
-        "pages/appointPages/doctorList/doctorList"
+        "pages/appointPages/doctorList/doctorList",
+        "pages/center/baseInfo/baseInfo"
       ]
     }
   ],

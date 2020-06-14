@@ -33,6 +33,7 @@
 			<text class="right" :class="visited == 2? 'visited-color' : ''" @click="toForgotPassword()">忘记密码</text>
 		</view>
 		<!-- #endif -->
+		
 		<!-- #ifdef H5 -->
 		<button class="button" @click="toPageCenter()">登录</button>
 		<view class="enroll-changepassword-box">
@@ -182,7 +183,7 @@
 					success: (res) => {
 						console.log(res)
 						uni.hideLoading()
-						uni.setStorageSync('avatarUrl', res.userInfo.avatarUrl)
+						// uni.setStorageSync('avatarUrl', res.userInfo.avatarUrl)
 						uni.setStorageSync("isAuthrization", true)
 						_this.isAuthrization = true
 					}

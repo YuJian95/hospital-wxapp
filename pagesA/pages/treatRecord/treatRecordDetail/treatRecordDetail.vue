@@ -5,19 +5,23 @@
 			<view class="top-info-box">
 				<view class="info-box">
 					<text class="left black-text">日期：</text>
-					<text class="right gray-text">{{ detailData.date}}/{{ detailData.time }}</text>
+					<text class="right gray-text">{{ detailData.day | getDate}}/{{ detailData.time | getNoon}}</text>
+				</view>
+				<view class="info-box">
+					<text class="left black-text">医院：</text>
+					<text class="right gray-text">{{ detailData.hospitalName}}</text>
 				</view>
 				<view class="info-box">
 					<text class="left black-text">医生：</text>
-					<text class="right gray-text">{{ detailData.doctor}}</text>
+					<text class="right gray-text">{{ detailData.doctorName}}</text>
 				</view>
 				<view class="info-box">
 					<text class="left black-text">科室：</text>
-					<text class="right gray-text">{{ detailData.department}}/{{ detailData.outpatient }}</text>
+					<text class="right gray-text">{{ detailData.specialName}}/{{ detailData.outpatientName }}</text>
 				</view>
 				<view class="info-box">
 					<text class="left black-text">患者：</text>
-					<text class="right gray-text">{{ detailData.patient}}</text>
+					<text class="right gray-text">{{ detailData.name}}</text>
 				</view>
 			</view>
 		</view>
@@ -25,32 +29,45 @@
 		<view class="detail-out-box">
 			<text class="blue-text">病历：</text>
 			<view class="medical-record-box">
-				{{ detailData.medicalRecord }}
+				{{ detailData.userCase.content }}
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		getTreatRecordDetail
+	} from '@/common/api/outCall.js'
+	import {error} from '@/common/js/errorTips.js'
 	export default {
 		data() {
 			return {
-				detailData: {
-					date: '2019-20-10',
-					time: '上午',
-					doctor: '杨XX',
-					department: '内科',
-					outpatient: '甲状腺',
-					patient: '杨XX',
-					medicalRecord: '四六级的静姬带你看到过几十块的开关'
-				}
+				detailData: {},
+				recordID: 0,
 			}
 		},
 		methods: {
-			
+			// 获取就诊详情
+			getTreatRecordDetail: function() {
+				uni.showLoading({
+					title: '加载中'
+				})
+				getTreatRecordDetail(this.recordID).then(res => {
+					if(res.data.code === 200) {
+						this.detailData = res.data.data
+					}
+					uni.hideLoading()
+				}).catch(() => {
+					uni.hideLoading()
+					error('获取就诊记录失败')
+				})
+			}
 		},
 		onLoad(e) {
-			console.log(e.recordID)
+			this.recordID = e.recordID;
+			console.log(this.recordID)
+			this.getTreatRecordDetail();
 		}
 	}
 </script>

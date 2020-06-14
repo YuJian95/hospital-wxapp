@@ -66,8 +66,10 @@ function getWeekDate() {
 	return dateList
 }
 
-export function formDate(date, rule) {
+export function formDate(dateR, rule) {
+	let date = new Date(dateR)
 	let year = date.getFullYear() // 获取年份
+	console.log(year)
 	let month = date.getMonth() + 1 // 获取月份
 	let today = date.getDate() // 获取今天是几号
 	let day = date.getDay() // 获取周几

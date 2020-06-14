@@ -46,7 +46,10 @@
 		methods: {
 			// 跳转到医生简介页面
 			toDoctorBrief:function(doctorInfo) {
-				uni.setStorageSync('doctorInfo', JSON.stringify(doctorInfo))
+				let obj = {
+					doctorInfo: doctorInfo
+				}
+				uni.setStorageSync('doctorInfo', JSON.stringify(obj))
 				uni.navigateTo({
 					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 2
 				})
@@ -71,7 +74,7 @@
 							this.loadingText = '已加载全部'
 						} else {
 							this.loadingText = '加载更多'
-							this.page++
+							// this.page++
 						}
 					}
 				}).catch(() => {

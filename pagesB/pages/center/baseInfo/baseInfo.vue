@@ -277,26 +277,29 @@
 					title: '加载中'
 				})
 				getUserCardInfo(uni.getStorageSync('accountID')).then(res => {
+					let _this = this;
+					console.log(res)
 					if(res.data.code === 200) {
 						uni.hideLoading()
 						// 即为用户没有添加本人的就诊卡
-						if(res.data.data.length === 0) {
-							this.isGetCard = false
-						} else {
-							this.isGetCard = true
-							const data = res.data.data
-							let _this = this
-							if(data.length > 0) {
-								data.forEach(function(item, index){
+						let cardList = res.data.data;
+						if(cardList.length !== 0) {
+							cardList.forEach(function(item) {
+								if(item.type === 0) {
+									_this.isGetCard = true;
 									// 获取自己的就诊卡号
-									if(item.type === 0) {
-										_this.userCardInfo = item
-										uni.setStorageSync('cardID', item.id)
-										return
-									}
-								})
-							}
+									console.log(item)
+									_this.userCardInfo = item;
+									uni.setStorageSync('cardID', item.id);
+									return
+								}
+							})
+							// 获取用户信息后就将缓存移除
+							uni.removeStorageSync('userInfo')
+						} else {
+							this.isGetCard = false
 						}
+						
 					}
 				}).catch(() => {
 					uni.hideLoading()
@@ -307,8 +310,7 @@
 		onShow() {
 			this.userBaseInfo = JSON.parse(uni.getStorageSync('userInfo'))
 			this.getMyselfCardInfo()
-			// 获取用户信息后就将缓存移除
-			uni.removeStorageSync('userInfo')
+			console.log("test")
 		},
 
 	}

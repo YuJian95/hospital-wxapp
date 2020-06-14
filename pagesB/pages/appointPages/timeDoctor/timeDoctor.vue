@@ -34,7 +34,7 @@
 		</view>
 
 		<!-- 医生列表 -->
-		<view class="doctor-outbox" @click="toDoctorAppointDetail(item.doctorInfo)" v-if="isGetData"
+		<view class="doctor-outbox" @click="toDoctorAppointDetail(item)" v-if="isGetData"
 		v-for="(item, index) in doctorList" :key="item.doctorInfo.id">
 			<image class="doctor-icon" :src="item.doctorInfo.gender === 1 ? 
 			iconURL + 'man-doctor.png' : iconURL + 'women-doctor.png'"></image>
@@ -43,9 +43,8 @@
 					<text class="doctor-name">{{item.doctorInfo.name}}</text>
 					<text class="gray-text">{{item.doctorInfo.jobTitle}}</text>
 				</view>
-				<text class="gray-text ">剩余
-					<text style="color: #7EC0EE;">0</text>
-					个号</text>
+				<text class="gray-text ">出诊：
+					<text style="color: #7EC0EE;">{{item.outCallList.time | getVisitPlanTime}}</text></text>
 			</view>
 		</view>
 		<!-- 当没有医生出诊信息时 -->
@@ -61,7 +60,7 @@
 				<view class="bottom-hospital-box">
 					<view class="hospital-box" v-for="(item,index) in hospitalList" :key="item.id">
 						<view class="hospital" :class="showVisited == item.id?
-						 'visited-background':'invisited-background'" @click="changeHospital(item.id)">
+						 'visited-background':'invisited-background'" @click="changeHospital(item.id, item.name)">
 							<text class="text">
 								{{ item.name }}
 							</text>
@@ -93,6 +92,7 @@
 				hospitalList: [],
 				visitedHospital: 0,
 				showVisited: 0,
+				showName: '',
 				doctorList: [], // 获取的医生出诊列表
 				sentDate: '', // 用于传给后台的时间日期
 				iconURL: '/static/appointment/',
@@ -126,9 +126,9 @@
 				this.showVisited = this.visitedHospital
 			},
 			// 切换医院信息
-			changeHospital:function(id) { 
+			changeHospital:function(id, name) { 
 				this.showVisited = id;
-				
+				this.showName = name
 			},
 			// 点击确定确认切换医院
 			insureChangeHospital:function() {
@@ -137,12 +137,18 @@
 				// 获取出诊信息
 				this.getOutCall(this.hospitalData.date, this.visitedHospital,
 				this.hospitalData.departmentId, this.hospitalData.outpatientId)
+				let hospital = {
+					id: this.visitedHospital,
+					name: this.showName
+				}
+				uni.setStorageSync('hospital', JSON.stringify(hospital))
 			},
 			// 跳转到医生号源页面详情
 			toDoctorAppointDetail:function(doctorInfo) {
+				console.log(doctorInfo)
 				uni.setStorageSync('doctorInfo', JSON.stringify(doctorInfo))
 				uni.redirectTo({
-					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 1
+					url: '/pagesB/pages/appointPages/doctorAppointDetail/doctorAppointDetail?isTreatmentTime=' + 1 
 				})
 			},
 			// 获取该医院该专科门诊当天的出诊计划
@@ -208,6 +214,7 @@
 				date: today
 			}
 			uni.removeStorageSync('dateInfo')
+			console.log(uni.getStorageSync('doctor'))
 		},
 		onShow() {
 			// 获取医院信息
@@ -280,14 +287,14 @@
 		align-items: center;
 
 		.doctor-name {
-			width: 30%;
+			width: 50%;
 			@include font-style(16px, bold, #000000);
 			vertical-align: middle;
 		}
 	}
 
 	.gray-text {
-		width: 60%;
+		width: 100%;
 		height: 50%;
 		@include font-style(16px, 500, $gray-color);
 		display: flex;

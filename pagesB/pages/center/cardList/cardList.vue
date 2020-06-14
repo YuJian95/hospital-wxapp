@@ -114,6 +114,7 @@
 				})
 				deleteCardInfo(relationId).then(res => {
 					if (res.data.code === 200) {
+						this.getUserCardInfo()
 						that.stopSlideView()
 						uni.hideLoading()
 					}
@@ -193,7 +194,7 @@
 					success: function(res) {
 						console.log(res);
 						if (res.confirm) {
-							that.deleteCardInfo(relationId)
+							that.handleDelete(relationId)
 						} else {
 							that.stopSlideView()
 						}

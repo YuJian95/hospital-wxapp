@@ -1,5 +1,6 @@
 // 用于注册时的api接口页面
 import unloginRegister from '@/common/utils/unloginRequest.js'
+
 /**
  * 当用户还没有登录时,所用的api接口的方式和登录以后需要token的不一样
  * 1 刷新token
@@ -7,7 +8,6 @@ import unloginRegister from '@/common/utils/unloginRequest.js'
  * 3 校验验证码
  * 4 账号注册
  * 5 账号登录
- * 6 获取登录用户的基本信息 
  * **/
  // 1 刷新token
 export function tokenRefresh(token) {

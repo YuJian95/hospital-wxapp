@@ -5,6 +5,8 @@ import unLoginRequest from '@/common/utils/unloginRequest.js'
  * 1 通过医生名字获取医生信息
  * 2 通过专科门诊获取医生信息
  * 3 通过医生id号获取医生信息
+ * 4 获取医生出诊时间
+ * 5 根据医生编号、日期，获取出诊信息
  * **/
  // 1 通过医生名字获取医生信息
  export function getDcotorByName(pageNum, pageSize, doctorName) {
@@ -25,6 +27,20 @@ import unLoginRequest from '@/common/utils/unloginRequest.js'
  export function getDoctorInfoById(id) {
 	 return unLoginRequest({
 		 url: '/hospital/doctor/' + id,
+		 method: 'get'
+	 })
+ }
+ // 4 获取医生出诊时间
+ export function getVisitPlanList(doctorId, startDate, endDate) {
+   return request({
+     url: '/visit/plan/doctor?doctorId=' + doctorId + '&startDate=' + startDate + '&endDate=' + endDate,
+     method: 'get'
+   })
+ }
+ // 5 根据医生编号、日期，获取出诊信息
+ export function getHospitalVisitPlan(hospitalId, doctorId, date) {
+	 return request({
+		 url: '/visit/plan/doctor/date?hospitalId=' + hospitalId + '&doctorId=' + doctorId + '&date=' + date,
 		 method: 'get'
 	 })
  }

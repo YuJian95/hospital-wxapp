@@ -13,16 +13,76 @@
 				 password="true" placeholder-class="placeholder-class" class="input"/>
 			</view>
 		</view>
-		<button class="button-box">提交</button>
+		<button class="button-box" @click="updatePassword()">提交</button>
 	</view>
 </template>
 
 <script>
+	import md5 from 'js-md5';
+	import {updatePassword } from '@/common/api/password.js';
+	import  { inputCheck, checkPassword } from '@/common/js/inputCheck.js';
+	import {error} from '@/common/js/errorTips.js'
+	
 	export default{
 		data() {
 			return{
 				password: '',
-				confirmPassword: ''
+				confirmPassword: '',
+				isValidate: false,
+			}
+		},
+		methods: {
+			// 判断两次输入发密码
+			checkPassword:function(){
+				var error = checkPassword(this.password, this.confirmPassword)
+				if(error !== 'ok'){
+					this.isValidate = false
+					error(error)
+					return 
+				} else {
+					this.isValidate = true
+					return
+				}
+			},
+			// 修改密码
+			updatePassword: function() {
+				uni.showLoading({
+					title: '修改中'
+				})
+				if(this.password !== '' && this.confirmPassword !== '') {
+					this.checkPassword();
+					if(this.isValidate) {
+						updatePassword({
+							code: uni.getStorageSync('phoneCode'),
+							name: uni.getStorageSync('phone'),
+							password: md5(this.password)
+						}).then(res => {
+							if(res.data.code === 200) {
+								uni.hideLoading()
+								uni.showToast({
+									title: '修改成功',
+									icon: 'success'
+								})
+								uni.redirectTo({
+									url: '/pagesB/pages/center/login/login'
+								})
+							}
+						}).catch(() =>{
+							uni.hideLoading()
+							uni.showToast({
+								title: '修改失败',
+								icon: 'none'
+							})
+						})
+					}
+				} else {
+					uni.hideLoading()
+					uni.showToast({
+						title: '密码不能为空',
+						icon: 'none'
+					})
+				}
+				
 			}
 		}
 	}

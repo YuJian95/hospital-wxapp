@@ -16,15 +16,11 @@
 			}
 		},
 		{
-			"path": "pages/home/appointmentHome/appointment/fromDepartment",
-			"style": {}
-		},
-		{
 			"path": "pages/home/appointmentHome/selectDepartment/selectDepartment",
 			"style": {}
 		}
 
-	],
+    ],
 	"subPackages": [{
 			"root": "pagesA",
 			"pages": [{
@@ -61,6 +57,9 @@
 					"navigationBarTitleText": "关于我们",
 					"navigationBarBackgroundColor": "#7EC0EE"
 				}
+			},{
+			    "path" : "pages/creditDetail/creditAppointDetail/creditAppointDetail",
+			    "style" : {}
 			}]
 		},
 		{

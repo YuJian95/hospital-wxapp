@@ -3,7 +3,6 @@
     "pages/photoLogin/photoLogin",
     "pages/home/appointmentHome/appointmentHome",
     "pages/center/center",
-    "pages/home/appointmentHome/appointment/fromDepartment",
     "pages/home/appointmentHome/selectDepartment/selectDepartment"
   ],
   "subPackages": [
@@ -15,7 +14,8 @@
         "pages/appointRecord/appointRecord",
         "pages/treatRecord/treatRecord",
         "pages/treatRecord/treatRecordDetail/treatRecordDetail",
-        "pages/aboutUs/aboutUs"
+        "pages/aboutUs/aboutUs",
+        "pages/creditDetail/creditAppointDetail/creditAppointDetail"
       ]
     },
     {
@@ -69,6 +69,5 @@
   },
   "usingComponents": {
     "no-data-page": "/component/noDataPage"
-  },
-  "sitemapLocation": "sitemap66.json"
+  }
 }

@@ -135,6 +135,11 @@
 			}
 		},
 		methods: {
+			test() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
 			// 切换性别的按钮
 			changeGender: function(index) {
 				if (inputCheck('身份证', 'identify', this.form.identify) === 'ok') {
@@ -192,7 +197,7 @@
 				if (this.isMyself) {
 					type = 0
 				} else {
-					type = this.relateIndex + 1
+					type = parseInt(this.relateIndex) + 1
 				}
 				
 				addCard(uni.getStorageSync('accountID'), {
@@ -210,13 +215,13 @@
 							icon: 'success'
 						})
 						if(type === 0) {
-							this.getMyselfCardInfo()
-							uni.switchTab({
-								url: '/pages/center/center'
+							this.getMyselfCardInfo();
+							uni.navigateBack({
+								delta: 1
 							})
 						} else {
-							uni.navigateTo({
-								url: '/pagesB/pages/center/cardList/cardList'
+							uni.navigateBack({
+								delta: 1
 							})
 						}
 						

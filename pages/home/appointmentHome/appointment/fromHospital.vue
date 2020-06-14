@@ -4,7 +4,7 @@
 			<!-- 左边的 -->
 			<view class="left-right-half-box">
 				<view class="left-right-inbox" v-for="(item, index) in hospitalList" 
-				:key="item.id" v-if="index % 2 === 0" @click="toDepartmentPage(item.id)">
+				:key="item.id" v-if="index % 2 === 0" @click="toDepartmentPage(item.id, item.name)">
 					<image style="width: 100%;" mode="widthFix" :src="item.picture"></image>
 					<view class="row-width">
 						<image class="icon" src="/static/appointment/hosp-icon.png"></image>
@@ -23,7 +23,7 @@
 			
 			<view class="left-right-half-box">
 				<view class="left-right-inbox" v-for="(item, index) in hospitalList" 
-				:key="item.id" v-if="index % 2 !== 0" @click="toDepartmentPage(item.id)">
+				:key="item.id" v-if="index % 2 !== 0" @click="toDepartmentPage(item.id, item.name)">
 					<image style="width: 100%;" mode="widthFix" :src="item.picture"></image>
 					<view class="row-width">
 						<image class="icon" src="/static/appointment/hosp-icon.png"></image>
@@ -67,7 +67,12 @@
 		},
 		methods: {
 			// 跳转到获取专科页面
-			toDepartmentPage: function(id) {
+			toDepartmentPage: function(id, name) {
+				let hospital = {
+					id: id,
+					name: name
+				}
+				uni.setStorageSync('hospital', JSON.stringify(hospital))
 				uni.navigateTo({
 					url: '/pages/home/appointmentHome/' + 
 					'selectDepartment/selectDepartment?hospitalID=' + id
@@ -85,7 +90,7 @@
 				})
 			}
 		},
-		mounted() {
+		created() {
 			this.getAllHospitalList()
 		}
 	}

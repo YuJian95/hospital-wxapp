@@ -15,7 +15,6 @@
 <script>
 	import sendVerificationCode from './components/sendVerificationCode.vue'
 	import setPassword from './components/setPassword.vue'
-	import { getPhoneCode, validataCode } from '@/common/api/quickRegister.js'
 	
 	export default {
 		components: {
@@ -32,23 +31,12 @@
 				num: 0,
 				phone: ''
 			}
-		},
+		}, 
 		methods: {
 			// 获取到发送验证码的步骤的num
 			getStep: function(step) {
 				this.num = step
 			},
-			// 获取验证码
-			getValidateCode: function() {
-				getPhoneCode(this.phone).then(res => {
-					}).catch(() => {
-						uni.showToast({
-							title: '发送失败，请检查网络',
-							icon: 'none'
-						})
-					})
-			},
-			// 校验验证码
 		},
 		mounted() {
 			this.phone = JSON.parse(uni.getStorageSync('userInfo')).phone

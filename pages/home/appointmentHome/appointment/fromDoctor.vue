@@ -1,6 +1,6 @@
 <!-- 此页面是首页挂号页面点击搜医生进来的 -->
 <template>
-	<view>
+	<view> 
 		<view class="weui-search-bar">
 			<view class="weui-search-bar__form">
 				<view class="weui-search-bar__box">
@@ -22,7 +22,7 @@
 			</navigator>
 		</view> -->
 		
-		<view class="blue-column-border-box" style="margin-top: 15rpx;">
+		<!-- <view class="blue-column-border-box" style="margin-top: 15rpx;">
 			<view class="blue-border"></view>
 			<view class="blue-text">最近三个月的挂号医生</view>
 		</view>
@@ -31,7 +31,7 @@
 				<text class="doctor" :data-name='item.id' @click="changeDoctor"
 				:class="isActived == item.id?'doctor-blue-background':''">杨XX</text>
 			</view>
-		</view>
+		</view> -->
 		
 		<!-- 医生列表 -->
 		<view class="doctor-outbox" style="margin-top: 60rpx;"
@@ -121,7 +121,10 @@
 			},
 			// 跳转到医生的简介及出诊时间详情
 			toDoctorBrief:function(doctorInfo){
-				uni.setStorageSync('doctorInfo', JSON.stringify(doctorInfo))
+				let obj = {
+					doctorInfo: doctorInfo
+				}
+				uni.setStorageSync('doctorInfo', JSON.stringify(obj))
 				uni.redirectTo({
 					url: '/pagesB/pages/appointPages/doctorAppointDetail' + 
 					'/doctorAppointDetail?isTreatmentTime=' + 2 

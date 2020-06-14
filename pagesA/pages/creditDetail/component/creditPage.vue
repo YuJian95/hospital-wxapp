@@ -2,70 +2,88 @@
 	<div>
 		<div class="icon-box">
 			<image class="icon-credit-status" 
-			:src="creditRecord.isCreditGood ? iconUrl +  'xinyong-zanmei.jpg' :
+			:src="isCreditGood ? iconUrl +  'xinyong-zanmei.jpg' :
 			 iconUrl + 'xinyong-bad.png'"></image>
 		</div>
-		<div class="text-illustrate" v-show="creditRecord.isCreditGood">
+		<div class="text-illustrate" v-show="isCreditGood">
 			<text class="text">信用记录良好，没有失信记录</text>
 			<image class="icon" src="/static/center/agree.png"></image>
 		</div>
-		<div class="text-illustrate" v-show="!creditRecord.isCreditGood">
-			<text class="text">已失信{{ breakPromiseCount }}次，注意诚实守信</text>
+		<div class="text-illustrate" v-show="!isCreditGood">
+			<text class="text">已失信{{ lost }}次，注意诚实守信</text>
 		</div>
 		
 		<!-- 底部的信用详情的表格 -->
 		<div class="credit-detial">
 			<div class="credit-in-box">
-				<text class="left">{{ currentStatusText }}挂号次数</text>
-				<text class="right">3次</text>
+				<text class="left">当月守信次数</text>
+				<text class="right">{{ creditDetail.finish }}次</text>
 			</div>
 			<div class="credit-in-box">
-				<text class="left">{{ currentStatusText }}守信次数</text>
-				<text class="right">3次</text>
+				<text class="left">当月取消预约次数</text>
+				<text class="right">{{ creditDetail.cancel }}次</text>
 			</div>
 			<div class="credit-in-box">
-				<text class="left">{{ currentStatusText }}失信次数</text>
-				<text class="right">0次</text>
+				<text class="left">当月就诊迟到次数</text>
+				<text class="right">{{creditDetail.miss}}次</text>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import {error} from '@/common/js/errorTips.js'
+	import {getMonthCredit} from '@/common/api/credit.js'
 	export default {
-		/**
-		 * 此处传过来的状态中不包括以往记录的有失信记录的，
-		 * 当以往记录中有失信记录时将跳转到另一个页面
-		 * **/
-		props: {
-			creditRecord: {
-				// currentStatus: 0, // 显示当前显示的是当月的还是以往的信用详情
-				// isCreditGood: true, // 信用是不是良好，良好即完全没有失信记录
-			}
-		},
-		computed: {
-			currentStatusText: function() {
-				if(this.creditRecord.currentStatus == 0) {
-					return '当月'
-				} 
-				return '总'
-			}
-		},
 		data() {
 			return {
 				iconUrl: '/static/center/', // icon图的url
-				breakPromiseCount: 1, // 记录失信次数
+				creditDetail: {},
+				isCreditGood: false, // 是否失信
+				lost: 0, // 失信 = 迟到 + 取消
 			}
 		},
 		methods: {
 			// 假如是当月的页面的切换数据
 			changeData: function(data) {
 				this.creditRecord = data
+			},
+			test() {
+				console.log(2)
+			},
+			// 获取信用
+			getMonthCredit: function() {
+				uni.showLoading({
+					title: "加载中"
+				})
+				getMonthCredit(uni.getStorageSync("accountID"), uni.getStorageSync('cardID')).then(res => {
+					if(res.data.code === 200) {
+						if(res.data.data !== null) {
+							let data = res.data.data
+							this.creditDetail = data
+							if(data.miss === 0 && data.cancel === 0) {
+								this.isCreditGood = true
+								this.allAppointNum = data.finish
+							} else {
+								this.isCreditGood = false;
+								this.lost = data.miss + data.cancel;
+							}
+						}
+						 else {
+							 this.isCreditGood = true;
+							 this.allAppointNum = 0;
+							 this.creditDetail.miss = 0;
+							 this.creditDetail.cancel = 0;
+							 this.creditDetail.finish = 0;
+						 }
+					}
+					uni.hideLoading()
+				}).catch(() => {
+					uni.hideLoading()
+					error("获取信用记录失败")
+				})
 			}
 		},
-		mounted() {
-			console.log(this.creditRecord)
-		}
 	}
 </script>
 

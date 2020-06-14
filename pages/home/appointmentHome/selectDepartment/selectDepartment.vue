@@ -43,6 +43,7 @@
 		onLoad(e) {
 			this.propsData.hospitalID = e.hospitalID
 			this.getDepartmentHospital(e.hospitalID)
+			uni.setStorageSync('hospitalId', e.hospitalID)
 		}
 	}
 </script>
