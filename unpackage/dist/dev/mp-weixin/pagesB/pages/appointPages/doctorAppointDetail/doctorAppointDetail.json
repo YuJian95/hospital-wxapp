@@ -1,0 +1,9 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "医生号源情况",
+  "navigationBarBackgroundColor": "#7EC0EE",
+  "usingComponents": {
+    "doctor-treatment-time": "/pagesB/pages/appointPages/doctorAppointDetail/component/doctorTreatmentTime",
+    "doctor-detial": "/pagesB/pages/appointPages/doctorAppointDetail/component/doctorDetial"
+  }
+}

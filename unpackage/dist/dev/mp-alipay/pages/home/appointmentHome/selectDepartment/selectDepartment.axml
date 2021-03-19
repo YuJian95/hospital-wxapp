@@ -1,0 +1,1 @@
+<view><department vue-id="1" allData="{{propsData}}" ref="__r" data-ref="department" onVueInit="__l"></department></view>

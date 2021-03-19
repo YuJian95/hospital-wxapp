@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "department": "/pages/home/appointmentHome/appointment/department"
+  }
+}

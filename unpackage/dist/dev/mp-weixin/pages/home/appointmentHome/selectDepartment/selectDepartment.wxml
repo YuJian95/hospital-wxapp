@@ -1,0 +1,1 @@
+<view><department class="vue-ref" vue-id="1" allData="{{propsData}}" data-ref="department" bind:__l="__l"></department></view>

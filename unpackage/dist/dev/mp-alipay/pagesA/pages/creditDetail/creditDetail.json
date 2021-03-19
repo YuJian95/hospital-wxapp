@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "credit-page": "/pagesA/pages/creditDetail/component/creditPage",
+    "history-credit": "/pagesA/pages/creditDetail/component/historyCredit"
+  }
+}
