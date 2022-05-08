@@ -49,4 +49,4 @@ WeUI+colorUI进行设计的；同时api接口、表单检验处理等也是经�
 
 欢迎大家关注我的公众号【编程图解】，学习更多开发技能，包括并不限于，Java、Python、前端等知识。
 
-![微信搜索【编程图解】](doc/yujian95.jpg)
+![微信搜索【编程图解】](http://image.yujian95.cn/halo/yujian95.jpg)
