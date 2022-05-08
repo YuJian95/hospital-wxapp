@@ -214,7 +214,7 @@
 								title: '挂号中'
 							})
 							valifyBlacklist(that.cardID).then(res => {
-								if(res.data.data) {
+								if(!res.data.data) {
 									// 查看是否在黑名单
 									addAppoint({
 										accountId: uni.getStorageSync('accountID'),
